@@ -3,19 +3,19 @@ class Animdl < Formula
 
   desc "Anime downloader and streamer"
   homepage "https://github.com/justfoolingaround/animdl"
-  url "https://files.pythonhosted.org/packages/cd/e2/9b0333167fbe5fe7fe17c6953a073109703beb3d1974450d7c964f3ebe8f/animdl-1.7.12.tar.gz"
-  sha256 "275b33ba5707c12b94061c325eb176ab6a87a657a64fd4c56785669b5f3880f3"
+  url "https://files.pythonhosted.org/packages/11/91/2acade77cef7c1cf06dcf23abca3b15810d11742e6538ed5c1c390489fc5/animdl-1.7.18.tar.gz"
+  sha256 "8e0376dc88910b14e73f2e3f648024702ce9342b8262b6c51ae70a99a97d9d0b"
   license "GPL-3.0-only"
   head "https://github.com/justfoolingaround/animdl.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b7518df8024377dafc843886570e0ec2358aacf4db7bbb341532bbc5a700b667"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "165607ff5129b02de6700104f003e1f46b27465d76f8bcdf9f9e24bfbcdc1661"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "33610a18d1461fca4f1f97cf1da0e34d39fdfa533703e21e02b52c6d0f361bda"
-    sha256 cellar: :any_skip_relocation, ventura:        "4c5f6d74bfa11bd80715ec22f7711e176faaa0c802f1a0f9aec3845ddc5ce128"
-    sha256 cellar: :any_skip_relocation, monterey:       "3df7acb75b45532127e04c953250af82afe1d809612832075443f1a790ad56f3"
-    sha256 cellar: :any_skip_relocation, big_sur:        "7a6d01b075fe4a376a79fac7bc6945657ae5b380791ddcf279d4e9f9e987259b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c3e2f0dbf5e56d4d9461cb2140b8e901c838212b8b4d1591fc5194568b7d7a75"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "36f12efcdb83c94769cd0edc1bddc6809e12234568bb88004470104398b791f3"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a45fbb1cc5927d412ba962eb3263b75b23f6967f0a683b99bf5a89daa1d85d9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "09439949f233afe46ec0f8ab64b06e147e924917b8dcf0b299d7fa4b8b767f6c"
+    sha256 cellar: :any_skip_relocation, ventura:        "3c45fa4af2fbc04587363c1b49df37badb139c76cae77215507e057c76f849de"
+    sha256 cellar: :any_skip_relocation, monterey:       "4eb9869fc2cd83143a43841b963812d6bd1481d0d149f7827b1b95da420ed8d6"
+    sha256 cellar: :any_skip_relocation, big_sur:        "8d6ffc5efba604524560ef0c07d4e7d3c96cd432903fde7c4e6c8f6bc08e05a8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8e5763e0eacae2383db3b12287ff99029976f228d83d9b2ffb0a9ebb843a6c65"
   end
 
   depends_on "pygments"
@@ -36,13 +36,13 @@ class Animdl < Formula
   end
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/8b/94/6928d4345f2bc1beecbff03325cad43d320717f51ab74ab5a571324f4f5a/anyio-3.6.2.tar.gz"
-    sha256 "25ea0d673ae30af41a0c442f81cf3b38c7e79fdc7b60335a4c14e05eb0947421"
+    url "https://files.pythonhosted.org/packages/c6/b3/fefbf7e78ab3b805dec67d698dc18dd505af7a18a8dd08868c9b4fa736b5/anyio-3.7.0.tar.gz"
+    sha256 "275d9973793619a5374e1c89a4f4ad3f4b0a5510a2b5b939444bee8f4c4d37ce"
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz"
-    sha256 "35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"
+    url "https://files.pythonhosted.org/packages/93/71/752f7a4dd4c20d6b12341ed1732368546bc0ca9866139fe812f6009d9ac7/certifi-2023.5.7.tar.gz"
+    sha256 "0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"
   end
 
   resource "click" do
@@ -101,8 +101,8 @@ class Animdl < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
-    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
+    url "https://files.pythonhosted.org/packages/b9/6c/7c6658d258d7971c5eb0d9b69fa9265879ec9a9158031206d47800ae2213/packaging-23.1.tar.gz"
+    sha256 "a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
   end
 
   resource "pkginfo" do
@@ -126,8 +126,8 @@ class Animdl < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/5e/0e/ef0a49be56dbc4052a086888cd2490e15fcc95b0eda79e9d0e737b1ab93d/rich-13.3.2.tar.gz"
-    sha256 "91954fe80cfb7985727a467ca98a7618e5dd15178cc2da10f553b36a93859001"
+    url "https://files.pythonhosted.org/packages/9a/50/672a8d347f92bc752b04c338bbf932fbd0104fbc416c82cc91aa5f7b4b0b/rich-13.3.3.tar.gz"
+    sha256 "dc84400a9d842b3a9c5ff74addd8eb798d155f36c1c91303888e0a66850d2a15"
   end
 
   resource "sniffio" do

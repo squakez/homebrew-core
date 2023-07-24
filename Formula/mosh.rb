@@ -4,16 +4,16 @@ class Mosh < Formula
   url "https://github.com/mobile-shell/mosh/releases/download/mosh-1.4.0/mosh-1.4.0.tar.gz"
   sha256 "872e4b134e5df29c8933dff12350785054d2fd2839b5ae6b5587b14db1465ddd"
   license "GPL-3.0-or-later"
-  revision 2
+  revision 4
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "0890a49f252b4b73cec2044ae2a053f7b2d7cd6119ab13f4d2abecfee13404e0"
-    sha256 cellar: :any,                 arm64_monterey: "8f2b7e5b857122ccc2b1b46a1bbbf22ab4b7817f5960bde93b1681d471cf139d"
-    sha256 cellar: :any,                 arm64_big_sur:  "a978b9ad4d682dd0c549af9bc031cdd4f402d64b9f22c2d327bad70d66053df8"
-    sha256 cellar: :any,                 ventura:        "b679b2e9a18c82913fca23c0842c2b9e5a4bb891a372a48df5ca962fabb586e0"
-    sha256 cellar: :any,                 monterey:       "df7f74721af40168ef17a55635fb345992196372f029663bedbc7dca419fa892"
-    sha256 cellar: :any,                 big_sur:        "c3aa80b4edbbc1b077c78cb019d8750b2b522e9f6c3492e1b98d2b3619a364f9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "58ffb22ffa582825415e33954a2375473086862b69a91e55627aaf89a019c513"
+    sha256 cellar: :any,                 arm64_ventura:  "cdd2d7e3bbfe43525ebe6066f1748c1c33969e442ded18547ac767a9ae14eb17"
+    sha256 cellar: :any,                 arm64_monterey: "749b88a7f9c420d0fbdca8f04149d2b4133c5e37b4b9be2e6d3efc1658867dc8"
+    sha256 cellar: :any,                 arm64_big_sur:  "bd94ec171b2ff3cb6c8f64ceecdf9894ffa49dd62059cd39c31788d80f67605b"
+    sha256 cellar: :any,                 ventura:        "f76c8c24a42a2ec22d4077fa5ab64ccc6587872d01f2ba5759083beb81ae84b1"
+    sha256 cellar: :any,                 monterey:       "f1613e143631ecd0f20c27f0e0439117076bf3a8dc40728bc04e16f4748ddc49"
+    sha256 cellar: :any,                 big_sur:        "20b801a44a511b7daba60c7f8804bfcb89b61adea449ff10081c60646ed1fb3e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2cffb2c704a0df44613cb6f0db5fe9f6fafaf3459b14f07b1e700a73af156846"
   end
 
   head do
@@ -29,17 +29,20 @@ class Mosh < Formula
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
+  on_macos do
+    depends_on "tmux" => :build # for `make check`
+  end
+
   on_linux do
     depends_on "openssl@3" # Uses CommonCrypto on macOS
   end
 
   def install
-    ENV.cxx11
-
     # https://github.com/protocolbuffers/protobuf/issues/9947
     ENV.append_to_cflags "-DNDEBUG"
-    # Keep C++ standard in sync with abseil.rb
-    ENV.append "CXXFLAGS", "-std=c++17"
+    # Keep C++ standard in sync with abseil.rb.
+    # Use `gnu++17` since Mosh allows use of GNU extensions (-std=gnu++11).
+    ENV.append "CXXFLAGS", "-std=gnu++17"
 
     # teach mosh to locate mosh-client without referring
     # PATH to support launching outside shell e.g. via launcher
@@ -51,7 +54,11 @@ class Mosh < Formula
       system "./autogen.sh"
     end
 
-    system "./configure", "--prefix=#{prefix}", "--enable-completion"
+    # `configure` does not recognise `--disable-debug` in `std_configure_args`.
+    system "./configure", "--prefix=#{prefix}", "--enable-completion", "--disable-silent-rules"
+    # We insist on a newer C++ standard than the project expects, so
+    # let's run the tests to make sure we didn't break anything.
+    system "make", "check" if OS.mac? # Fails on Linux.
     system "make", "install"
   end
 

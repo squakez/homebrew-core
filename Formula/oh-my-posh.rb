@@ -1,19 +1,19 @@
 class OhMyPosh < Formula
   desc "Prompt theme engine for any shell"
   homepage "https://ohmyposh.dev"
-  url "https://github.com/JanDeDobbeleer/oh-my-posh/archive/v17.0.0.tar.gz"
-  sha256 "58b03ce38ef8f7e01b093590f7fb926c9ad1c0998a51ed21b605bb8ad43b855a"
+  url "https://github.com/JanDeDobbeleer/oh-my-posh/archive/v17.12.1.tar.gz"
+  sha256 "4774496c8049c5ebcec74af48bb26645d7501baf3187ae63d3d34215e5fc6282"
   license "MIT"
   head "https://github.com/JanDeDobbeleer/oh-my-posh.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3536b5876aac9d19e276977526dea0c5ad894c7908fd95f6f09eaff43802109f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0abb6f065b2e34adb80a15dc11fbef29b5d5894b66734acc38ba6c29f2ff45b8"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "982834c364cec11f630b56426420e6a6fbba736e70d9767f814dcb193c4ee9e3"
-    sha256 cellar: :any_skip_relocation, ventura:        "a486b26aa2523503207e8517c7fbe5c3c17da13f787279798357bd61c7947e12"
-    sha256 cellar: :any_skip_relocation, monterey:       "407447b270e6723cc93137fe51090780dcf1a43ce0e349448e9cc6318dbece11"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8338ff7c1e6755c359a4124ebe74cc453607a0a40692afee765075bce0342534"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e7a65b49d0d9cc3690797dfc354529069d6ef16d090a7e6ef1049c7dc4527b95"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "43e3dbf26fc0fbc5e6f24d3dfd15ae40bf8dee43b6d0b42ea7a81c4f7eddc9eb"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ad7a3dfbcb89a667624bdac48a89891e1765eb181176f1af1a6d7677be96a1af"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ff6a7af68f1ae77bf35f8c8506937faf1b9a25d39ed9b8de7c9704dfd4ed5dd9"
+    sha256 cellar: :any_skip_relocation, ventura:        "0ded5c39938e0adc7b09ffb0bcd6387414df4e919429180cdce7002065e3b049"
+    sha256 cellar: :any_skip_relocation, monterey:       "be9ddb4357604f10fffc39901986a44227d33168b2fe70e3ac5aacee387fd49a"
+    sha256 cellar: :any_skip_relocation, big_sur:        "35caa90423917f5901ba415515e1ecad74fc6395cfbde227e5eecb6d6507577d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e175961d90a8a1a01e7e706ba3563a2a90c3b9f30ccf7482dd43ed01b84176d"
   end
 
   depends_on "go" => :build
@@ -21,7 +21,8 @@ class OhMyPosh < Formula
   def install
     ldflags = %W[
       -s -w
-      -X main.Version=#{version}
+      -X github.com/jandedobbeleer/oh-my-posh/src/build.Version=#{version}
+      -X github.com/jandedobbeleer/oh-my-posh/src/build.Date=#{time.iso8601}
     ]
     cd "src" do
       system "go", "build", *std_go_args(ldflags: ldflags)
@@ -33,5 +34,6 @@ class OhMyPosh < Formula
 
   test do
     assert_match "oh-my-posh", shell_output("#{bin}/oh-my-posh --init --shell bash")
+    assert_match version.to_s, shell_output("#{bin}/oh-my-posh --version")
   end
 end

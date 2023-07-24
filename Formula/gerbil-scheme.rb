@@ -4,6 +4,7 @@ class GerbilScheme < Formula
   url "https://github.com/vyzo/gerbil/archive/v0.17.tar.gz"
   sha256 "1e81265aba7e9022432649eb26b2e5c85a2bb631a315e4fa840b14cf336b2483"
   license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
+  revision 2
 
   livecheck do
     url "https://github.com/vyzo/gerbil.git"
@@ -11,30 +12,36 @@ class GerbilScheme < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "94e47021a954ac23b6133fd149075d8d1d4f4dd4f0ca624b247a8329474fe637"
-    sha256 arm64_monterey: "95f3dddf6cf1fc48589aa31fea8b1932337a6d16f3b920fff372f8741c2be89e"
-    sha256 arm64_big_sur:  "d5156015ff7c5806db8b89dc05886fcffb19f6ab2b61d9173895ac185bde13a3"
-    sha256 ventura:        "699d7c3a72524d3cf18194252caee21d9511e755e2d673d3739495d0c90f704f"
-    sha256 monterey:       "83792d7b1a1339a73e36493f4201ab2b1657d2d1f061fb1f0cf50587722448da"
-    sha256 big_sur:        "e49f094f25ebc88a787be33c109308decee3aebaf58298f43d429a31cbaa53d5"
-    sha256 catalina:       "c136d9ffbf63bb1ac05c9b5c4936d61d97e855fc90964163ea645e32e9adeffb"
-    sha256 x86_64_linux:   "6b0d5524324abcd1838483696a9e04e21cce47d7a0910e2ab20a48940454b09e"
+    sha256 arm64_ventura:  "7195fee8e11141c834407a5dce444f7bfe3519c6e9efc3b160638578aaa45cc2"
+    sha256 arm64_monterey: "71498bf525476990e45974c5aee782147b8376363ee30f1646a5956ac40ec7f4"
+    sha256 arm64_big_sur:  "eeeec31a2970ca32a9c78d9723bfdf716b5a0b42728dc3d6a1a768533fabe77f"
+    sha256 ventura:        "fbe549f627d1357315932e801f9d5ea08cdf374d4693df91f5b49cbe65193b99"
+    sha256 monterey:       "fb7f5e626e9344f0ff145ccca8800928caa66634d9c16222d0b7e788473b7e5e"
+    sha256 big_sur:        "dc2cce1570095719ee451a8f0c11e7ebbd01e154f707b8ae30da9ec0cc7554ce"
+    sha256 x86_64_linux:   "042ca2f6bfea2af7665cf66a6fa647bcc9a8f9bac047151be75f4bf04e52a754"
   end
 
   depends_on "gambit-scheme"
   depends_on "leveldb"
   depends_on "libyaml"
   depends_on "lmdb"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   uses_from_macos "libxml2"
   uses_from_macos "sqlite"
 
+  on_macos do
+    depends_on "gcc"
+  end
+
+  fails_with :clang do
+    cause "gambit-scheme is built with GCC"
+  end
+
   def install
     cd "src" do
-      ENV.append_path "PATH", "#{Formula["gambit-scheme"].opt_prefix}/current/bin"
       system "./configure", "--prefix=#{prefix}",
-                            "--with-gambit=#{Formula["gambit-scheme"].opt_prefix}/current",
+                            "--with-gambit=#{Formula["gambit-scheme"].opt_prefix}",
                             "--enable-leveldb",
                             "--enable-libxml",
                             "--enable-libyaml",
@@ -47,6 +54,6 @@ class GerbilScheme < Formula
   end
 
   test do
-    assert_equal "0123456789", shell_output("gxi -e \"(for-each write '(0 1 2 3 4 5 6 7 8 9))\"")
+    assert_equal "0123456789", shell_output("#{bin}/gxi -e \"(for-each write '(0 1 2 3 4 5 6 7 8 9))\"")
   end
 end

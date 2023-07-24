@@ -1,6 +1,6 @@
 class Coccinelle < Formula
   desc "Program matching and transformation engine for C code"
-  homepage "http://coccinelle.lip6.fr/"
+  homepage "https://coccinelle.lip6.fr/"
   url "https://github.com/coccinelle/coccinelle.git",
       tag:      "1.1.1",
       revision: "5444e14106ff17404e63d7824b9eba3c0e7139ba"
@@ -35,7 +35,7 @@ class Coccinelle < Formula
 
   uses_from_macos "unzip" => :build
 
-  # Bootstap resource for Ocaml 4.12 compatibility.
+  # Bootstrap resource for Ocaml 4.12 compatibility.
   # Remove when Coccinelle supports Ocaml 4.12 natively
   resource "stdcompat" do
     url "https://github.com/thierry-martinez/stdcompat/releases/download/v15/stdcompat-15.tar.gz"

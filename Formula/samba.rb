@@ -4,8 +4,8 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.18.3.tar.gz"
-  sha256 "c67e1453165a3918ffffad600236ca3966b47bde4798e89ae600ae3903ccc32c"
+  url "https://download.samba.org/pub/samba/stable/samba-4.18.5.tar.gz"
+  sha256 "095256ac332e1d9fbf9b7ff7823f92a3233d3ed658ce7fc9b33905c2243f447f"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -14,13 +14,13 @@ class Samba < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "a1b62ed4b5887800c0b316be38973a77e0ccb73b1e078a105d4a8dee5d80a57b"
-    sha256 arm64_monterey: "fd6e22c698b734acc1a0eba7542debc55ec06c648328021097f234f769ececf3"
-    sha256 arm64_big_sur:  "70d3e5dacfb1ebbb4332a08407daf3ec7692dff503c732c024fcc90ea1279626"
-    sha256 ventura:        "6c0d48779337b0c1413ad6ae668d49c49c6c0c52cd3c24c507b50c8cb18727b0"
-    sha256 monterey:       "abc933df5339a604338b22be403db12786529f1b5df512bbc587ccaa5139e2ba"
-    sha256 big_sur:        "eaa2a189b1a79bc58ced71012ef5c1cc851956c1f2a96aac76c1881da8d24d3c"
-    sha256 x86_64_linux:   "b883c13a41786a2eaba3e7868413f378cd60ed5e9fec0849730c0a420af6571d"
+    sha256 arm64_ventura:  "72eaca2f10717e487921d5125eb16206bf850707bc3996cd0a74827ac04e45da"
+    sha256 arm64_monterey: "4052445bd235f857e728874f4fb5bed6e05438d60c2d6cfc0d18ff58b6c3af83"
+    sha256 arm64_big_sur:  "8800b0ed74b2c79e1ebffc421f0903bec105a480558148e233b6b77576af4907"
+    sha256 ventura:        "b4261ec7f6ceff5dc1d2b712d7f087dc160319489be4f7e03e3805a8d0cd0557"
+    sha256 monterey:       "eabfb486667ed0c36ae80176d6843c0988858c2ae5180ad6da815bd8e51c1b31"
+    sha256 big_sur:        "8d35508a4fa8a006b6e2d3e8a23719b482003002d49f62dcfd9688f130722eae"
+    sha256 x86_64_linux:   "cb5460e0aaaf8d980efc9670a7415e1398fd5bbc217704503d0a428ef6d84375"
   end
 
   depends_on "cmocka" => :build
@@ -44,7 +44,7 @@ class Samba < Formula
   uses_from_macos "zlib"
 
   on_macos do
-    depends_on "openssl@1.1"
+    depends_on "openssl@3"
   end
 
   on_linux do

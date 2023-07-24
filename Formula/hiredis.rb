@@ -1,24 +1,26 @@
 class Hiredis < Formula
   desc "Minimalistic client for Redis"
   homepage "https://github.com/redis/hiredis"
-  url "https://github.com/redis/hiredis/archive/v1.1.0.tar.gz"
-  sha256 "fe6d21741ec7f3fc9df409d921f47dfc73a4d8ff64f4ac6f1d95f951bf7f53d6"
+  url "https://github.com/redis/hiredis/archive/v1.2.0.tar.gz"
+  sha256 "82ad632d31ee05da13b537c124f819eb88e18851d9cb0c30ae0552084811588c"
   license "BSD-3-Clause"
   head "https://github.com/redis/hiredis.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "537a403ec23a36ce04bce8f4f7f99f3ca5892cca80ac8539ef253fd4bd8f055a"
-    sha256 cellar: :any,                 arm64_monterey: "a48d32622b4a44cae0a9497c5335db017695c1ba39ca0803b54fd708147053fd"
-    sha256 cellar: :any,                 arm64_big_sur:  "8ff6d4e540567a736742ff46597aa566c67f1ccf723ca04b7210feabc18aa5a9"
-    sha256 cellar: :any,                 ventura:        "ed4eec9bde412d7cf4d70c4f4fcd0e6067a5fc6c196015831dd7f44c093b3b7d"
-    sha256 cellar: :any,                 monterey:       "70122d31f0b836cac04d879977c2e01fab184bf5de65ece1707379b40b124a08"
-    sha256 cellar: :any,                 big_sur:        "c57e3c6788aaf41a8ee8331d3895de9f7c59e98a32472265ec4e1c1091e6bafd"
-    sha256 cellar: :any,                 catalina:       "f08db65fcf78f259f218266fbd1cc648d7782a53e9a0cfdb39a9bb0a8ba612f4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b9fb9e17408007572f638756f89e15d9e53de11801d0910ad2e6e0680f5e7fad"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "9970a5ff45d25be488b5f3e843fb777624b4824510d8434b23565fc9b703a59a"
+    sha256 cellar: :any,                 arm64_monterey: "bf180f8a975c907210d5c130be249f21a9cc050710c83acc9dd6b699c398ae24"
+    sha256 cellar: :any,                 arm64_big_sur:  "f1d1112d4969beb75a30b43faa1fb953f0b869ffe5d9dc02af2f16780abe34ad"
+    sha256 cellar: :any,                 ventura:        "ca336f556d8c10e7cfae516c8e6d5333f5e55533d0971e68f8ed2a730bb765fd"
+    sha256 cellar: :any,                 monterey:       "33a1ced3df2be2279bb716e924f948d1be77f3dc3f831880900655f71daf2e95"
+    sha256 cellar: :any,                 big_sur:        "de9df908dc8e52a552d1f6faed0bc839750f44aad97666d835dd0f7634e3e051"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f8c2054cf967b075da6153fea843f3b48e285213aa5944aab4d4b6e14e650bb1"
   end
 
+  depends_on "openssl@3"
+
   def install
-    system "make", "install", "PREFIX=#{prefix}"
+    system "make", "install", "PREFIX=#{prefix}", "USE_SSL=1"
     pkgshare.install "examples"
   end
 

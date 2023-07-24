@@ -1,8 +1,8 @@
 class Krb5 < Formula
   desc "Network authentication protocol"
   homepage "https://web.mit.edu/kerberos/"
-  url "https://kerberos.org/dist/krb5/1.21/krb5-1.21.tar.gz"
-  sha256 "69f8aaff85484832df67a4bbacd99b9259bd95aab8c651fbbe65cdc9620ea93b"
+  url "https://kerberos.org/dist/krb5/1.21/krb5-1.21.1.tar.gz"
+  sha256 "7881c3aaaa1b329bd27dbc6bf2bf1c85c5d0b6c7358aff2b35d513ec2d50fa1f"
   license :cannot_represent
 
   livecheck do
@@ -11,18 +11,18 @@ class Krb5 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "04d9621acc5c85d802c53f99fedc7ee97280a305aa928c03c5d18226a0c94aa7"
-    sha256 arm64_monterey: "2ff7ea53c1536a9d27d12795886f39aa2a2c973a8ddf81124e944b1f3e622f0e"
-    sha256 arm64_big_sur:  "5b1e3938c4adb7cfa0125f9921125231136f950a3ee987c9fb5403c8be6fa10f"
-    sha256 ventura:        "dfc056001cd7d62d3278e27a6912a6925a9b3ff835e4e925a2ec76e5519e6f7f"
-    sha256 monterey:       "2b7d8a77c5648deef7698f566df05fc37c4ad95426a9c2e5ae3e0b2a965791fd"
-    sha256 big_sur:        "8ab26079cf70829a91d9d69d84c847c9a1480022c19dfb68b456e29d00ef2d2c"
-    sha256 x86_64_linux:   "7013912b0901686da682ce541a0f57ef10039919add96e5a0106b9825b5d8fcf"
+    sha256 arm64_ventura:  "fa17fb49aa0363f2de649bd8b6ca370d3a97dee5e7299bc07e6b7b344d4ccc59"
+    sha256 arm64_monterey: "5760aac9f37d8500d50bb598a30f359c634a50fac8938dfae30dde196eea7b78"
+    sha256 arm64_big_sur:  "4451b71c7ba7ee3ba0672902e5f144868a44b9e2b94254cc0d283c092f3a0940"
+    sha256 ventura:        "96ea0626a36b769ed4bc56a8c2e4eca44892426edcfa7661964bd29d57b80d14"
+    sha256 monterey:       "cb3da2bf3c62782d5795c89f30cc5fccf675307df276ac17f0d0c6ae8a62845b"
+    sha256 big_sur:        "f133bd49a4feb6dabddc22667bdcf8663c7a1be2ff5e5f4feee8de63a1c32244"
+    sha256 x86_64_linux:   "eb9b6638eeac1834e233fffef4e1ac145c5d38ae2f00c7844fe06afad26195ba"
   end
 
   keg_only :provided_by_macos
 
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   uses_from_macos "bison" => :build
   uses_from_macos "libedit"

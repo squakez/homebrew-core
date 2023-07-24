@@ -3,27 +3,26 @@ require "language/node"
 class Cdktf < Formula
   desc "Cloud Development Kit for Terraform"
   homepage "https://github.com/hashicorp/terraform-cdk"
-  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.16.3.tgz"
-  sha256 "c9140611a0efb25e471d894c52e506240f2bd524d54b6dbf3f8c916b8714bf94"
+  url "https://registry.npmjs.org/cdktf-cli/-/cdktf-cli-0.17.1.tgz"
+  sha256 "e28e1b9fd474d76ca9faf7ef15365b1ed2471252b76117348ede08c0457aea81"
   license "MPL-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b5be1e6c3f26ebea932e60abdf03e90b135ccf6f7513d60a47d77a9b048e7b52"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b5be1e6c3f26ebea932e60abdf03e90b135ccf6f7513d60a47d77a9b048e7b52"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "9ffb718953c4b696e9cdc0007908146062e3ece97f7a57b0b09dbb0053097dd2"
-    sha256 cellar: :any_skip_relocation, ventura:        "0cbb2dc253b89bc17d6b34d58041d6a53d34758f520c6244723ecf12662e5088"
-    sha256 cellar: :any_skip_relocation, monterey:       "0cbb2dc253b89bc17d6b34d58041d6a53d34758f520c6244723ecf12662e5088"
-    sha256 cellar: :any_skip_relocation, big_sur:        "0cbb2dc253b89bc17d6b34d58041d6a53d34758f520c6244723ecf12662e5088"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5287e043f8b58c5f9d02d5b23c37dfe03fb332e02f1f2cd76953aad0156b5f9b"
+    sha256                               arm64_ventura:  "86ce04a17c591a5e71ca2786b8488f5bd10718c0d5b28b6c3d9ac898e38b6133"
+    sha256                               arm64_monterey: "75e19f38b05ad4e0f4538b446f966374e21bdef4cf35514e2ae081914c161585"
+    sha256                               arm64_big_sur:  "a6f961b91de881a86ec89c1855c87c416a61eb7bd813a4ae3a82cd2124417ec6"
+    sha256                               ventura:        "f9b923646f4af45fac6293814d0f074c1c94550833a532ce41f0065eaa278698"
+    sha256                               monterey:       "4364356965961c116350acac5331dd16a399b36bd3a4872db509e0b21ea73eb6"
+    sha256                               big_sur:        "820f6a17cfb21ff49acbf4bb75e9c065852396a8352d04192c4961f30b152141"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d75064f7a131c48cf3ee5716aaa9fdb8dcc98e4fdcc344e9ae0189a8bc04b3c6"
   end
 
-  depends_on "node@18"
+  depends_on "node"
   depends_on "terraform"
 
   def install
-    node = Formula["node@18"]
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)
-    (bin/"cdktf").write_env_script "#{libexec}/bin/cdktf", { PATH: "#{node.opt_bin}:$PATH" }
+    bin.install_symlink Dir["#{libexec}/bin/*"]
 
     # remove non-native architecture pre-built binaries
     os = OS.kernel_name.downcase

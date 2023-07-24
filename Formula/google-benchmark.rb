@@ -1,27 +1,31 @@
 class GoogleBenchmark < Formula
   desc "C++ microbenchmark support library"
   homepage "https://github.com/google/benchmark"
-  url "https://github.com/google/benchmark/archive/v1.8.0.tar.gz"
-  sha256 "ea2e94c24ddf6594d15c711c06ccd4486434d9cf3eca954e2af8a20c88f9f172"
+  url "https://github.com/google/benchmark/archive/v1.8.2.tar.gz"
+  sha256 "2aab2980d0376137f969d92848fbb68216abb07633034534fc8c65cc4e7a0e93"
   license "Apache-2.0"
   head "https://github.com/google/benchmark.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "df944f6a480092d01ffbc704af6e350f5b3827cc18367b7f97400aba9bc3b9e0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1c0353a0d05fc733773630b997b3eaf4a7f9809ab29c4b99261d755c429bef11"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c310856a039765da07e7afbd76998d8b519175fce9c818c0feebdd62beaa6300"
-    sha256 cellar: :any_skip_relocation, ventura:        "6c59b3a7f77b47eb2abc168c4f79c9c975650e60dce59d1aafda828079037c34"
-    sha256 cellar: :any_skip_relocation, monterey:       "934cf485763fd7edc74aac663492e71161c7fea2af10e0a097a0901a103bb994"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8b29e5dfd0c726c53d34f5bafadc1df3f136b1734982515fa3c65db5188ef2dd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fc827602cb169ec28b2ae4d0ed7d25fc4aca66dcd693d6586a48024bd1344916"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f4754757d1d3700bef189623df82b92d5a32754c6fed8b3bac788b675433c4d0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b15e602d13406eadd213ccbfc1b04e6036bbd732cb5708c15e99d039ef9f4ea2"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "077889ac682d423ed5d8b341a709c89a94c5c77fc523e92d1566965e6d2ff5b4"
+    sha256 cellar: :any_skip_relocation, ventura:        "20fa119c2ff7a7a624f58573724ffc77e716f5ab3127a0b2adb5f5bc0362a4e5"
+    sha256 cellar: :any_skip_relocation, monterey:       "df0f32f20dd94536c7e9dc4af8d29bf9d1a67ba06e5b490d217d0697c1b1f24c"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e6d56e471e33602741a7cae966f3bf81b2fa4b055efe61fa0642b1df46a6edc5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "154be5d9eba20bdd928986e3f1003c4abe80db8fe34fb8c5db761aa6d1498a7b"
   end
 
   depends_on "cmake" => :build
 
   def install
-    ENV.cxx11
-    system "cmake", "-DBENCHMARK_ENABLE_GTEST_TESTS=OFF", *std_cmake_args
-    system "make", "install"
+    args = %w[-DBENCHMARK_ENABLE_GTEST_TESTS=OFF]
+    # Workaround for the build misdetecting our compiler features because of superenv.
+    args << "-DHAVE_CXX_FLAG_WTHREAD_SAFETY=OFF" if OS.linux?
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

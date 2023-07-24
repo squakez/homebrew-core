@@ -2,19 +2,19 @@ class Kubevela < Formula
   desc "Application Platform based on Kubernetes and Open Application Model"
   homepage "https://kubevela.io"
   url "https://github.com/kubevela/kubevela.git",
-      tag:      "v1.8.2",
-      revision: "360f69bea54cb0d15814ba14ea71dacc5f3eba97"
+      tag:      "v1.9.4",
+      revision: "b9f1cc97a9aaca0107aa98ce0916314c7d817bd8"
   license "Apache-2.0"
   head "https://github.com/kubevela/kubevela.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "110a456d8638cfa2000cab981ba8357f5f83d82e2a1d08108c3ea85ce2f96209"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "110a456d8638cfa2000cab981ba8357f5f83d82e2a1d08108c3ea85ce2f96209"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "110a456d8638cfa2000cab981ba8357f5f83d82e2a1d08108c3ea85ce2f96209"
-    sha256 cellar: :any_skip_relocation, ventura:        "d3a674b3e52c71f839a436d4432cde6f5ba95857dc4bc32106821bf52f0354bb"
-    sha256 cellar: :any_skip_relocation, monterey:       "d3a674b3e52c71f839a436d4432cde6f5ba95857dc4bc32106821bf52f0354bb"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d3a674b3e52c71f839a436d4432cde6f5ba95857dc4bc32106821bf52f0354bb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7f9e33a675371e7670236860ab2eb7ff6706cd28d0753416872107616afe9e68"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "be349eaf2075b8a5c38a29f668551639f307194477d859b2bd37c45d31ffa5fc"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "be349eaf2075b8a5c38a29f668551639f307194477d859b2bd37c45d31ffa5fc"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "be349eaf2075b8a5c38a29f668551639f307194477d859b2bd37c45d31ffa5fc"
+    sha256 cellar: :any_skip_relocation, ventura:        "da974cc1911895dedd373ab3faefb9f2a09cdfe6f3eb1a5e9da2869b067c5738"
+    sha256 cellar: :any_skip_relocation, monterey:       "da974cc1911895dedd373ab3faefb9f2a09cdfe6f3eb1a5e9da2869b067c5738"
+    sha256 cellar: :any_skip_relocation, big_sur:        "da974cc1911895dedd373ab3faefb9f2a09cdfe6f3eb1a5e9da2869b067c5738"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "be05a0933b4aa25ff5e3c90b65ef0f2bdce2d2a8040884f119d7b9899981a7cd"
   end
 
   depends_on "go" => :build
@@ -35,7 +35,7 @@ class Kubevela < Formula
   test do
     # Should error out as vela up need kubeconfig
     status_output = shell_output("#{bin}/vela up 2>&1", 1)
-    assert_match "error: no configuration has been provided", status_output
+    assert_match "error: either app name or file should be set", status_output
 
     (testpath/"kube-config").write <<~EOS
       apiVersion: v1

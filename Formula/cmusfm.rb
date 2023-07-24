@@ -1,19 +1,18 @@
 class Cmusfm < Formula
   desc "Last.fm standalone scrobbler for the cmus music player"
   homepage "https://github.com/Arkq/cmusfm"
-  url "https://github.com/Arkq/cmusfm/archive/v0.4.1.tar.gz"
-  sha256 "ff5338d4b473a3e295f3ae4273fb097c0f79c42e3d803eefdf372b51dba606f2"
+  url "https://github.com/Arkq/cmusfm/archive/v0.5.0.tar.gz"
+  sha256 "17aae8fc805e79b367053ad170854edceee5f4c51a9880200d193db9862d8363"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "91b73a874c10d4deeebcee02a451edff2e1034f88da878506f221eb6a7fa4037"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "6aa58d8aaaf982d09847ca12fa1d90a29d9697d3c396445345d6151f7268ab3e"
-    sha256 cellar: :any_skip_relocation, ventura:       "38859b2343c65800586364cf047ec4ffe4325c9171d8f8082a587fc9c9db2643"
-    sha256 cellar: :any_skip_relocation, monterey:      "f4693ccd831c18591443a07ca6e92d066d912dc2deb91be1e58d9b926d556e13"
-    sha256 cellar: :any_skip_relocation, big_sur:       "fb3118b55ecf198907e43466587b28d328d2f41337f75701c4288ea72759ee7b"
-    sha256 cellar: :any_skip_relocation, catalina:      "c5f5828389cb7aad8fbc5ffb15dcd522f3e9f70718de08bbc5425f7c33118d56"
-    sha256 cellar: :any_skip_relocation, mojave:        "00e046ccd67253bfc0f9031fc7746ef03e4a66d0e1df2fa5aabc64e537863048"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "363af3cb7ebfdf77f78b34239c4192810dafbf60de75a675296ecd5f797ceb7f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "edb2e0a7092079e3ad015e27ea37ff940d6ef9a6fed73ff2355d6d7b23d04c0d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "7580167d4bd0c71cdafc4dff2ede95d0081dab49e0f0b555fffa1e29eba03381"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "25de6ec5f582426deea7f1bae8f97e9adf9074f598d2a1a28c14c5d5ecc64602"
+    sha256 cellar: :any_skip_relocation, ventura:        "f1346608b765ed2219f6b963d80b8b72a90b430a10894fe924d64d2d67c535a4"
+    sha256 cellar: :any_skip_relocation, monterey:       "b2e90bb7f3dbb25e7149d8e6c47a54725095b5dca2ecbdd2ad91d0d383824a28"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6ef7f13482b03d75ce2eb9c4ce72123f997f68c246477445b9aeb1d4e0d49e61"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "85080d3911b11f136d5baf6e3304d50c7bc8918aee103308068cd817162e993f"
   end
 
   depends_on "autoconf" => :build
@@ -22,6 +21,10 @@ class Cmusfm < Formula
   depends_on "libfaketime" => :test
 
   uses_from_macos "curl"
+
+  on_linux do
+    depends_on "openssl@3"
+  end
 
   def install
     system "autoreconf", "--install"

@@ -3,18 +3,18 @@ class Pipdeptree < Formula
 
   desc "CLI to display dependency tree of the installed Python packages"
   homepage "https://github.com/tox-dev/pipdeptree"
-  url "https://files.pythonhosted.org/packages/24/e1/6487323228477c0f68ea1f853ff78e9909736d209fdc38351d2772ca0346/pipdeptree-2.9.0.tar.gz"
-  sha256 "b2e89d19b832f40c19e124a81857c1a4c313cd601e32300ea837ba4797ef9af3"
+  url "https://files.pythonhosted.org/packages/1e/8b/18487b209ded619f30dad87b1206c231ae6d6a6e70b6c654fc1cf782447c/pipdeptree-2.11.0.tar.gz"
+  sha256 "7d728dae42e13e02e7d45f13e3e1aa7cb3db30ed2d57a49861ff41056d93a3c0"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4eec3e74773daa93697551ddfe7917064ea4d58294f1907e57cab15e81019cb7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1a928314c4a3917a4e11bd25177d4c41f9a5bcb6afa378a2b7637d0ffa21da5f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5521d5fbe0b0d535c2ad2ed1f5c9ca2eec381eb1f2b251ef7da7eba48079432c"
-    sha256 cellar: :any_skip_relocation, ventura:        "4f501dd8f2facf9d4ecc959f20a97efd9d0b574a8e797645f2176a3837dcf24f"
-    sha256 cellar: :any_skip_relocation, monterey:       "4fc8972e264709fe6d3fe8f32db734a0ede42db411933dfd31ffbe8b1d8e909f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "51101a40e24ed1eb1e0e77394c6904247d0ac765e61b9df1cc8fa5c844304654"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f851128c362e73b63d524b6a3ea2cfcf206587a24636a88d88a005749d9f0fde"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "272dea16a10d3ff121e3e037f755554b6383da3be499f087de4d40c508f57434"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "36a1a4a0a164b5b7cbb3d9dfd3654311448682af3d9349d4227b0bbd3c61c76e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8bb86880181e04e96cc22b9bdfd79f2d945a1f04a75c42484f6364da2e96ed9e"
+    sha256 cellar: :any_skip_relocation, ventura:        "cefca19630bd4f47b1b80b7a76320b0f8725a37a0cb6774cc4f292d99b1e8ca2"
+    sha256 cellar: :any_skip_relocation, monterey:       "a3745ab9f8cce87312069ceb9cdd3a3cf7ae2c0b98ba0da735ae0dbd2a924e1f"
+    sha256 cellar: :any_skip_relocation, big_sur:        "53121bda16b421264bac8d7d2b39c058a4632e1843d1e8864b4dd90204f93c49"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9d49d59ca1f9f7b55fa0b0e410ccbcac058f37be8f010a4d9772ccc56134812c"
   end
 
   depends_on "python@3.11"

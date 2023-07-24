@@ -2,11 +2,11 @@ class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.se"
   # Don't forget to update both instances of the version in the GitHub mirror URL.
-  url "https://curl.se/download/curl-8.1.2.tar.bz2"
-  mirror "https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/curl-8.1.2.tar.bz2"
-  mirror "http://fresh-center.net/linux/www/legacy/curl-8.1.2.tar.bz2"
-  sha256 "b54974d32fd610acace92e3df1f643144015ac65847f0a041fdc17db6f43f243"
+  url "https://curl.se/download/curl-8.2.0.tar.bz2"
+  mirror "https://github.com/curl/curl/releases/download/curl-8_2_0/curl-8.2.0.tar.bz2"
+  mirror "http://fresh-center.net/linux/www/curl-8.2.0.tar.bz2"
+  mirror "http://fresh-center.net/linux/www/legacy/curl-8.2.0.tar.bz2"
+  sha256 "080aaa5bef29ab3f592101e7a95f32ddbe88b92125cb28dde479d5a104928ea4"
   license "curl"
 
   livecheck do
@@ -15,13 +15,13 @@ class Curl < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "98f19a2478157214cf70a9464d053f4d3cbb584b9674ca0caa0f6a498427b5e2"
-    sha256 cellar: :any,                 arm64_monterey: "53b672721b3bd01810249d8c1fc38d81be55919a5cdc5aeae47a5270f727ae5a"
-    sha256 cellar: :any,                 arm64_big_sur:  "7578d993a314c082bc2d41e38a94f717c6fc8e651114382a023a9ee9c4cc7788"
-    sha256 cellar: :any,                 ventura:        "fc1fddfaadaa7ee02e512a066be385cf4ae9a2b97d6bdfcf7f022dd58354c76b"
-    sha256 cellar: :any,                 monterey:       "83f545ac579a8252bc425774a50d0ad3030e86c0493c070fc9147ae9b3cfbeb0"
-    sha256 cellar: :any,                 big_sur:        "6df6d9bdfdcf0e13fe715a0b1828f621ed9291b0a7b5f6274c2edb81070f1761"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "880183e3784201ce34a77374785a83ba39599e91dffe1a54c183d524bf79ed51"
+    sha256 cellar: :any,                 arm64_ventura:  "1ead883686647b286d8d232be54fea7402b5bbbe2388689a358ce7791a71c4b9"
+    sha256 cellar: :any,                 arm64_monterey: "a7b15228a6e00361a5a5b7ee2a7b66e4be8b3c642790eb0f72018574bd901069"
+    sha256 cellar: :any,                 arm64_big_sur:  "ed5d9e2b0a356033c51aa34480b4e633ff1168a4e8c63068a6edb543eab7cd73"
+    sha256 cellar: :any,                 ventura:        "f05b4a4d730bff282dbe26a28d4debeb5a1cba341bde3f86f4d755763d51a9f1"
+    sha256 cellar: :any,                 monterey:       "956a6d4071f5c2821cda1af511a0244ab214fb7fefb2a9740c5ce8c313280d45"
+    sha256 cellar: :any,                 big_sur:        "9a5a6fa8d44cf32ca6845d7c20a018a6cbe3df6dc792c6fd408cc5bc3df0b526"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a170d26605976fa2e3b046333e7adc6866e9a5db7a86e516ce2d0b3d4097f6a3"
   end
 
   head do
@@ -40,7 +40,7 @@ class Curl < Formula
   depends_on "libnghttp2"
   depends_on "libssh2"
   depends_on "openldap"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "rtmpdump"
   depends_on "zstd"
 
@@ -55,7 +55,7 @@ class Curl < Formula
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
-      --with-ssl=#{Formula["openssl@1.1"].opt_prefix}
+      --with-ssl=#{Formula["openssl@3"].opt_prefix}
       --without-ca-bundle
       --without-ca-path
       --with-ca-fallback

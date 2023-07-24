@@ -1,19 +1,19 @@
 class Fastfetch < Formula
-  desc "Like neofetch, but much faster because written in C"
-  homepage "https://github.com/LinusDierheimer/fastfetch"
-  url "https://github.com/LinusDierheimer/fastfetch/archive/refs/tags/1.11.3.tar.gz"
-  sha256 "699ee59b0677121411a11119a06bdb5bc45dc04b551904c9d9d30477e2142358"
+  desc "Like neofetch, but much faster because written mostly in C"
+  homepage "https://github.com/fastfetch-cli/fastfetch"
+  url "https://github.com/fastfetch-cli/fastfetch/archive/refs/tags/1.12.2.tar.gz"
+  sha256 "e3d7384de0aa306effdcbe1b7e8095b40649773086b838d925fbfc2ec5027ab0"
   license "MIT"
-  head "https://github.com/LinusDierheimer/fastfetch.git", branch: "dev"
+  head "https://github.com/fastfetch-cli/fastfetch.git", branch: "dev"
 
   bottle do
-    sha256 arm64_ventura:  "1a821125e3dbab9f910b6b60f5463dc0651c6cf159813b49e0e56787ccab7f24"
-    sha256 arm64_monterey: "1f880c1c6f79c36869c4d8a74000890e3621fccea952c9bcc654c80da1a79b60"
-    sha256 arm64_big_sur:  "b979f40e02b9ec7c669b605ac9182ede509a2af79f231bb0a434965332d0784c"
-    sha256 ventura:        "d41b76e8e536d60393ad92271f4436637afd6d6838d15c475125904be5074e5c"
-    sha256 monterey:       "2a7a97539b01956167a43393b5df4737d64e3e38c4c07a94e163058eafb986bd"
-    sha256 big_sur:        "c643b0fc4d0eb206b3cba3804296b52e08084bde705b6315a02aa2e503a0d0a4"
-    sha256 x86_64_linux:   "0dca5b4c721b51cbf6f1b8e7b20d2d0402c7fed65a519d577e85a4ddce89be96"
+    sha256 arm64_ventura:  "f18ccf446da89bb42575ad4161036df4d293e3e8a7bd835e74929d592531cea3"
+    sha256 arm64_monterey: "fd94550f8fb5b7193cba0f7b924fe2de45fdeb29fb9e30f17303c80e2bafe376"
+    sha256 arm64_big_sur:  "97e12c4a596e9babe444d7b2d885629ec1691a06658542f58c3552fe5e043290"
+    sha256 ventura:        "0f32d9a46d150198848e6441aec8940c63091dcfe0d3dc5d07492d9b790bb88b"
+    sha256 monterey:       "ca2bc1c567383abc67d2e81247d39a8b75c62dab604bbebe35f48404d2c36578"
+    sha256 big_sur:        "0ce6b678982376146b981134b8a71fa820adc8ecf2ed61137b0a384bc0cd6aec"
+    sha256 x86_64_linux:   "e4495a383f4e25dc07a7afcc8d9315a2000cd057567ffe3a4266b42fd37d428a"
   end
 
   depends_on "chafa" => :build
@@ -26,8 +26,8 @@ class Fastfetch < Formula
   uses_from_macos "zlib" => :build
 
   on_linux do
+    depends_on "cjson" => :build
     depends_on "dbus" => :build
-    depends_on "json-c" => :build
     depends_on "libx11" => :build
     depends_on "libxcb" => :build
     depends_on "libxrandr" => :build

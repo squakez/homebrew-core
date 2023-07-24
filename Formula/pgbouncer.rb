@@ -1,8 +1,8 @@
 class Pgbouncer < Formula
   desc "Lightweight connection pooler for PostgreSQL"
   homepage "https://www.pgbouncer.org/"
-  url "https://www.pgbouncer.org/downloads/files/1.19.1/pgbouncer-1.19.1.tar.gz"
-  sha256 "58c3eff9bb72c18133b28e1f034fd59356ea76281c65e127432ca101c208a394"
+  url "https://www.pgbouncer.org/downloads/files/1.20.0/pgbouncer-1.20.0.tar.gz"
+  sha256 "e70d5a7cb8b71dd7dbabfd3571d71a4b6b99f2e85d8d71af1e734f6d86635f0e"
   license "ISC"
 
   livecheck do
@@ -11,13 +11,13 @@ class Pgbouncer < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "393523f1924078f921d3f7a29066c3befdc27ed26ed7627302549fcf2ba2ea33"
-    sha256 cellar: :any,                 arm64_monterey: "4b816cd82cedf64c2ed6945bcb49536ac9dae107b90fa56d076b7a282ac5ebe5"
-    sha256 cellar: :any,                 arm64_big_sur:  "2605e300ce077a27a10ada91b860be3e48c2a107509f82683dab264e0190f917"
-    sha256 cellar: :any,                 ventura:        "d2b6e4f6fe104b37e3f21104479849b24937e8a25f88ff27d46aca65f1cb2535"
-    sha256 cellar: :any,                 monterey:       "47f61475dc86a232d2e3625774ea36e1e8f6d4cd040ce65ee3d7435eea4cb93d"
-    sha256 cellar: :any,                 big_sur:        "6045d6c8033af6892a212e91048c9ffc246130efec6e6fd5e89663fc65f98df5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "82dea8700a650af2016ab7cc5213fef97419936b257542b5a219ed59d16c4608"
+    sha256 cellar: :any,                 arm64_ventura:  "678c855f5a11ebe943f4a165786ad8b3f65d4612c9bda2d7b53b440be7f2a5b9"
+    sha256 cellar: :any,                 arm64_monterey: "2612b6774d497faaa80c60927f11f548099177e0d3f0da8930e315c1afc91952"
+    sha256 cellar: :any,                 arm64_big_sur:  "afd7afc41e06281a7e5fb56f3e588eb2323cb3d1a62f7bd616afc532832b52e3"
+    sha256 cellar: :any,                 ventura:        "8f978ff96283a4eec7561796e41e669769dc3b0da1494fe2af04215888385ed8"
+    sha256 cellar: :any,                 monterey:       "f1d9936d06f2e8a522200b06d627abc8ccd4725e8648f50bb3c3193b9d2348c1"
+    sha256 cellar: :any,                 big_sur:        "435e530526b9dcf1544387365598c9be05dc5b1db13a31907cabedbec3e719d2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "11ad4edce408f1cc888b9af62d2e44a9c601636e7139ddb805b93a378ad94c35"
   end
 
   head do
@@ -31,7 +31,7 @@ class Pgbouncer < Formula
 
   depends_on "pkg-config" => :build
   depends_on "libevent"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   def install
     system "./autogen.sh" if build.head?

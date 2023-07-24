@@ -1,24 +1,25 @@
 class PipeRename < Formula
   desc "Rename your files using your favorite text editor"
   homepage "https://github.com/marcusbuffett/pipe-rename"
-  url "https://crates.io/api/v1/crates/pipe-rename/1.6.4/download"
-  sha256 "02043732ad9b47b2c2485599ef7b6e3bb8d23b13ef7362ee4c16ef32e39815d1"
+  url "https://github.com/marcusbuffett/pipe-rename/archive/refs/tags/1.6.5.tar.gz"
+  sha256 "41edf419ab3d7b3c16d2efe209b3ca3d3f7104a3365f61fe821a59caac31810b"
   license "MIT"
+  head "https://github.com/marcusbuffett/pipe-rename.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "729b0936daa03d43e53600d92a2dcc6e09e56c9df2b0c375f2ca9556fe8ba5e7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9933a66e3546b0540ab7b13024e2b50ca929a07a90026d37345533103aae8522"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "10e9a8bc5567dcf7cbae81a04e0e1b8456344bc33f7820b87af9c710e6dd70be"
-    sha256 cellar: :any_skip_relocation, ventura:        "5a73c2c48ac30277083a127920b84070a396dcc4585fc5ca473a2ecbb8a515ce"
-    sha256 cellar: :any_skip_relocation, monterey:       "6cf9943f37e1bc165c330c65bf63f31bbdabe5f43822cb71c5b8857b31705544"
-    sha256 cellar: :any_skip_relocation, big_sur:        "b5771bd177d367df7d7b6ddb6a19aea870c21ffbcb8ca310885f41bd1b217fd3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9deea1ef250974a8d4265f10c523e301476388861e23a3f2dc98747be70dd7a4"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0f2226ebc20e21cf3e60864f754b16858f9142e91c075dce3f40aca885a170ec"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "e416289ce81261b7049d6373b155523194d248e71d30578d4dde81dd2acabf39"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "70261a45024958a3552434d796c921342e067237e27fc49fe6434b9fc4faa87d"
+    sha256 cellar: :any_skip_relocation, ventura:        "ea7df5f5f537f9b59746a41b5c54f9a84fb0fa41a7e1f120b110cdd591e65db0"
+    sha256 cellar: :any_skip_relocation, monterey:       "d8c2ce2e9e90728f5e2901d0062ec2613b5f9e88b3c1d2dc3c42ebf45a2f4b55"
+    sha256 cellar: :any_skip_relocation, big_sur:        "1147a22a59b737ff14028deb0c524307ff036a9953ad5f57a5568c277ce27ceb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dd5c54a0bdf37c614971f1dc2b5326b5b391ca0c03a86d58b50970401ea7e444"
   end
 
   depends_on "rust" => :build
 
   def install
-    system "tar", "xvf", "pipe-rename-#{version}.crate", "--strip-components=1"
     system "cargo", "install", *std_cargo_args
   end
 

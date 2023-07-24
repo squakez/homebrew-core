@@ -4,6 +4,7 @@ class PythonAT311 < Formula
   url "https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tgz"
   sha256 "85c37a265e5c9dd9f75b35f954e31fbfc10383162417285e30ad25cc073a0d63"
   license "Python-2.0"
+  revision 1
 
   livecheck do
     url "https://www.python.org/ftp/python/"
@@ -11,13 +12,13 @@ class PythonAT311 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "7901ada4e383cb20a39728ce65f3c6642de4525f55f7a49a4e9bb7ab261f6cb9"
-    sha256 arm64_monterey: "39483f9f8b10710846863cec7da43987b21ee445b636ed5d6407f9771b8ad04c"
-    sha256 arm64_big_sur:  "fa7e6b8296f14a7d4c03787e83908ad9554a149ee0db1079df5c998b01c1459d"
-    sha256 ventura:        "b0df9e62dded2ce44e9362a2fa7b678f03748c47a4c76709c5213f4c2c1d4c38"
-    sha256 monterey:       "c81561af71f6a3200cd6b2dee2780ea4739a5464c162da2b763dc90fac694760"
-    sha256 big_sur:        "ed4aa0200f84405f037f6655ea3186b95cb948f5a5649ddf2b3c5542f3433a85"
-    sha256 x86_64_linux:   "eaaf141be701e2aaad732c1afaa33b623f11c8f479d50d03a9c4b4d0349f55be"
+    sha256 arm64_ventura:  "014abdd7f97a02a42a6fdfe8ee527d359b24901903480628212489a5f570b09f"
+    sha256 arm64_monterey: "5458959e262a06738bee89023d404a35a03fbde1c682255e33d4e32f8eb6a570"
+    sha256 arm64_big_sur:  "eb3fbd888d2a2683cb07eb5d5176812d9e26370a0e422584fa663b4eec98dacf"
+    sha256 ventura:        "c97986e611c3c5e092be2ad70876fe99c7c7c23c8e7e63caaac6274512fbf657"
+    sha256 monterey:       "fa258abf25b4f4bd6dcb7586a04faee606e07e6e480ff3dd2f04afc3db4c7a9f"
+    sha256 big_sur:        "aeaf5d77ce1aad2cd39e7acebb78076bd0417459ff4825e1377a3bcee1f4b098"
+    sha256 x86_64_linux:   "7e8892393a9df0437e1ada50c011df549867348fe12e998d8d659da77379aa07"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -26,7 +27,7 @@ class PythonAT311 < Formula
 
   depends_on "pkg-config" => :build
   depends_on "mpdecimal"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "sqlite"
   depends_on "xz"
 
@@ -148,7 +149,7 @@ class PythonAT311 < Formula
       --datadir=#{share}
       --without-ensurepip
       --enable-loadable-sqlite-extensions
-      --with-openssl=#{Formula["openssl@1.1"].opt_prefix}
+      --with-openssl=#{Formula["openssl@3"].opt_prefix}
       --enable-optimizations
       --with-system-expat
       --with-system-libmpdec
@@ -214,7 +215,7 @@ class PythonAT311 < Formula
     # `brew install enchant && pip install pyenchant`
     inreplace "./Lib/ctypes/macholib/dyld.py" do |f|
       f.gsub! "DEFAULT_LIBRARY_FALLBACK = [",
-              "DEFAULT_LIBRARY_FALLBACK = [ '#{HOMEBREW_PREFIX}/lib', '#{Formula["openssl@1.1"].opt_lib}',"
+              "DEFAULT_LIBRARY_FALLBACK = [ '#{HOMEBREW_PREFIX}/lib', '#{Formula["openssl@3"].opt_lib}',"
       f.gsub! "DEFAULT_FRAMEWORK_FALLBACK = [", "DEFAULT_FRAMEWORK_FALLBACK = [ '#{HOMEBREW_PREFIX}/Frameworks',"
     end
 
@@ -358,7 +359,7 @@ class PythonAT311 < Formula
     rm_rf Dir["#{site_packages}/pip[-_.][0-9]*", "#{site_packages}/pip"]
     rm_rf Dir["#{site_packages}/wheel[-_.][0-9]*", "#{site_packages}/wheel"]
 
-    system python3, "-m", "ensurepip"
+    system python3, "-Im", "ensurepip"
 
     # Install desired versions of setuptools, pip, wheel using the version of
     # pip bootstrapped by ensurepip.
@@ -366,7 +367,7 @@ class PythonAT311 < Formula
     # ensurepip actually used them, since other existing installations could
     # have been picked up (and we can't pass --ignore-installed).
     bundled = lib_cellar/"ensurepip/_bundled"
-    system python3, "-m", "pip", "install", "-v",
+    system python3, "-Im", "pip", "install", "-v",
            "--no-deps",
            "--no-index",
            "--upgrade",
@@ -445,7 +446,7 @@ class PythonAT311 < Formula
           if os.path.realpath(sys.base_exec_prefix).startswith('#{rack}'):
               new_exec_prefix = cellar_prefix.sub('#{opt_prefix}/', sys.base_exec_prefix)
               if sys.exec_prefix == sys.base_exec_prefix:
-                  site.PREFIXES[:] = [new_prefix if x == sys.exec_prefix else x for x in site.PREFIXES]
+                  site.PREFIXES[:] = [new_exec_prefix if x == sys.exec_prefix else x for x in site.PREFIXES]
                   sys.exec_prefix = new_exec_prefix
               sys.base_exec_prefix = new_exec_prefix
       # Check for and add the prefix of split Python formulae.

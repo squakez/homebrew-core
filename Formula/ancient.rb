@@ -1,18 +1,18 @@
 class Ancient < Formula
   desc "Decompression routines for ancient formats"
   homepage "https://github.com/temisu/ancient"
-  url "https://github.com/temisu/ancient/archive/refs/tags/v2.0.0.tar.gz"
-  sha256 "9c6b31e4d968ec3adb25596a0b30405d1080d3de0546f1485ecb0ac2eca6261d"
+  url "https://github.com/temisu/ancient/archive/refs/tags/v2.1.1.tar.gz"
+  sha256 "6f63e2765866925f1b188baee958d4518720bd0009ab4f50b390ea5028649ec2"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "ec3214e2db259ba475085d73e48e3064b183c1f1b6ac2ea14e48382d58051212"
-    sha256 cellar: :any,                 arm64_monterey: "27998eba9be69e5b99170902830d7e42f27a1ce68f44b8335403bddad391f6a0"
-    sha256 cellar: :any,                 arm64_big_sur:  "9aba619045bd0fcb09cf80fb40526051577441ec7e45638a78134d192b56e6d9"
-    sha256 cellar: :any,                 ventura:        "c7716c400c21530fb86e3d5338aa3c8a821b167af5c1141601f6e3d69345782e"
-    sha256 cellar: :any,                 monterey:       "8498270f1c764e1c487358146e6b4b179953a2f7ba69a49282c0fafdac5180f7"
-    sha256 cellar: :any,                 big_sur:        "327d16f754e9de4b888a12891c36b9ca86592f5b0e71f336ef08cc0993abc840"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "470e174088daa85697bdad08a9cc408b60a37bee33e874b2f81a4a2f11c7fcb2"
+    sha256 cellar: :any,                 arm64_ventura:  "3f4d5623bd2b124de3df19da083eab30a4c50a209fd5c3669c254bfb2ecfa7eb"
+    sha256 cellar: :any,                 arm64_monterey: "149881aa043f4133bdb6dac622b3cc606a44de26105b154bfa3a934f18fbb089"
+    sha256 cellar: :any,                 arm64_big_sur:  "e46d1a5d1e6c8b08489a6f3d3a81fcc0ef8b9dc2c1421ccd8a3849d6f163e3ef"
+    sha256 cellar: :any,                 ventura:        "37845ef9416ea76ca618aaa29bda88d46e011c24bb5fc772c27ea52b3f61dcd3"
+    sha256 cellar: :any,                 monterey:       "c5dc5fa32a48cd5916c563690203da74e731a1d8a197de97ead68ce6c480a2f1"
+    sha256 cellar: :any,                 big_sur:        "47ae9e68f35e4cb300c85957ef7a4f6c2bef532d32b49a476fb2eddb0967f8cd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "91efa218bbb1adbb9dffa24d2e932df91ae5de07a7a95afb3726e271e2a7f972"
   end
 
   depends_on "autoconf" => :build
@@ -40,7 +40,5 @@ class Ancient < Formula
 
     system ENV.cxx, "-std=c++17", "test.cpp", "-I#{include}", "-L#{lib}", "-lancient", "-o", "test"
     system "./test"
-
-    system bin/"ancient", "scan", testpath, testpath
   end
 end

@@ -1,25 +1,31 @@
 class Clash < Formula
   desc "Rule-based tunnel in Go"
   homepage "https://github.com/Dreamacro/clash"
-  url "https://github.com/Dreamacro/clash/archive/v1.16.0.tar.gz"
-  sha256 "671d9ad8582593478945e13a052d4b462e0935ac50d5bb71fa2bdf2fa16893ea"
+  url "https://github.com/Dreamacro/clash/archive/v1.17.0.tar.gz"
+  sha256 "cd30a27f801652151eea129e9cb00e4a3ee28d45982dad835f4546691796d9d7"
   license "GPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "180a09500bce437e397790e5e11fb5db78076986b487bc28272befc97bcadd26"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "180a09500bce437e397790e5e11fb5db78076986b487bc28272befc97bcadd26"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "180a09500bce437e397790e5e11fb5db78076986b487bc28272befc97bcadd26"
-    sha256 cellar: :any_skip_relocation, ventura:        "435e870599257e67bdc9d8f44297c72fee5e2a135988eb1b722bd1cd9cc516fe"
-    sha256 cellar: :any_skip_relocation, monterey:       "435e870599257e67bdc9d8f44297c72fee5e2a135988eb1b722bd1cd9cc516fe"
-    sha256 cellar: :any_skip_relocation, big_sur:        "435e870599257e67bdc9d8f44297c72fee5e2a135988eb1b722bd1cd9cc516fe"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7a69765b964fda4b890dae4c110d753a1b8c6baf814a89702f7cf78d4941c24d"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "71df21e3fa07016bb64720da36901e7cd91f4a18ce85b540faf4cd2c08af6054"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "71df21e3fa07016bb64720da36901e7cd91f4a18ce85b540faf4cd2c08af6054"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "71df21e3fa07016bb64720da36901e7cd91f4a18ce85b540faf4cd2c08af6054"
+    sha256 cellar: :any_skip_relocation, ventura:        "0143a67dc96ada77e575e1286f5ed3892d08e3dc36d1efa6856347ab45384c65"
+    sha256 cellar: :any_skip_relocation, monterey:       "0143a67dc96ada77e575e1286f5ed3892d08e3dc36d1efa6856347ab45384c65"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0143a67dc96ada77e575e1286f5ed3892d08e3dc36d1efa6856347ab45384c65"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2d33f7c551a2606ee5ed5d2a147513327ccb9040b87df7752d586b1bee569355"
   end
 
   depends_on "go" => :build
   depends_on "shadowsocks-libev" => :test
 
   def install
-    system "go", "build", *std_go_args
+    ldflags = %W[
+      -s -w -buildid=
+      -X "github.com/Dreamacro/clash/constant.Version=#{version}"
+      -X "github.com/Dreamacro/clash/constant.BuildTime=#{time.iso8601}"
+    ]
+    system "go", "build", *std_go_args(ldflags: ldflags)
   end
 
   service do
@@ -30,6 +36,8 @@ class Clash < Formula
   end
 
   test do
+    assert_match version.to_s, shell_output("#{bin}/clash -v")
+
     ss_port = free_port
     (testpath/"shadowsocks-libev.json").write <<~EOS
       {

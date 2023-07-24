@@ -1,18 +1,18 @@
 class CiliumCli < Formula
   desc "CLI to install, manage & troubleshoot Kubernetes clusters running Cilium"
   homepage "https://cilium.io"
-  url "https://github.com/cilium/cilium-cli/archive/refs/tags/v0.14.6.tar.gz"
-  sha256 "64349f0ba84b0ef9f0e69398963a5cc6dcb127c568d2100901a5cddcb378fe41"
+  url "https://github.com/cilium/cilium-cli/archive/refs/tags/v0.15.4.tar.gz"
+  sha256 "24748d17cb54366c8fccbdf151af71366420b34201fb8d197854b9e601278a63"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ad54404ccb22b33e168d798f2f0ab91cb3a539bab9f40a23f4b6372c57366003"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "76ead97a7787d5994a977ea5637d0cba846b11e4da1659226b01791c19983b08"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "997c7be4269e396b5e7d21e0899a3b3fd4f2864dcf45c8e56beff5b227ad1f73"
-    sha256 cellar: :any_skip_relocation, ventura:        "53b58bbe7a6a638e89513b84ae706ff73717ecc4b6849dcee171d29698b0be59"
-    sha256 cellar: :any_skip_relocation, monterey:       "aa3315fd5f7139ff140dc60dfac0f856d3df641464ab5a2291ba39aee0233005"
-    sha256 cellar: :any_skip_relocation, big_sur:        "65f9c89e87cb92b81f0e90c167f22c1c98e4b466700e8f5556d6797ba761f6e5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9b9e6387f7a9c7bc2efaf077cd4587cceae310495de6f1ccf490135ea4eb249e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "50316f6e6606085f6c710f470a9158527f4dd0f417be65b6882fa9a305124cf5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "1584de113829fe5539a0d9ae47109d002eb7a351ac3562096d8869b303646532"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "103bf0e8613a1392baae5c2309bc21cd3b64fdf00649f52aa7d7ff1aaac56836"
+    sha256 cellar: :any_skip_relocation, ventura:        "4aba04e42130f67d7d46d7dab50b42428ed9f3ee158de60c546709463489794f"
+    sha256 cellar: :any_skip_relocation, monterey:       "8da19ef9cfdb8f6e388d0a5814ad4217e363158d2c1d5f442e7a8fe5faa39cff"
+    sha256 cellar: :any_skip_relocation, big_sur:        "3a105f225a9c246eb7a4a63a8ec884e7af79f2a30e42e14f6b225c833a59ca33"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "06ae0f2134a1daf5692bab34e93d90a4a5efc60934a6fb88265247db1f2551b0"
   end
 
   depends_on "go" => :build
@@ -26,7 +26,7 @@ class CiliumCli < Formula
 
   test do
     assert_match("cilium-cli: v#{version}", shell_output("#{bin}/cilium version 2>&1"))
-    assert_match('Cluster name "" is not valid', shell_output("#{bin}/cilium install 2>&1", 1))
+    assert_match("Kubernetes cluster unreachable", shell_output("#{bin}/cilium install 2>&1", 1))
     assert_match("Error: Unable to enable Hubble", shell_output("#{bin}/cilium hubble enable 2>&1", 1))
   end
 end

@@ -1,19 +1,19 @@
 class Dtools < Formula
   desc "D programming language tools"
   homepage "https://dlang.org/"
-  url "https://github.com/dlang/tools/archive/refs/tags/v2.104.0.tar.gz"
-  sha256 "8efedaa3ac8badf3d18acc10b38dc581d992aab102c93ce81d9fc15e09c532fc"
+  url "https://github.com/dlang/tools/archive/refs/tags/v2.104.2.tar.gz"
+  sha256 "728c3fca5197c85091a1b95e8fe2f30f9cd7b903cbab415a57264058b861e23d"
   license "BSL-1.0"
   head "https://github.com/dlang/tools.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3f771ec26451889ec9410d001fff05d4b8674485636009dcbc41543b886c7298"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "28ef867835d384ecbd50f381db6bc2571cca287b649a38736464c6ddc2b980cd"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fe1162d621c1a3e4b42f8bb74b9bfd2615feee0cab74172f2c8d614093e71c82"
-    sha256 cellar: :any_skip_relocation, ventura:        "58a065864edbba85cf1add00f5d3a376fc7e1aa435c955247b34bbfe96a78f77"
-    sha256 cellar: :any_skip_relocation, monterey:       "95e8fc34c3be1ce0082fbe7d895a2285e29ae92dcc9ca969b706ca27266e19ef"
-    sha256 cellar: :any_skip_relocation, big_sur:        "3edc9af5e4ecbf1d9630059c288e47682e416893922100ea4c3f57eac6b30ff8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ce815021b9626c6765638734096dc52b80d4acb476398c6d0583b67c8bae09ec"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "961f55647bd622f99f34fa1a94352fc33a782bba3d42960d2c8482ef71235ec0"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8bef779a5764aea4e0e8f2b564c5b8bb9c9095938c1acf465b048ec7d1a9a822"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c25b04db07f35e066fdd9808375aa602063a082edb453f8e4e681c4847fe81d2"
+    sha256 cellar: :any_skip_relocation, ventura:        "4c39117867389a640f7120fe9190dd7eb1581c4c7bea29a4194025a72d6e0ebc"
+    sha256 cellar: :any_skip_relocation, monterey:       "97a3c6b28c14e25308fc632e594ac41ef8a34c10dc8ab01b51925784137d1423"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a5ad537344fb458fb66e61a63c5d8c2996c34372bbee07074caa97e9ddca5c09"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f2d7e7ce676e43bb4044567100ab5b1eafaa90a953c58345995f0c2993aeaf3f"
   end
 
   depends_on "dub" => :build
@@ -29,16 +29,13 @@ class Dtools < Formula
     #
     # Skip building dman as it requires getting and building the DMD
     # and dlang.org source trees.
-    tools = %w[ddemangle rdmd]
+    tools = %w[ddemangle rdmd dustmite]
     system "dub", "add-local", buildpath
 
     tools.each do |tool|
       system "dub", "build", "--build=release", ":#{tool}"
       bin.install "dtools_#{tool}" => tool
     end
-
-    # DustMite is not provided as a dub target
-    system "ldc2", "-O", "--release", *Dir.glob("DustMite/*.d"), "-od=build", "-of=#{bin}/dustmite"
 
     man1.install "man/man1/rdmd.1"
   end

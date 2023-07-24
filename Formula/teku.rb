@@ -2,19 +2,19 @@ class Teku < Formula
   desc "Java Implementation of the Ethereum 2.0 Beacon Chain"
   homepage "https://docs.teku.consensys.net/"
   url "https://github.com/ConsenSys/teku.git",
-      tag:      "23.5.0",
-      revision: "32a8074931a927e2ed8300a81601580c022b7eb9"
+      tag:      "23.6.2",
+      revision: "aefb5e29ed874aab51329be99da7418f78db4928"
   license "Apache-2.0"
   head "https://github.com/ConsenSys/teku.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7dadc34b4e0ecb60bbd29decb4256df6c3e558a69e7df890eda96c92fdab7ba5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7dadc34b4e0ecb60bbd29decb4256df6c3e558a69e7df890eda96c92fdab7ba5"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7dadc34b4e0ecb60bbd29decb4256df6c3e558a69e7df890eda96c92fdab7ba5"
-    sha256 cellar: :any_skip_relocation, ventura:        "e9e4b2870ec8ca95dcf822a75f0885007e1ad9aebc6f0a6af11afb4ee3d0039c"
-    sha256 cellar: :any_skip_relocation, monterey:       "e9e4b2870ec8ca95dcf822a75f0885007e1ad9aebc6f0a6af11afb4ee3d0039c"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e9e4b2870ec8ca95dcf822a75f0885007e1ad9aebc6f0a6af11afb4ee3d0039c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cdc8ccee3c779d26ac67614586b6b5450a34e0b5d1ca453c9fcb53233ee21557"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ab40ff479aad3c34667d20a15cebfa1b7364620cabde5f61fb119e0addf5561b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "ab40ff479aad3c34667d20a15cebfa1b7364620cabde5f61fb119e0addf5561b"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "ab40ff479aad3c34667d20a15cebfa1b7364620cabde5f61fb119e0addf5561b"
+    sha256 cellar: :any_skip_relocation, ventura:        "8fb66829220aebdd8e54f0d18b2a553b82648ef53501bae20f0a11379baa9b25"
+    sha256 cellar: :any_skip_relocation, monterey:       "8fb66829220aebdd8e54f0d18b2a553b82648ef53501bae20f0a11379baa9b25"
+    sha256 cellar: :any_skip_relocation, big_sur:        "8fb66829220aebdd8e54f0d18b2a553b82648ef53501bae20f0a11379baa9b25"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "44c3dcfc965168c78d392f79aaa42c7cc33e588b08310aaf28de46a6e8a6b12c"
   end
 
   depends_on "gradle" => :build

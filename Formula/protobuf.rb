@@ -1,20 +1,9 @@
 class Protobuf < Formula
   desc "Protocol buffers (Google's data interchange format)"
   homepage "https://protobuf.dev/"
+  url "https://github.com/protocolbuffers/protobuf/releases/download/v23.4/protobuf-23.4.tar.gz"
+  sha256 "a700a49470d301f1190a487a923b5095bf60f08f4ae4cac9f5f7c36883d17971"
   license "BSD-3-Clause"
-
-  # TODO: Remove `stable` block when patch is no longer needed.
-  stable do
-    url "https://github.com/protocolbuffers/protobuf/releases/download/v23.2/protobuf-23.2.tar.gz"
-    sha256 "ddf8c9c1ffccb7e80afd183b3bd32b3b62f7cc54b106be190bf49f2bc09daab5"
-
-    # Fix missing unexported symbols.
-    # https://github.com/protocolbuffers/protobuf/issues/12932
-    patch do
-      url "https://github.com/protocolbuffers/protobuf/commit/fc1c5512e524e0c00a276aa9a38b2cdb8fdf45c7.patch?full_index=1"
-      sha256 "2ef672ecc95e0b35e2ef455ebbbaaaf0d5a89a341b5bbbe541c6285dfca48508"
-    end
-  end
 
   livecheck do
     url :stable
@@ -22,14 +11,13 @@ class Protobuf < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "0ca2b5b96e59b5932984ad763b82fa1c3ed6fa9f14ae4dda1d7ba819ac8cbb34"
-    sha256 cellar: :any,                 arm64_monterey: "e7bfed368f3af001d815d4686f189a4610bc109ab8c83b43d7b02a6f6238b981"
-    sha256 cellar: :any,                 arm64_big_sur:  "10d72170b25b4e0729f50138c6c42cf31cb09484c6e9560bfbd0ef7c3b2e19a5"
-    sha256 cellar: :any,                 ventura:        "bd64577ce4c4908a60e50db88328ce98ffd1ede84c1111fef470e112eccedbf2"
-    sha256 cellar: :any,                 monterey:       "cdcf22bb3d8007a1ec8d1ba0eaa36d22c38fa3c80be4b14a947fa7128186bce9"
-    sha256 cellar: :any,                 big_sur:        "6b1627590a556944a41066140234b5edb54c4d50c876990080daf7e5ba4bee4f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f21ef3a90ebb7583ecb59650eb89e85aa4de7b1724668773c170d0ec4a485f55"
+    sha256 cellar: :any,                 arm64_ventura:  "eb86d06abace7c985b21ccac17ea418131e17689c9fdeddbcaa998d7088c89de"
+    sha256 cellar: :any,                 arm64_monterey: "0e365713a94a259dbfae77917bb9b0c29ba76d46a733aa4ee81429fc6a4af935"
+    sha256 cellar: :any,                 arm64_big_sur:  "71c787b14039d8c5d7120dfcfea969b5abb6cb4e69a6f9259a7590d7ab6065d0"
+    sha256 cellar: :any,                 ventura:        "fac1164097c4e09a76db297feaa7d525d12bd1845e250225ff32ea9f43eaef2d"
+    sha256 cellar: :any,                 monterey:       "79ed16a88a2630392fc9726794875d88aada2ddec2a5f43b00d2b43cca8ee313"
+    sha256 cellar: :any,                 big_sur:        "774b921c6373919e653637f28fe9b485505ecc4f46852c547898d585af599dbc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6376391a61c411ad6cb76936abb98c1e0fb3e368a3fa9bb2668a8d169a4581d6"
   end
 
   head do
@@ -71,7 +59,7 @@ class Protobuf < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    pkgshare.install "editors/proto.vim"
+    (share/"vim/vimfiles/syntax").install "editors/proto.vim"
     elisp.install "editors/protobuf-mode.el"
 
     ENV.append_to_cflags "-I#{include}"

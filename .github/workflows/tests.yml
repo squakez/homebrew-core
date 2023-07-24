@@ -12,6 +12,7 @@ env:
   HOMEBREW_GITHUB_ACTIONS: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
   HOMEBREW_NO_INSTALL_FROM_API: 1
+  HOMEBREW_RELOCATABLE_INSTALL_NAMES: 1
   GH_REPO: ${{github.repository}}
   GH_NO_UPDATE_NOTIFIER: 1
   GH_PROMPT_DISABLED: 1
@@ -25,18 +26,6 @@ permissions:
   contents: read
 
 jobs:
-  record_pull_number:
-    if: always() && github.repository_owner == 'Homebrew' && github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Save pull request number
-        run: echo '${{ github.event.number }}' > number
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: pull-number
-          path: number
-
   tap_syntax:
     if: github.repository_owner == 'Homebrew'
     runs-on: ubuntu-22.04
@@ -48,6 +37,17 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
+        with:
+          core: true
+          cask: false
+          test-bot: true
+
+      - name: Cache style cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Homebrew/style
+          key: style-cache-${{ github.sha }}
+          restore-keys: style-cache-
 
       - run: brew test-bot --only-tap-syntax
 
@@ -64,6 +64,10 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
+        with:
+          core: true
+          cask: false
+          test-bot: true
 
       - run: brew test-bot --only-formulae-detect
         id: formulae-detect
@@ -71,7 +75,8 @@ jobs:
       - name: Fetch detected formulae bottles
         if: >
           github.event_name == 'merge_group' ||
-          contains(github.event.pull_request.labels.*.name, 'CI-published-bottle-commits')
+          (contains(github.event.pull_request.labels.*.name, 'CI-published-bottle-commits') &&
+           github.base_ref != 'master')
         env:
           TESTING_FORMULAE: ${{ steps.formulae-detect.outputs.testing_formulae }}
         run: brew test-bot --only-bottles-fetch --testing-formulae="$TESTING_FORMULAE"
@@ -140,6 +145,8 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
         with:
+          core: true
+          cask: false
           test-bot: false
 
       - name: Determine runners to use for tests job
@@ -303,6 +310,8 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
         with:
+          core: true
+          cask: false
           test-bot: false
 
       - name: Determine runners to use for test_deps job
@@ -312,7 +321,7 @@ jobs:
   test_deps:
     needs: [tap_syntax, setup_dep_tests, setup_dep_runners, tests]
     if: >
-      (success() || 
+      (success() ||
       (failure() &&
        !fromJson(needs.setup_dep_tests.outputs.fail-fast) &&
        !contains(fromJson('["skipped", "cancelled"]'), needs.tests.result))) &&

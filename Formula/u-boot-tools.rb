@@ -1,8 +1,8 @@
 class UBootTools < Formula
   desc "Universal boot loader"
   homepage "https://www.denx.de/wiki/U-Boot/"
-  url "https://ftp.denx.de/pub/u-boot/u-boot-2023.04.tar.bz2"
-  sha256 "e31cac91545ff41b71cec5d8c22afd695645cd6e2a442ccdacacd60534069341"
+  url "https://ftp.denx.de/pub/u-boot/u-boot-2023.07.02.tar.bz2"
+  sha256 "6b6a48581c14abb0f95bd87c1af4d740922406d7b801002a9f94727fdde021d5"
   license all_of: ["GPL-2.0-only", "GPL-2.0-or-later", "BSD-3-Clause"]
 
   livecheck do
@@ -11,13 +11,13 @@ class UBootTools < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "bfa7a6a9ac4ec14b977a21a3d32035708d617074e3bd878cfb284588e5e603a8"
-    sha256 cellar: :any,                 arm64_monterey: "9f0b461518c2c73118c1bc84bf6e4aed03c7c9498578805076586535573ca422"
-    sha256 cellar: :any,                 arm64_big_sur:  "433087d71ad0e17f7f8866b3e377f84b6464c2b1003c7300615dcca673c04d59"
-    sha256 cellar: :any,                 ventura:        "1f99864ae4bab7a1223499b23c91badd0ceefb3e65498259b0ab1bbf8685897b"
-    sha256 cellar: :any,                 monterey:       "d9441454506ac196e7ca0b86867cdd2b28e64efc845f37674448382d01548dba"
-    sha256 cellar: :any,                 big_sur:        "e41ab1d01c6417bf0a44c539730ce22ee3aeb3488d4b61bc8341de079cbd2839"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b5cb01790674bf26ec170cba5bd7446334e24776a26d538ef21adf4eff5bace0"
+    sha256 cellar: :any,                 arm64_ventura:  "c095e9d8fe0182d7b2b716fd3993f8863c470d8976444239a844da7a29dcfb2b"
+    sha256 cellar: :any,                 arm64_monterey: "77931ba3583520b3a00f6fee3fa5b231e810006e91ae175f246c51cbe79b3fd4"
+    sha256 cellar: :any,                 arm64_big_sur:  "3c47a8fe64d6a1ce648a5ab17df2b1148a1102c11216eae49f625a9ce9c2f33e"
+    sha256 cellar: :any,                 ventura:        "bfd54176e94ffd2ad380ab7cbd25e091afe9338b17343881cd957f5f6c30d5ed"
+    sha256 cellar: :any,                 monterey:       "4038918e0502cf293b33665cf2f987f5090b24421a7203bd30e65d0641c85cc4"
+    sha256 cellar: :any,                 big_sur:        "1bb8af4d4f9933e3187b00fb20adca84e558ed1ea8c26279177f5ba45330e032"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cc7dade81bd1decd1441fb81233410e1949da76c76ecc4eb6a1f5d6b41e463ad"
   end
 
   depends_on "coreutils" => :build # Makefile needs $(gdate)

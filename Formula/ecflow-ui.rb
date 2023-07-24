@@ -1,8 +1,8 @@
 class EcflowUi < Formula
   desc "User interface for client/server workflow package"
   homepage "https://confluence.ecmwf.int/display/ECFLOW"
-  url "https://confluence.ecmwf.int/download/attachments/8650755/ecFlow-5.11.0-Source.tar.gz"
-  sha256 "d18acd93d42f8ccdff9fc3f07d5a9667ff4861e53c40af35de36ce77ab100bb8"
+  url "https://confluence.ecmwf.int/download/attachments/8650755/ecFlow-5.11.3-Source.tar.gz"
+  sha256 "66f4959e88b94dfecb7901a9370916bb57fa8b2cdaa2889099a907a706b655ec"
   license "Apache-2.0"
 
   livecheck do
@@ -11,22 +11,29 @@ class EcflowUi < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "7b5f30648b60fa21563dbaa926867f4fa560bf2f965b24099b3543365104083a"
-    sha256                               arm64_monterey: "2878586322e881e8231286e1443d3948a0a2eda8ca8215101605e4fe943b0a61"
-    sha256                               arm64_big_sur:  "8de3b610be831d5868d8d68bfaddfbac93e6e8543daba5f9e82ca0787c95bcd2"
-    sha256                               ventura:        "33c59699c83697615518a178e7f886957bde19a96515dc17588ca72391a5d9d9"
-    sha256                               monterey:       "8ec4de95774eda12d4123092a6139fbdbe2e955ceb42de73a0773706ab265a6c"
-    sha256                               big_sur:        "7ba839b29c0ae547962020e828b67a3cbb930f6fc2b5e521c95e590a78e90299"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "85438e5ee6b2223102af6db37d08b1a21f00496345bb9894e9d43da068c85c31"
+    sha256                               arm64_ventura:  "47fdb3e2ea890d16dc84008f169461e25bab2067ddc59751db04191dc98bcfb1"
+    sha256                               arm64_monterey: "3cf0b39c84a2e81a6f4b0cb940e0b6021cd4a519b3780c1b39772ca3f8305cc1"
+    sha256                               arm64_big_sur:  "bfff4f201ed80d7ea06a59659e3129ee913b37c26d52f97d1c802ba12c364def"
+    sha256                               ventura:        "7eccdbe7ae6a4d63554297a2eecb441be77bc16753a4a39d2e518a9a03c5feed"
+    sha256                               monterey:       "1dc5e6bc1ba0752ac47fca7eaf3bb9e2cc3dbba7c1b3e55a748dfb9f9a904bc1"
+    sha256                               big_sur:        "7e07b9f55a5ca7bdc7bd997d5bbc7e0a8406c04874af4b0c7786f50df4acf3ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8641681fdeb893419c7cc01315995c515720757588a288d10a2150f43eda1ea8"
   end
 
   depends_on "boost" => :build
   depends_on "cmake" => :build
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "qt"
 
   # requires C++17 compiler to build with Qt
   fails_with gcc: "5"
+
+  # Fixes a typo in upstream's code. Remove once merged and released.
+  # PR ref: https://github.com/ecmwf/ecflow/pull/35
+  patch do
+    url "https://github.com/ecmwf/ecflow/commit/5bf5f8490f3ba0a39c9119ba03f8a9b349f6c3ec.patch?full_index=1"
+    sha256 "747e7d8bfb84e3e60c7775a58607bdbf666d83b9c3cc544dc79bbf9ff3e2922b"
+  end
 
   def install
     mkdir "build" do
@@ -54,6 +61,6 @@ class EcflowUi < Formula
     help_out = shell_output("#{bin}/ecflow_ui -h")
     assert_match "ecFlowUI", help_out
     assert_match "fontsize", help_out
-    assert_match "start with the specified configuraton directory", help_out
+    assert_match "start with the specified configuration directory", help_out
   end
 end

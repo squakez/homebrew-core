@@ -1,8 +1,8 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v20.3.0/node-v20.3.0.tar.xz"
-  sha256 "1ba8d49423ed3a75729066bb3ea26493ee9cb7d6568ef948597fc9ef454f7435"
+  url "https://nodejs.org/dist/v20.5.0/node-v20.5.0.tar.xz"
+  sha256 "cb32756958def1c04e069a79b71b52ca61ed1590c17f2cfa1ee3af641f72e058"
   license "MIT"
   head "https://github.com/nodejs/node.git", branch: "main"
 
@@ -12,13 +12,13 @@ class Node < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "4b1e5c6f0d8cbaff43da81f1a37c2b4c0111950bd89a084f92bdc7c739df356f"
-    sha256 arm64_monterey: "6721a3c7a84e263a60a91d3c4022d81838b3decfcc53e569c937a4aac2fc78a8"
-    sha256 arm64_big_sur:  "348cbe40063da1f7d375943b10ca654965361d49c2113b13494dc5c8f0e69fff"
-    sha256 ventura:        "ce111aa997ff6f5f2d453aceaf521fca128e9db8e3b02e8150098070d90d05d5"
-    sha256 monterey:       "85a58cb2aedfff8f9777ee425331c4e750c944df2d2c8ae13b253f5603f87b02"
-    sha256 big_sur:        "75497e68032f4cef999fb967638853f46100bd9550ebc11664f1e7efdac87569"
-    sha256 x86_64_linux:   "471da81e6948370c4d9fd341f48d9bcf51003eb1777062ffb7d993619e0d9fd7"
+    sha256 arm64_ventura:  "98f5724565b4130f4b65f267d071520aa33561e5d0eb6eea67bcc9a07f97856d"
+    sha256 arm64_monterey: "2f56398984ddb79b95377822022e669c7361b15573ad7ce969102e9684fbb9bd"
+    sha256 arm64_big_sur:  "d42583f3c85ffb2cacbd560fe857727a53246f61739b70351a3926bec5437ba5"
+    sha256 ventura:        "a3786bd88716354f420f89f3029b251ccda92300c92c139f0241aaa28f48970d"
+    sha256 monterey:       "963214a08c6f0a0e5e5522c614ce4def2a95cae6c0bd7de7499e17bec775f6fd"
+    sha256 big_sur:        "c39ce6f15e206682f55faa309091b8ec8941f61a25f5e8de9e5e8fc996f67ce6"
+    sha256 x86_64_linux:   "78bdbf74784d63f42942418ecfbe37b9273c08d84b0673b3ed6b969d76254736"
   end
 
   depends_on "pkg-config" => :build
@@ -28,7 +28,7 @@ class Node < Formula
   depends_on "icu4c"
   depends_on "libnghttp2"
   depends_on "libuv"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   uses_from_macos "python", since: :catalina
   uses_from_macos "zlib"
@@ -49,8 +49,8 @@ class Node < Formula
   # We track major/minor from upstream Node releases.
   # We will accept *important* npm patch releases when necessary.
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-9.6.7.tgz"
-    sha256 "31ac7ecb6c01a6997f52930df2d4100b2a609c918c1454a09129601ef1390cbf"
+    url "https://registry.npmjs.org/npm/-/npm-9.8.0.tgz"
+    sha256 "da8e338ed36797be4008091c092efb0ca62f6106102b4a34e9670a68d1ef2bf8"
   end
 
   def install
@@ -76,8 +76,8 @@ class Node < Formula
       --shared-libuv-libpath=#{Formula["libuv"].lib}
       --shared-nghttp2-includes=#{Formula["libnghttp2"].include}
       --shared-nghttp2-libpath=#{Formula["libnghttp2"].lib}
-      --shared-openssl-includes=#{Formula["openssl@1.1"].include}
-      --shared-openssl-libpath=#{Formula["openssl@1.1"].lib}
+      --shared-openssl-includes=#{Formula["openssl@3"].include}
+      --shared-openssl-libpath=#{Formula["openssl@3"].lib}
       --shared-brotli-includes=#{Formula["brotli"].include}
       --shared-brotli-libpath=#{Formula["brotli"].lib}
       --shared-cares-includes=#{Formula["c-ares"].include}

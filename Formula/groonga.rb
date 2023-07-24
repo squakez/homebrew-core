@@ -1,8 +1,8 @@
 class Groonga < Formula
   desc "Fulltext search engine and column store"
   homepage "https://groonga.org/"
-  url "https://packages.groonga.org/source/groonga/groonga-13.0.1.tar.gz"
-  sha256 "1c2d1a6981c1ad3f02a11aff202b15ba30cb1c6147f1fa9195b519a2b728f8ba"
+  url "https://github.com/groonga/groonga/releases/download/v13.0.2/groonga-13.0.2.tar.gz"
+  sha256 "0eb2e0ac65fa426663f61a7fc4621e99290b869119113682f9c005d0f3308d38"
   license "LGPL-2.1-or-later"
 
   livecheck do
@@ -11,13 +11,13 @@ class Groonga < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "2d2e2ced3d7bfb99541d05ddba5c935a08af3d332195235b95bb5d91c5f3e2da"
-    sha256 arm64_monterey: "985c4d3038c932727374d52e6ac7878c665776717c296bb418a1f3fa97b2d21a"
-    sha256 arm64_big_sur:  "2129eb13dc82d031f0e24d49729f005f6b47817748adab6b4af46e956c6505c5"
-    sha256 ventura:        "1781fbd25a952c6c202256ea13a8cfa99188c6da80f2d4adca42276dee0f5241"
-    sha256 monterey:       "3bd06f323501689aab8b8e0f8dde30c25a44ab5df1bda007ed2879ab0c8b7c77"
-    sha256 big_sur:        "0d77bc5e64d0a1ea5fc5a3a7e70a23d0755d4b5bca00aa3d75dd706d752a714a"
-    sha256 x86_64_linux:   "40f50140e933bdd52467891ec1ffc59e4dfb70f979f36bcb620d0cbe3275a1ac"
+    sha256 arm64_ventura:  "6ffa2aea1f07bce991f57bb19eb09d1563a0b64049b7bd3cf2ed6509fe6d1091"
+    sha256 arm64_monterey: "09ea44cde07818f1991820caecb7935b8b1a73f20813d5b7c3def02c4193251e"
+    sha256 arm64_big_sur:  "1feed3c51b3ba4d050313d90dee311dc038e2d4083f6098926d86d058fc9a392"
+    sha256 ventura:        "373653adb2f31a2b6203a1791acc3be26f9a46e2120500ee33c67aabb7720ac6"
+    sha256 monterey:       "ef4b8263cd722790aa943ec38d54d9ecf89d8c7f0fe88733eae815717dfa5b4f"
+    sha256 big_sur:        "77d4e0daee02c72ab6aef71391f68ab2aaa94c48e66b49ca62c08820a1469791"
+    sha256 x86_64_linux:   "88315ecc950af349bdf505d6370425d122c51e51d5e9233931a78fc934ff8e50"
   end
 
   head do
@@ -31,7 +31,7 @@ class Groonga < Formula
   depends_on "mecab"
   depends_on "mecab-ipadic"
   depends_on "msgpack"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "pcre"
 
   uses_from_macos "libxcrypt"

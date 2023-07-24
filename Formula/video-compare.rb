@@ -1,19 +1,18 @@
 class VideoCompare < Formula
   desc "Split screen video comparison tool using FFmpeg and SDL2"
   homepage "https://github.com/pixop/video-compare"
-  url "https://github.com/pixop/video-compare/archive/refs/tags/20230311.tar.gz"
-  sha256 "83f5bb685e511f8faa9eb482f5f3a724a612d2012eaa58e780d454d58df75f39"
+  url "https://github.com/pixop/video-compare/archive/refs/tags/20230723.tar.gz"
+  sha256 "c0962a9c0aae852bd664af28e66256fbe9c9280a8c37c37b144362f0156d33bf"
   license "GPL-2.0-only"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "66d9d2a8ff4324ff0c9ac32954b64f3649bfc5238ba76765b65cdfb2aa28da66"
-    sha256 cellar: :any,                 arm64_monterey: "29629c968d82cbcee9064c90fbe6e17adf81fe16dce39dc98a24bde41ead2361"
-    sha256 cellar: :any,                 arm64_big_sur:  "966532b582c48f3a330ffeef727c0b80b296acc5567461a96b7be5f09d579c82"
-    sha256 cellar: :any,                 ventura:        "c89baa9423d869fe47127add90e16bb4ece8bba611a6358d6b3b80ac1e5a7842"
-    sha256 cellar: :any,                 monterey:       "682172978b65374db480c07453a51702d8e4f66fa871a9c07ee10ee880681474"
-    sha256 cellar: :any,                 big_sur:        "3835f77ce21116b5e9fc8f61a99a256253fc1601124ea83b1bc0fe58974e5ba6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6f13bb83562dc0625c8629ec263d7e9f1c0e27476ff7432365515dbe36c89ceb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "befdf40dfeb543bc8374e3c945a5ca0d9919e558e94044ed34081826895c759f"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "de14c1b8eba3dda9a300851d59880d422e9a4b35857265c387601e0eb61a977a"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f0571d992e2cae8f9f09058f194081d6a16a9fe3f2e7f168e4a66afacaac0b1d"
+    sha256 cellar: :any_skip_relocation, ventura:        "86b68bdc21fa2c515d1eb2d15892c653d231b3877a61791575ed52a4fbeadd50"
+    sha256 cellar: :any_skip_relocation, monterey:       "f0ab7cc3c5ccc190e003ed9aadf84eeb71e03debb374afc112c97327366fadc3"
+    sha256 cellar: :any_skip_relocation, big_sur:        "6544b72678bd53ab3ba6261d4fadbf0554db760c29b8ccaacbd0cb82756576a2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "856794c28b2c24133ace6362a3079698f00bf8f3484e7bbdb5ae50ccd9bf236e"
   end
 
   depends_on "ffmpeg"

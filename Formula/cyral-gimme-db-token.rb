@@ -8,26 +8,26 @@ class CyralGimmeDbToken < Formula
   license "Apache-2.0"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "2268cda3ce2d85381422e896cbd1bb8f958417f9f423edeecc58e4380f67e938"
-    sha256 cellar: :any,                 arm64_monterey: "7cccb8bfb9478b8a8b71c6d885d673ae99c21f3bd7df72ea7091c0ae2c382bcc"
-    sha256 cellar: :any,                 arm64_big_sur:  "50d0233e2e0d605846e89b0a5d193322a4866cd2a9a34c4d80642556c97a800b"
-    sha256 cellar: :any,                 ventura:        "a09c36517d1c5d38e8708cb80f5eaa5a0a1fa2d45c8297306aadc594209c121b"
-    sha256 cellar: :any,                 monterey:       "df58ea91e0c19e119093b80320f16d7318fc50dda0381815efba369dca7ac602"
-    sha256 cellar: :any,                 big_sur:        "0ff15496c53fbb9337011ec4763361cfe247b180ab1c195e4be70deb1d66e0a4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "93e773ff0421286f290c9e4565aaafbabbe444b0eaa47da87c509c40d6897ab5"
+    rebuild 4
+    sha256 cellar: :any,                 arm64_ventura:  "2958881d0eae2fe341c88891bc48f6c0432cc9682ec9a6683f5771c38955edc8"
+    sha256 cellar: :any,                 arm64_monterey: "dd1c0aa5f748ac3126e3842452afd09242d290cdef2fb676777ddb50215238d7"
+    sha256 cellar: :any,                 arm64_big_sur:  "8ed7d78fdf9716a4295090877c1c46b5c861abe88bf78c227931807a0977475e"
+    sha256 cellar: :any,                 ventura:        "8093cd3f3cfae059d378bc2a7e5b3ae38875681ae2fb7d4137fabb0416a26b29"
+    sha256 cellar: :any,                 monterey:       "dde88f83ac9bd3e705e73d09ad0d6fa38076ed6c4947648d95ce1cb9baec95f0"
+    sha256 cellar: :any,                 big_sur:        "7c64dfeec5ba53b6517af3e5f4d03e7fe138a5938444343e78c8a9134859e949"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6471fb08275ca1248df3f7694b580ad0e3d431e97dd97f558e11cdb95f58163d"
   end
 
-  depends_on "rust" => :build # for cryptography
-  depends_on "openssl@1.1"
+  # `pkg-config`, `rust`, and `openssl@3` are for cryptography.
+  depends_on "pkg-config" => :build
+  depends_on "rust" => :build
+  depends_on "cffi"
+  depends_on "openssl@3"
   depends_on "python@3.11"
+  depends_on "pyyaml"
   depends_on "six"
 
   uses_from_macos "libffi"
-
-  on_linux do
-    depends_on "pkg-config" => :build
-  end
 
   resource "awscli" do
     url "https://files.pythonhosted.org/packages/88/30/340f473dbdc4ce5e347eb5c5c5c4864cc7a9b14cfa69bafbaebf3917f6cd/awscli-1.27.138.tar.gz"
@@ -42,11 +42,6 @@ class CyralGimmeDbToken < Formula
   resource "certifi" do
     url "https://files.pythonhosted.org/packages/93/71/752f7a4dd4c20d6b12341ed1732368546bc0ca9866139fe812f6009d9ac7/certifi-2023.5.7.tar.gz"
     sha256 "0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"
-  end
-
-  resource "cffi" do
-    url "https://files.pythonhosted.org/packages/2b/a8/050ab4f0c3d4c1b8aaa805f70e26e84d0e27004907c5b8ecc1d31815f92a/cffi-1.15.1.tar.gz"
-    sha256 "d400bfb9a37b1351253cb402671cea7e89bdecc294e8016a707f6d1d8ac934f9"
   end
 
   resource "charset-normalizer" do
@@ -89,19 +84,9 @@ class CyralGimmeDbToken < Formula
     sha256 "97b7290ca68e62a832558ec3976f15cbf911bf5d7c7039d8b861c2a0ece69fde"
   end
 
-  resource "pycparser" do
-    url "https://files.pythonhosted.org/packages/5e/0b/95d387f5f4433cb0f53ff7ad859bd2c6051051cebbb564f139a999ab46de/pycparser-2.21.tar.gz"
-    sha256 "e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"
-  end
-
   resource "python-dateutil" do
     url "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz"
     sha256 "0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"
-  end
-
-  resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/a0/a4/d63f2d7597e1a4b55aa3b4d6c5b029991d3b824b5bd331af8d4ab1ed687d/PyYAML-5.4.1.tar.gz"
-    sha256 "607774cbba28732bfa802b54baa7484215f530991055bb562efbed5b2f20a45e"
   end
 
   resource "requests" do
@@ -128,6 +113,10 @@ class CyralGimmeDbToken < Formula
   patch :DATA
 
   def install
+    # Ensure that the `openssl` crate picks up the intended library.
+    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
+    ENV["OPENSSL_NO_VENDOR"] = "1"
+
     virtualenv_install_with_resources
   end
 

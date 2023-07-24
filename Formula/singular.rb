@@ -1,9 +1,9 @@
 class Singular < Formula
   desc "Computer algebra system for polynomial computations"
   homepage "https://www.singular.uni-kl.de/"
-  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-2/singular-4.3.2p2.tar.gz"
-  version "4.3.2p2"
-  sha256 "660ae93ace79db4209203770d93baf16b5b741dc26b6bae06c9b2c98ad188df1"
+  url "https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/4-3-2/singular-4.3.2p4.tar.gz"
+  version "4.3.2p4"
+  sha256 "22f263665e7e6def39f48fd2695f613a377281af39350414f461ba7f3bd07149"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -36,13 +36,13 @@ class Singular < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "cd3ca39feba69347558a0e08ed5025b13f8fc61bd7c4ae8b2099e555db63a3b0"
-    sha256 arm64_monterey: "e15effe8146eed0ffa64e4a963308eb9a3729331a5df792c5fcee28f28bee4f6"
-    sha256 arm64_big_sur:  "2c48ef40c8329e92af3501db0cdb60c5026d379f885c46d270a89361f40c73b2"
-    sha256 ventura:        "3cdb409f43fed4a8096fc625d91b3943a7ee531ed6808b73d1baa627187c8079"
-    sha256 monterey:       "67a42a53f17d3e35af8530f7f4616ffd7a44629e51776db583a54463a81f72be"
-    sha256 big_sur:        "b3c72f44be646fd295d1edc466c52a2f8f3800eca7cbe7d1286b6b1c5c8cab41"
-    sha256 x86_64_linux:   "f20281d5b6fd85c880df5b21953a822307945e856c4f34e453d7a39d82a327c0"
+    sha256 arm64_ventura:  "c368b9af9eff41fb0fb9fbaedd94928dd94577a68f44d29b33736d026dedde07"
+    sha256 arm64_monterey: "a17bd0521171d71f41778d0f40a2d856a8a2be5f1803ec8427d69b8b8f1a8bbb"
+    sha256 arm64_big_sur:  "bebefcd3cedc588bbf49b0331ffa258f76f3a086b747ac8a37aeefe23cea6579"
+    sha256 ventura:        "2db420d3b13cca63246b9f0cc7c19cc2dea9b5bb88ddcd164a0ee5ab88fdd224"
+    sha256 monterey:       "8ce57a093dfe5ece45cd44383e1203805089277d39dd04277c1f7c322061cc6d"
+    sha256 big_sur:        "e8cbd14ce43876fd5720f6d8306d3a1f5c66497af4a437fcd8d3a18607c7b62f"
+    sha256 x86_64_linux:   "23bbcc5e0f26babfafa5b35a78146fbd370c80a39e7c697f795cb35d0a63b873"
   end
 
   head do

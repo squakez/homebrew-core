@@ -4,8 +4,8 @@ class Crystal < Formula
   license "Apache-2.0"
 
   stable do
-    url "https://github.com/crystal-lang/crystal/archive/1.8.2.tar.gz"
-    sha256 "6e722e3239a8c467ba42a8838916788a4795b0ceaa2d1e2e98616cedeb540605"
+    url "https://github.com/crystal-lang/crystal/archive/1.9.2.tar.gz"
+    sha256 "1e2e6974b0e2e152e5fae5388415ddb7e192378c8ac215c6f386fdaf9018e54f"
 
     resource "shards" do
       url "https://github.com/crystal-lang/shards/archive/v0.17.3.tar.gz"
@@ -19,13 +19,13 @@ class Crystal < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "9b83c80d42b7789c41634f1a00e20a94b52fa4b6e86be019f214c7c99bc0b762"
-    sha256 cellar: :any,                 arm64_monterey: "bfe91396dfd6086a8a0cd5a7ff7e1c922a4529e1c0fadae67590512d59116120"
-    sha256 cellar: :any,                 arm64_big_sur:  "e5bec0f64c1c1eb36181e2d7365c014b7b794c248b44fc96087826cff9d18fa2"
-    sha256 cellar: :any,                 ventura:        "15da473e934df82108b09c72aee50905f02dc0193e35242c979139546b0543a7"
-    sha256 cellar: :any,                 monterey:       "6a2baeceb945e4fab33e070eeca664cdedf84b658f47c12e31f1f9cab111b9cd"
-    sha256 cellar: :any,                 big_sur:        "ac5e3ff3f57be69e7276f43e286ab6078a8a752f17f5e2720442721e4c6b77cb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "da70498df58ad5359ca6a81a404280f00a25170eb5480f61d689358561affc9d"
+    sha256 cellar: :any,                 arm64_ventura:  "156855aa0ce541f7584260e825b6791cbbb9a0913387fedfb33143264cd11f0e"
+    sha256 cellar: :any,                 arm64_monterey: "eccb5afb94e932118f2df6e1861eb3699ed26deb26341a553e8fa1e7a139f216"
+    sha256 cellar: :any,                 arm64_big_sur:  "7aaacf0111893bf530616a59f0358e841497a634b4933c25254c19c7a7a1dbf8"
+    sha256 cellar: :any,                 ventura:        "b72bb735ec6921ed5d759ea294d85edc038b54517e00316abf1802dc48a9722b"
+    sha256 cellar: :any,                 monterey:       "80c744b1531429a7ffa25053ef81878ca5a3ee1b87c281425d296b7d3cc25314"
+    sha256 cellar: :any,                 big_sur:        "d3799d1bd94c5fd179fec343cd741417ce571fedbf234f8a6e0f73b00b4d30a9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "736e33578f81c11ed4f4162d1e3f395ae7878950b47557af39b61350e1f64f8b"
   end
 
   head do
@@ -43,7 +43,7 @@ class Crystal < Formula
   depends_on "libevent"
   depends_on "libyaml"
   depends_on "llvm@15"
-  depends_on "openssl@1.1" # std uses it but it's not linked
+  depends_on "openssl@3" # std uses it but it's not linked
   depends_on "pcre2"
   depends_on "pkg-config" # @[Link] will use pkg-config if available
 
@@ -51,7 +51,7 @@ class Crystal < Formula
 
   # It used to be the case that every new crystal release was built from a
   # previous release, except patches. Crystal is updating its policy to
-  # allow 4 minor releases of compatibility unless otherwise explicited.
+  # allow 4 minor releases of compatibility unless otherwise specified.
   # Therefore, the boot version should have the MINOR component be
   # between the current minor - 4 and current minor - 1.
   #
@@ -100,7 +100,7 @@ class Crystal < Formula
       ENV.prepend_path "CRYSTAL_LIBRARY_PATH", dep.opt_lib
     end
 
-    crystal_install_dir = libexec
+    crystal_install_dir = bin
     stdlib_install_dir = pkgshare
 
     # Avoid embedding HOMEBREW_PREFIX references in `crystal` binary.
@@ -147,9 +147,6 @@ class Crystal < Formula
     # Install crystal
     crystal_install_dir.install ".build/crystal"
     stdlib_install_dir.install "src"
-
-    pkg_config_path = "${PKG_CONFIG_PATH:+${PKG_CONFIG_PATH}:}#{Formula["openssl@1.1"].opt_lib}/pkgconfig"
-    (bin/"crystal").write_env_script crystal_install_dir/"crystal", PKG_CONFIG_PATH: pkg_config_path
 
     bash_completion.install "etc/completion.bash" => "crystal"
     zsh_completion.install "etc/completion.zsh" => "_crystal"

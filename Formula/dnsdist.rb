@@ -4,6 +4,7 @@ class Dnsdist < Formula
   url "https://downloads.powerdns.com/releases/dnsdist-1.8.0.tar.bz2"
   sha256 "1c0d375c25453d349b88e03ff589aa2603ca8692fc98364c068ead372804704f"
   license "GPL-2.0-only"
+  revision 2
 
   livecheck do
     url "https://downloads.powerdns.com/releases/"
@@ -11,13 +12,13 @@ class Dnsdist < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "da5534e94d3cfe5b8a277e4231efbf7933322594d9c28adb207aeb1bef3b6272"
-    sha256 cellar: :any,                 arm64_monterey: "fba41b16ddb6b29dd48a7186bccf4d483a2de52789c61570cb85a38eaaf0a089"
-    sha256 cellar: :any,                 arm64_big_sur:  "4b95617efafc5c0f88ef090fbabb122f241df603285a6659ef28ff2996beef2e"
-    sha256 cellar: :any,                 ventura:        "10620accac10c0de624d7030a4ec395b68c65401acc799412d49d09ea1e39ee7"
-    sha256 cellar: :any,                 monterey:       "f73e5fbc6d042dd180f260aaef1a4b8bd35d40c2748b0fa0caec1ce95fb300eb"
-    sha256 cellar: :any,                 big_sur:        "f704b4dec54e6eb977662f2ffc52943a0a6b21cb3376670c0c0603d62804ce57"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dba0f67c075aae24bc68364769a4f2b434c3fc75f4b467f3b8c1d4ed67eb79f1"
+    sha256 cellar: :any,                 arm64_ventura:  "bcdcbf3481715212f7e08ecd4ba643b6b49ef0f284155b15101a4deb46ef572b"
+    sha256 cellar: :any,                 arm64_monterey: "d1523bc0741fec73483d5d97d646b494725b06a9df3cb210ea670850368aa6e7"
+    sha256 cellar: :any,                 arm64_big_sur:  "68b519a35fe9f68622db48dcf068c97c65c7fbcb47f2290a34728b00f6e34891"
+    sha256 cellar: :any,                 ventura:        "383c9920efbc55782f3e579544b1c31758513f4a07d8e0911e259992cd19aa30"
+    sha256 cellar: :any,                 monterey:       "6c1cd8b38d8a79261a47be1567f9b8133bfd806169c7701374352382e8fe3d90"
+    sha256 cellar: :any,                 big_sur:        "f0e75d49e95e926f612fe49d72c93e5709cb6916aac804e70357c8ef8ac80512"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5de363e7cd6bc0475a64909ed04ea72e7cb0a0cba89c615dde510dc0b24215dc"
   end
 
   depends_on "boost" => :build
@@ -27,7 +28,7 @@ class Dnsdist < Formula
   depends_on "h2o"
   depends_on "libsodium"
   depends_on "luajit"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "protobuf"
   depends_on "re2"
 

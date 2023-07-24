@@ -1,10 +1,10 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p1.tar.gz"
-  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p1.tar.gz"
-  version "9.3p1"
-  sha256 "e9baba7701a76a51f3d85a62c383a3c9dcd97fa900b859bc7db114c1868af8a8"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p2.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.3p2.tar.gz"
+  version "9.3p2"
+  sha256 "200ebe147f6cb3f101fd0cdf9e02442af7ddca298dffd9f456878e7ccac676e8"
   license "SSH-OpenSSH"
 
   livecheck do
@@ -13,13 +13,13 @@ class Openssh < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "7d04616551aa0bd4fea5cabbb2c552bf4028e8fb46182ffc1cdc41a72095165d"
-    sha256 arm64_monterey: "5c12ec44957d76ac42fa5208c068b47d3a1e23665a45024abab46baa4001b34f"
-    sha256 arm64_big_sur:  "e5cc1985fbfe5791c89c8466df90e86f12ab790fac38634d2b06b9528d58c7ba"
-    sha256 ventura:        "37624f12f9d84b50743616c94a84af2cb43700db7237cd836fa2f19cd2ee1789"
-    sha256 monterey:       "ca20a41ded82acdd4fdea2b07ad8331c2609a0e2fb19f5d1694060d9a564268c"
-    sha256 big_sur:        "3f05ee8fe3dfd0b9eb6e652776517c8c69ff9ee8b2a640f932b28f2954b70d61"
-    sha256 x86_64_linux:   "e1c6ca49d87078c8c57899dc434601806dd81c0a40aaf2ad8b56a2dbc5a56d19"
+    sha256 arm64_ventura:  "3c84e969dc1fdff8fc0a8b2b0e04784674582dbd369955a152fd3096399455f3"
+    sha256 arm64_monterey: "4ca1e11f3a45296734f5a380e61c7ecba635f2d011d3cb2e3b8e399dd588fddf"
+    sha256 arm64_big_sur:  "33ed419e6a8b861c03d54cc5b99eb4d85199ed26803299ba27de79f206ae6093"
+    sha256 ventura:        "1c130123be768e8f4fd6131062853df18901c0653e84aa28c537e1527a1d7690"
+    sha256 monterey:       "feadb5a989a05f330bcd0c98b447d23137934bdb8733928a424e4094b5723c4d"
+    sha256 big_sur:        "c8b876a2d2c777fbea09a466ef04619d97d6cd0a6370233e9e9a9e8492a0520a"
+    sha256 x86_64_linux:   "77f3fd5fee0a6a267bdbbc379489fab099d2ce376506dc54dbcaecfd5128cae5"
   end
 
   # Please don't resubmit the keychain patch option. It will never be accepted.
@@ -28,7 +28,7 @@ class Openssh < Formula
   depends_on "pkg-config" => :build
   depends_on "ldns"
   depends_on "libfido2"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   uses_from_macos "lsof" => :test
   uses_from_macos "krb5"
@@ -67,6 +67,13 @@ class Openssh < Formula
       # Ensure sandbox profile prefix is correct.
       # We introduce this issue with patching, it's not an upstream bug.
       inreplace "sandbox-darwin.c", "@PREFIX@/share/openssh", etc/"ssh"
+
+      # FIXME: `ssh-keygen` errors out when this is built with optimisation.
+      # Reported upstream at https://bugzilla.mindrot.org/show_bug.cgi?id=3584
+      # Also can segfault at runtime: https://github.com/Homebrew/homebrew-core/issues/135200
+      if Hardware::CPU.intel? && DevelopmentTools.clang_build_version == 1403
+        inreplace "configure", "-fzero-call-used-regs=all", "-fzero-call-used-regs=used"
+      end
     end
 
     args = *std_configure_args + %W[
@@ -75,7 +82,7 @@ class Openssh < Formula
       --with-libedit
       --with-kerberos5
       --with-pam
-      --with-ssl-dir=#{Formula["openssl@1.1"].opt_prefix}
+      --with-ssl-dir=#{Formula["openssl@3"].opt_prefix}
       --with-security-key-builtin
     ]
 

@@ -1,9 +1,9 @@
 class Xrootd < Formula
   desc "High performance, scalable, fault-tolerant access to data"
   homepage "https://xrootd.slac.stanford.edu/"
-  url "https://github.com/xrootd/xrootd/releases/download/v5.5.5/xrootd-5.5.5.tar.gz"
-  mirror "https://xrootd.slac.stanford.edu/download/v5.5.5/xrootd-5.5.5.tar.gz"
-  sha256 "0710caae527082e73d3bf8f9d1dffe95808afd3fcaaaa15ab0b937b8b226bc1f"
+  url "https://github.com/xrootd/xrootd/releases/download/v5.6.0/xrootd-5.6.0.tar.gz"
+  mirror "https://xrootd.slac.stanford.edu/download/v5.6.0/xrootd-5.6.0.tar.gz"
+  sha256 "cda0d32d29f94220be9b6627a80386eb33fac2dcc25c8104569eaa4ea3563009"
   license "LGPL-3.0-or-later"
   head "https://github.com/xrootd/xrootd.git", branch: "master"
 
@@ -13,31 +13,28 @@ class Xrootd < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "b436260226bdbb4140cfc93cae47e8e02b84c5b03afddd2ff87c3cf400d77c41"
-    sha256 cellar: :any,                 arm64_monterey: "e8f41f836d0cc5845b1ade82d8cdf49ba7280ae5bbcc12a0ed1355a27e4d3859"
-    sha256 cellar: :any,                 arm64_big_sur:  "ef970b0a7d0c77fbbfa7645194ff634f6d8805ce17e47e8e3148b39dec21f7fb"
-    sha256 cellar: :any,                 ventura:        "067a3414604a7da0656246dc2ea0506f8e7af0c0189acede66f9c9238f4dce01"
-    sha256 cellar: :any,                 monterey:       "0628e8e25569054c78eb4f4c52401a6fd543f49019b4744f0a985c22dc86be57"
-    sha256 cellar: :any,                 big_sur:        "78f08a3d8bab5f1a49cb9e23109ccea694fe50739da2e88d143912fbd53123af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "39fe3dcb4c78e0c1ac418f9955f0cfe35c5d7c7fd33ee0d9a584e5a50e809f42"
+    sha256 cellar: :any,                 arm64_ventura:  "c94214d8c0b9db2204b09d52ea4118cb8120989b1baa5b1624b62855b290888e"
+    sha256 cellar: :any,                 arm64_monterey: "4bb86063c48de34a337f769493f63480854062ac1e9b66e23be5c206594d362b"
+    sha256 cellar: :any,                 arm64_big_sur:  "7cc6b588f5f65b125bf0a16d9b35b63ddcc817f7f82dc863882cc50eb3557763"
+    sha256 cellar: :any,                 ventura:        "8185fd285c255d97efea5e3672a3d50b3b8bae7636d0543c00d12736c8d5416c"
+    sha256 cellar: :any,                 monterey:       "0af97e501a6905a02d43e4e56189a478efa61617dabd63714d3dad4cdfcc2faf"
+    sha256 cellar: :any,                 big_sur:        "868636eb73b8cc6ecd8d72e7ec024b0f1c88ba3ad08d7b4fe6d743f6ae228477"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "438eb3025a56fb23c62911fb8695bf1e6f8a471bc2b8bddf8536c4e8e10c1e3f"
   end
 
   depends_on "cmake" => :build
   depends_on "libcython" => :build
+  depends_on "pkg-config" => :build
   depends_on "python@3.11" => [:build, :test]
   depends_on "davix"
   depends_on "krb5"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "readline"
+  depends_on "util-linux" # for libuuid
 
   uses_from_macos "libxcrypt"
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
-
-  on_linux do
-    depends_on "pkg-config" => :build
-    depends_on "util-linux"
-  end
 
   def install
     args = std_cmake_args + %W[

@@ -3,37 +3,33 @@ class Awscli < Formula
 
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://github.com/aws/aws-cli/archive/2.11.27.tar.gz"
-  sha256 "e41eb6fa080417ecbde0bc3e79f720be7a0feda0863296f762a2187008032307"
+  url "https://github.com/aws/aws-cli/archive/2.13.3.tar.gz"
+  sha256 "c3940fdf8d4ca20aa8b1736e075dd68cef2c2581f6dbac93d1c41d149490a13b"
   license "Apache-2.0"
   head "https://github.com/aws/aws-cli.git", branch: "v2"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "070cf49761b27fe56af7ca6eda066d9b303f002c2720c5da7a10ea59e3b99018"
-    sha256 cellar: :any,                 arm64_monterey: "fb1f450cec1d8bd234705a3bb152758153dc80ca7bfbd479b436fe2737956fc6"
-    sha256 cellar: :any,                 arm64_big_sur:  "8c0b8b018ba2f131875f80b090ed8589cf9582c1c8083d96559251a04d73213e"
-    sha256 cellar: :any,                 ventura:        "2ed82bf06dad66f33f490c2054e706080256efda3158d929916566fe48110a4c"
-    sha256 cellar: :any,                 monterey:       "3281ac770071adf05f635a60e6cb0ccd64ebd0ad2d005d91a3b1f2266acd7c06"
-    sha256 cellar: :any,                 big_sur:        "d37fb4f5b92fdb9a2c5b98e936bff586a7aa2861dab92b3adb367f8bc11de307"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6ea41dea30bbd14b80df2f58b30ac3427854073dc4bf12d1e6ac0dd87cc8a686"
+    sha256 cellar: :any,                 arm64_ventura:  "134da1c4cab3b12cdf33e8bc680713fefed0cf5279b45b5906f1f57d1ccdc840"
+    sha256 cellar: :any,                 arm64_monterey: "4d83ca2baedde40a97a6cdc3c244f175e27cc860d941b5dcf639071438998761"
+    sha256 cellar: :any,                 arm64_big_sur:  "8d667395561b2bdce4d0a3fbea5cd3194209adcabb4f6f070587e074222fd9b1"
+    sha256 cellar: :any,                 ventura:        "4671cbdcf6056c7924127e18734c2db87fa7daaec0f11a67458b925f42af79c1"
+    sha256 cellar: :any,                 monterey:       "9cf6c8875bc43019680f0bed4af3cd92e1959b30bba0e6738b5efca5c7745d1e"
+    sha256 cellar: :any,                 big_sur:        "c57ab29cb2d1b483f50bea108b780a93a69626f0ad1e0f8fe59d1ad6f28e1285"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e9575ba6f6f744a43788cc2f9efb9126bcc9ae0d4955e8cb1fde9ef1b129b74"
   end
 
-  # `pkg-config`, `rust`, and `openssl@1.1` are for cryptography.
+  # `pkg-config`, `rust`, and `openssl@3` are for cryptography.
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
   depends_on "cffi"
   depends_on "docutils"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "pycparser"
   depends_on "python@3.11"
   depends_on "six"
 
   uses_from_macos "mandoc"
-
-  # Python resources should be updated based on setup.cfg. One possible way is:
-  # 1. Run `pipgrip 'awscli @ #{url}' --sort`
-  # 2. Ignore `docutils` and `six`. Update all other PyPI packages
 
   resource "awscrt" do
     url "https://files.pythonhosted.org/packages/24/73/d656729a61eceabbbf4fcee3b51bf298c5edbb0a5578542121150e957ee0/awscrt-0.16.16.tar.gz"
@@ -96,7 +92,7 @@ class Awscli < Formula
 
   def install
     # Ensure that the `openssl` crate picks up the intended library.
-    ENV["OPENSSL_DIR"] = Formula["openssl@1.1"].opt_prefix
+    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
     ENV["OPENSSL_NO_VENDOR"] = "1"
 
     # Temporary workaround for Xcode 14's ld causing build failure (without logging a reason):

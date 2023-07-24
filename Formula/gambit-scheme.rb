@@ -1,10 +1,9 @@
 class GambitScheme < Formula
   desc "Implementation of the Scheme Language"
   homepage "https://github.com/gambit/gambit"
-  url "https://github.com/gambit/gambit/archive/v4.9.3.tar.gz"
-  sha256 "a5e4e5c66a99b6039fa7ee3741ac80f3f6c4cff47dc9e0ff1692ae73e13751ca"
+  url "https://github.com/gambit/gambit/archive/v4.9.4.tar.gz"
+  sha256 "19fb44a65b669234f6c0467cdc3dbe2e2c95a442f38e4638e7d89c90e247bd08"
   license "Apache-2.0"
-  revision 2
 
   livecheck do
     url :stable
@@ -12,44 +11,54 @@ class GambitScheme < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "fb202eb0660fcfbf84dfdf80bb37dd16ed94da6d24898a336441cdd58573ccd0"
-    sha256 arm64_monterey: "91040b009cdde2f167bff43b1521c1bae3b402c28bfe57a1d9fdc603b6e7eeee"
-    sha256 arm64_big_sur:  "9abbafcba2c1205b675204642a58527262586625b99a2ae8a32d3b50076a87ef"
-    sha256 ventura:        "f8babf62d122b3f057798a10b9df2688db1994b7e99c68e9d28c17aa7527cb54"
-    sha256 monterey:       "eaeab4965a7dc4b0bdeb880287af96157c4fb666897db2a1f23772b80837bc7f"
-    sha256 big_sur:        "88dfbed920720584cea9ac1500cc59a7d6df69532e38728314594466bdf8a7a8"
-    sha256 catalina:       "cc4d0841423822b27fd424f7eba3a0482f01266ef61c25ec4b1d49d211d6c50e"
-    sha256 mojave:         "9fc086d950cb20c99d1d24947a0599fab72525c8a2dbd2d448f94791a5a8f481"
-    sha256 high_sierra:    "8af81a5c228d029402bc150331cb03dc0695eeee8dd5a58ce497a7a49a19fa47"
-    sha256 x86_64_linux:   "279db92ba64c71c31bf9a57df2414b0b47f497b47fd1c7a2fc39657be3b47db4"
+    sha256 arm64_ventura:  "e33b55e30f8b151e9cd7465623310eadf07ba2ed1ba262bd1f70efd9613be5ed"
+    sha256 arm64_monterey: "feceed5aa4a6f4d486722e23211017a8c9c040e2c0b6f28865458f543371c853"
+    sha256 arm64_big_sur:  "56c42f91b17aae8bd28b9781fb7547a25b46d5d11893bde1346e32f0c5a73d22"
+    sha256 ventura:        "5960f1a7442cc56055a5313bd7dea62978037702cb8934043f1ceaff989f971c"
+    sha256 monterey:       "d1b794fc1a0c13ad38f672f63ee0af0702a390689ff183b9135d8e58207e7acd"
+    sha256 big_sur:        "e0475ff6051b44a26930709b37cdc038f3aaea4b00c6622ccb24e64a668758a5"
+    sha256 x86_64_linux:   "11b22d20fb8d65c1d36e2afec4fd8e69233072273740e3087435ebc643453d36"
   end
 
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
+
+  on_macos do
+    depends_on "gcc"
+  end
+
+  conflicts_with "ghostscript", because: "both install `gsc` binary"
+
+  # Clang is slower both for compiling and for running output binaries
+  fails_with :clang
 
   def install
     args = %W[
       --prefix=#{prefix}
+      --docdir=#{doc}
+      --infodir=#{info}
       --enable-single-host
-      --enable-multiple-versions
       --enable-default-runtime-options=f8,-8,t8
       --enable-openssl
+      --enable-gcc-opts
     ]
 
     system "./configure", *args
 
     # Fixed in gambit HEAD, but they haven't cut a release
     inreplace "config.status" do |s|
-      s.gsub! %r{/usr/local/opt/openssl(?!@1\.1)}, "/usr/local/opt/openssl@1.1"
+      s.gsub! %r{/usr/local/opt/openssl(@\d(\.\d)?)?}, Formula["openssl@3"].opt_prefix
     end
     system "./config.status"
 
     system "make"
     ENV.deparallelize
     system "make", "install"
+
+    # fix lisp file install location
+    elisp.install share/"emacs/site-lisp/gambit.el"
   end
 
   test do
-    assert_equal "0123456789",
-      shell_output("#{prefix}/current/bin/gsi -e \"(for-each write '(0 1 2 3 4 5 6 7 8 9))\"")
+    assert_equal "0123456789", shell_output("#{bin}/gsi -e \"(for-each write '(0 1 2 3 4 5 6 7 8 9))\"")
   end
 end

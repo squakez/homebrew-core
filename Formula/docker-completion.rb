@@ -2,8 +2,8 @@ class DockerCompletion < Formula
   desc "Bash, Zsh and Fish completion for Docker"
   homepage "https://www.docker.com/"
   url "https://github.com/docker/cli.git",
-      tag:      "v24.0.2",
-      revision: "cb74dfcd853482dd43cb553106b1e0cd237acb3e"
+      tag:      "v24.0.4",
+      revision: "3713ee1eea0447bcfe27378ad247c7e245406f04"
   license "Apache-2.0"
   head "https://github.com/docker/cli.git", branch: "master"
 
@@ -12,17 +12,20 @@ class DockerCompletion < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e2ad36e5e1e235663d52874d336daf5486532c696ab1505648591c2c1a4babac"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e2ad36e5e1e235663d52874d336daf5486532c696ab1505648591c2c1a4babac"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "e2ad36e5e1e235663d52874d336daf5486532c696ab1505648591c2c1a4babac"
-    sha256 cellar: :any_skip_relocation, ventura:        "e2ad36e5e1e235663d52874d336daf5486532c696ab1505648591c2c1a4babac"
-    sha256 cellar: :any_skip_relocation, monterey:       "e2ad36e5e1e235663d52874d336daf5486532c696ab1505648591c2c1a4babac"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e2ad36e5e1e235663d52874d336daf5486532c696ab1505648591c2c1a4babac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bf20b7a7a4d849791fe37e41c14cb6f56cec267b3bb0b28d9c2c1f7a5b4c8de8"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "632bdfc758fb664784f80ae5e63037220352d5316b9b4bf9c041ef745b01add8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "632bdfc758fb664784f80ae5e63037220352d5316b9b4bf9c041ef745b01add8"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "632bdfc758fb664784f80ae5e63037220352d5316b9b4bf9c041ef745b01add8"
+    sha256 cellar: :any_skip_relocation, ventura:        "632bdfc758fb664784f80ae5e63037220352d5316b9b4bf9c041ef745b01add8"
+    sha256 cellar: :any_skip_relocation, monterey:       "632bdfc758fb664784f80ae5e63037220352d5316b9b4bf9c041ef745b01add8"
+    sha256 cellar: :any_skip_relocation, big_sur:        "632bdfc758fb664784f80ae5e63037220352d5316b9b4bf9c041ef745b01add8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4d4c8296f2862aca633c37108dbc73f8143b35a225b75ab0935ef5f882f9cc33"
   end
 
-  conflicts_with "docker",
-    because: "docker already includes these completion scripts"
+  # These used to also be provided by the `docker` formula.
+  link_overwrite "etc/bash_completion.d/docker"
+  link_overwrite "share/fish/vendor_completions.d/docker.fish"
+  link_overwrite "share/zsh/site-functions/_docker"
 
   def install
     bash_completion.install "contrib/completion/bash/docker"

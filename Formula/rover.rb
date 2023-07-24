@@ -1,19 +1,19 @@
 class Rover < Formula
   desc "CLI for managing and maintaining data graphs with Apollo Studio"
   homepage "https://www.apollographql.com/docs/rover/"
-  url "https://github.com/apollographql/rover/archive/refs/tags/v0.15.0.tar.gz"
-  sha256 "7592f8f986a63ad38b19b1df4cb4725f56b78ed7360f5d230f96a62e6ed610a2"
+  url "https://github.com/apollographql/rover/archive/refs/tags/v0.17.2.tar.gz"
+  sha256 "c1a81673b1b3d763619d8b86612fe0cde1a9c9f063692e35eaeb1ad520958e18"
   license "MIT"
   head "https://github.com/apollographql/rover.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "9b7b65eb14bfd1004e6fbb2aaf56f5b2eaa91687fb8d269851f3764748b41fbf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "f16e8ec3b0267eb4ffcd51623e35924631947ae736570bd92433c7534fa99461"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "c73dde5bfe37962ed8ebc2ebc26dceea33fd33ed0a6ddebf5c7f59000ee20294"
-    sha256 cellar: :any_skip_relocation, ventura:        "766122a070b676f96fb473c91ca8c0ebfaf2aa8c4c8664dc99e9a2229b86a91a"
-    sha256 cellar: :any_skip_relocation, monterey:       "0c1862225e8f7e7452712ecf567bb8f504855c9972749f9bc43c6f7f2da91962"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d8ed9b865588478530130bafd0613b17e6ee5b1f0b5ee587aeea1bc764b42e33"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d4bfba802345c116dd258a2ef6f63610a85f30708de6437004e02d166fabf80a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a565243a0ca7b47e61a36132675afd147c003c5d08f33a5cd6d98163268001b9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8ee28bf82b9d31357191350b11d0f95f0a8c0041e7633df1b5c2ec2b095ffaf9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "21d95d1cfb911a0fc6cef577f98d226cd8f5c5b45f1101bd58d20ede08428e0d"
+    sha256 cellar: :any_skip_relocation, ventura:        "31a9c1765052437e4bc5ab5454b4f755ccdc048dcd2512b9f96caa7003e008b3"
+    sha256 cellar: :any_skip_relocation, monterey:       "21c924ba9046653018289518a10b4bcfc963037fb7b8d00f0e0ffebc733f8c01"
+    sha256 cellar: :any_skip_relocation, big_sur:        "a11d16b0df43e86c085ba7bc187fd26f09b5337762fc4cdbfd949c8af8ae1e54"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "14231654e3cc36fdb6f0b6488b0ccdd611b41a5446ddc7f8695dfec8bc7b9e28"
   end
 
   depends_on "rust" => :build
@@ -22,12 +22,16 @@ class Rover < Formula
   uses_from_macos "zlib"
 
   def install
+    # Ensure that the `openssl` crate picks up the intended library.
+    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
+    ENV["OPENSSL_NO_VENDOR"] = "1"
+
     system "cargo", "install", *std_cargo_args
   end
 
   test do
     output = shell_output("#{bin}/rover graph introspect https://graphqlzero.almansi.me/api")
-    assert_match "directive @cacheControl", output
+    assert_match "directive @specifiedBy", output
 
     assert_match version.to_s, shell_output("#{bin}/rover --version")
   end

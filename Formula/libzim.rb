@@ -1,18 +1,18 @@
 class Libzim < Formula
   desc "Reference implementation of the ZIM specification"
   homepage "https://github.com/openzim/libzim"
-  url "https://download.openzim.org/release/libzim/libzim-8.2.0.tar.xz"
-  sha256 "611f816a5f3cc725210f0b4d9676c203394b92a00d1a9f2b3934897cc364fd59"
+  url "https://download.openzim.org/release/libzim/libzim-8.2.1.tar.xz"
+  sha256 "fcddb400cb71b2c21d5da86fd606e0f45083873f0df5d4529345855a39b5707c"
   license "GPL-2.0-only"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "3efd0f8dd8c236c60b4db6bf506ee4b9319c9837d68f79c1b9de2dfaa6f56034"
-    sha256 cellar: :any, arm64_monterey: "4fca03e1dbfa00c95b269617653a1c1573be999aaf455ed31cbc6e4c46e133ea"
-    sha256 cellar: :any, arm64_big_sur:  "fc94236b1d7206d0d62173eb0533d9a7f1f3e8a3c98118b428386079049ed830"
-    sha256 cellar: :any, ventura:        "164e81e6905a8ec8e2cbd7103cf9b79555b132a697b81d45d5e4374d941bd7dc"
-    sha256 cellar: :any, monterey:       "78c1b3e752793455124754dc6d88aff1f9e67399ac7d884e796356ac17a68868"
-    sha256 cellar: :any, big_sur:        "1c886828cb5c56f79532de423b04553e5a5c0fbe39bf2e2d4533a44de1e9fa51"
-    sha256               x86_64_linux:   "4f4367e42fcc392e9c974ae464be35ea3c62b7784180a12fd7ac8d35d5d5278c"
+    sha256 cellar: :any, arm64_ventura:  "b32179995f464b76d374d1d34502fb21c00303e3ced9b353953ac2320dee8eb2"
+    sha256 cellar: :any, arm64_monterey: "54112606a0c0a8aa3fa1084e8978f92604124e12ad4584aa0f8df8cc01c62ad0"
+    sha256 cellar: :any, arm64_big_sur:  "e0a3011dc1e857f84f77e2a9e0b56e2c730f954f22f8ff9a191f873e66290444"
+    sha256 cellar: :any, ventura:        "0acf18de8f6cd3d2bbc8e4dff266af813466dedaae89e9cfc5f93a3c1116e9e0"
+    sha256 cellar: :any, monterey:       "7298365283c04ea9a9e1917d94f1348f2fd28da409b223ed2d185847f57eb770"
+    sha256 cellar: :any, big_sur:        "15997699641928c370eec76dd3a8f52bc614d19d6b8c89a2e7cac5b162c07c66"
+    sha256               x86_64_linux:   "b59dae0b79f9d692ffb5ff2aecf4d468a984b1a99bc5e2a3b56d64ddbc300a38"
   end
 
   depends_on "meson" => :build

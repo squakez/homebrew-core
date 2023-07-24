@@ -1,9 +1,9 @@
 class MariadbConnectorOdbc < Formula
   desc "Database driver using the industry standard ODBC API"
   homepage "https://mariadb.org/download/?tab=connector&prod=connector-odbc"
-  url "https://downloads.mariadb.com/Connectors/odbc/connector-odbc-3.1.18/mariadb-connector-odbc-3.1.18-src.tar.gz"
-  mirror "https://fossies.org/linux/misc/mariadb-connector-odbc-3.1.18-src.tar.gz/"
-  sha256 "a06c11b40cf1edcfe69c206eec32caf58e25fadcf53da63d65fae26437bbad7e"
+  url "https://downloads.mariadb.com/Connectors/odbc/connector-odbc-3.1.19/mariadb-connector-odbc-3.1.19-src.tar.gz"
+  mirror "https://fossies.org/linux/misc/mariadb-connector-odbc-3.1.19-src.tar.gz/"
+  sha256 "26420dac7d6d630fc34fb2fe77fdc9fc2a7e8e896d274d3c052db9ecd06bd48f"
   license "LGPL-2.1-or-later"
 
   # https://mariadb.org/download/ sometimes lists an older version as newest,
@@ -15,18 +15,18 @@ class MariadbConnectorOdbc < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "14949a62da2a2ce7d2cd7aefec31138f8dd125130d4bfce4a24535e69a275a7f"
-    sha256 cellar: :any,                 arm64_monterey: "c98c4467ae397029d3436af6c8ae9758ae84af8248eda33abcccb2b4bd769b82"
-    sha256 cellar: :any,                 arm64_big_sur:  "d212b429637cf77c8a8c4da0d781ce9e27c216920c2e8e4e12e96437ec3dbbd9"
-    sha256 cellar: :any,                 ventura:        "dd3909020b76536e2a6fc28d6bca781dada59294758c801dc90268c1423e5d38"
-    sha256 cellar: :any,                 monterey:       "4831fc2816c02814ba217c49e428c41c538599dc58cd033eb32bfee72f1998fe"
-    sha256 cellar: :any,                 big_sur:        "fcd4a3e2dce3d5b40450b99e6e56576d7268ae8aa0c7c631fc65f9b507b96d90"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7f10dcafbc59db923b25057cb0294ca7b1a071ffd8f2ef81752027c849da8ab9"
+    sha256 cellar: :any,                 arm64_ventura:  "584f054978da3cfb641a9504c4eb4ca19463f9a23c16b81714b210900dead39d"
+    sha256 cellar: :any,                 arm64_monterey: "21ef52b7656d91d41439996035a56aaaeb6650453bcbfd5a6e97c8020e8f03d3"
+    sha256 cellar: :any,                 arm64_big_sur:  "1476558de12837abd0307c1b55e920c421330d2a6b546260d00c86837ee1a3c6"
+    sha256 cellar: :any,                 ventura:        "8bed3cbed522f3c18755aba7ea46a872f73643c4f88d43fcc8f5992a0751f13c"
+    sha256 cellar: :any,                 monterey:       "1f7b12bf36787f8335ea55a5f3a10bd0dce9bb402adb23be9a6db164ba4cd977"
+    sha256 cellar: :any,                 big_sur:        "44a4dc52e2610f658964f73e69c3093dde7b39fdc51086ce2a4799741044142b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "011b218c61c1b204fb17be5277ea294257b93d729e0fead1d84059dbc0f95b1f"
   end
 
   depends_on "cmake" => :build
   depends_on "mariadb-connector-c"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "unixodbc"
 
   def install
@@ -35,7 +35,7 @@ class MariadbConnectorOdbc < Formula
     ENV.append "LDFLAGS", "-Wl,-rpath,#{Formula["mariadb-connector-c"].opt_lib}/mariadb" if OS.linux?
     system "cmake", ".", "-DMARIADB_LINK_DYNAMIC=1",
                          "-DWITH_SSL=OPENSSL",
-                         "-DOPENSSL_ROOT_DIR=#{Formula["openssl@1.1"].opt_prefix}",
+                         "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
                          "-DWITH_IODBC=0",
                          # Workaround 3.1.11 issues finding system's built-in -liconv
                          # See https://jira.mariadb.org/browse/ODBC-299

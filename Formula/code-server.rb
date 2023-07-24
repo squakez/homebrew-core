@@ -3,23 +3,24 @@ require "language/node"
 class CodeServer < Formula
   desc "Access VS Code through the browser"
   homepage "https://github.com/coder/code-server"
-  url "https://registry.npmjs.org/code-server/-/code-server-4.13.0.tgz"
-  sha256 "3f8916f68fbb7b0bd9c1e344a225e60d2d37ffbf238b2bbb8be185e346c808a7"
+  url "https://registry.npmjs.org/code-server/-/code-server-4.15.0.tgz"
+  sha256 "18ec43d387e1c10684faaaa20591420a75f2431ac32a5302df481e607392abdc"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4864e563ef048e2b9a394c71f50c4ce48950f786a30ec645975e3cb702224272"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0237aa01e26ac97b9c843792ecce61408d2974d1431181ab06e5ebe3519aa486"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "92aeaf01011b28a7a261c31a8a3f3ac0e79d907fb37bd7128f3769f8bbc808fa"
-    sha256 cellar: :any_skip_relocation, ventura:        "39ccd51a012294abe54a2311b92d65ee3954e20fa69ce95d403f5b96c13b1a7f"
-    sha256 cellar: :any_skip_relocation, monterey:       "10272ce103dcbb262bd8b6cae0f8761e62a36ca382565ff49495e45c8fe77e07"
-    sha256 cellar: :any_skip_relocation, big_sur:        "54d3330b21f497364271c55258478d420665913716f6704e7dae3717ac0a322a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4dfd551303b2ffa9761722f4994f5fc29c0ca03d993922dff68ba6bc2a31f0f4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "11ccfd8a9e91d5b7ff58fb69912785a6c69dc1f427ab8b03ae47692045aa69d3"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "7c2fc5fab120d0a2efbf2ef6d6cb2e83053859ae72b8b6d48786695b151eb24f"
+    sha256 cellar: :any_skip_relocation, ventura:        "2b034b412d7c89cd10ed01c7cb48e45f2a699ddabf37ac8c91c514d89cf11a53"
+    sha256 cellar: :any_skip_relocation, monterey:       "76fdeb029cf859bf95ee7919df5198d156c6d7a4fc64abe931538bb19d56024a"
+    sha256 cellar: :any_skip_relocation, big_sur:        "0975be8a23c3f3f5ecbc64bae91d9aa848b50ca9102340ced6bc1b6796f8d3c9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "938b67f7b6b6bd3e314cfa29e5b05f08332b048135454a4e8d0fc81065eb6af3"
   end
 
-  depends_on "bash" => :build
-  depends_on "python@3.11" => :build
   depends_on "yarn" => :build
-  depends_on "node@16"
+  depends_on "node@16" # Use `node@18` after https://github.com/coder/code-server/issues/6230
+
+  uses_from_macos "python" => :build
 
   on_linux do
     depends_on "pkg-config" => :build
@@ -31,11 +32,17 @@ class CodeServer < Formula
   def install
     node = Formula["node@16"]
     system "npm", "install", *Language::Node.local_npm_install_args, "--unsafe-perm", "--omit", "dev"
+
     # @parcel/watcher bundles all binaries for other platforms & architectures
     # This deletes the non-matching architecture otherwise brew audit will complain.
+    arch_string = (Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s)
     prebuilds = buildpath/"lib/vscode/node_modules/@parcel/watcher/prebuilds"
-    (prebuilds/"darwin-x64").rmtree if Hardware::CPU.arm?
-    (prebuilds/"darwin-arm64").rmtree if Hardware::CPU.intel?
+    # Homebrew only supports glibc-based Linuxes, avoid missing linkage to musl libc
+    (prebuilds/"linux-x64/node.napi.musl.node").unlink
+    current_prebuild = prebuilds/"#{OS.kernel_name.downcase}-#{arch_string}"
+    unneeded_prebuilds = prebuilds.glob("*") - [current_prebuild]
+    unneeded_prebuilds.map(&:rmtree)
+
     libexec.install Dir["*"]
     env = { PATH: "#{node.opt_bin}:$PATH" }
     (bin/"code-server").write_env_script "#{libexec}/out/node/entry.js", env

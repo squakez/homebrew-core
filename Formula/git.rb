@@ -5,6 +5,7 @@ class Git < Formula
   url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.41.0.tar.xz"
   sha256 "e748bafd424cfe80b212cbc6f1bbccc3a47d4862fb1eb7988877750478568040"
   license "GPL-2.0-only"
+  revision 2
   head "https://github.com/git/git.git", branch: "master"
 
   livecheck do
@@ -13,13 +14,13 @@ class Git < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "c3cb2197ef143929e3c044b2a9bf6182de624ad067a094d550d089bf7f9cf727"
-    sha256 arm64_monterey: "331de6e6a714392d47129ce51f52543004e06ef45bdd57150ad80857b4f1414e"
-    sha256 arm64_big_sur:  "ed7fcbf16e665ffe3a376d44512e782e5e66c300a73ef5cfceb35dbb0b9969ec"
-    sha256 ventura:        "f486fed52baac759597ab8939e95faf93862aa31666a88bca015957c853935ed"
-    sha256 monterey:       "b22088cd62a13220dee5d3c763afc4359e5e1a6cf0daa0410a360d6746096069"
-    sha256 big_sur:        "96f7ecab0bcd9ab2c89fcfa7a23001b1e0d8298eca8c5371a0d91ba6f53ef5f8"
-    sha256 x86_64_linux:   "d30b3a4a08df3e70ffd1eaf3e2b4046bf3a25e744ae3cdea89544849e3db4bb7"
+    sha256 arm64_ventura:  "da6d23d518ee5148c4c1308406b4eabba0b2c5ba1f653d63e9fe8f56de59bc29"
+    sha256 arm64_monterey: "7682a7436bd8e9889170b09b30b999a7cb082e83235c124f32bd5ae7e59273f6"
+    sha256 arm64_big_sur:  "4b278fea7ff2d4cc450f62b5d1f6de05dfbb4892ed8ecc226e547e45390c0aed"
+    sha256 ventura:        "623bea9a6c510f6c36d718f656957c93a65a2a8b81b77cfc02c622bc41f596f7"
+    sha256 monterey:       "ecbadeb2cbd9e2752d656327fc69f2f3144add145c24f4edb6bea9f96aac0376"
+    sha256 big_sur:        "016ea10f78c7a5d90c230beea4df74116280f4dddae9ebdf311cca5121ab563a"
+    sha256 x86_64_linux:   "59a972b97c2396da07630256954731319b7faeb28ac7de5b791af5213a7a48d8"
   end
 
   depends_on "gettext"
@@ -31,7 +32,7 @@ class Git < Formula
 
   on_linux do
     depends_on "linux-headers@5.15" => :build
-    depends_on "openssl@1.1" # Uses CommonCrypto on macOS
+    depends_on "openssl@3" # Uses CommonCrypto on macOS
   end
 
   resource "html" do
@@ -53,7 +54,7 @@ class Git < Formula
     # If these things are installed, tell Git build system not to use them
     ENV["NO_FINK"] = "1"
     ENV["NO_DARWIN_PORTS"] = "1"
-    ENV["PYTHON_PATH"] = which("python")
+    ENV["PYTHON_PATH"] = which("python3")
     ENV["PERL_PATH"] = which("perl")
     ENV["USE_LIBPCRE2"] = "1"
     ENV["INSTALL_SYMLINKS"] = "1"
@@ -88,7 +89,7 @@ class Git < Formula
     args += if OS.mac?
       %w[NO_OPENSSL=1 APPLE_COMMON_CRYPTO=1]
     else
-      openssl_prefix = Formula["openssl@1.1"].opt_prefix
+      openssl_prefix = Formula["openssl@3"].opt_prefix
 
       %W[NO_APPLE_COMMON_CRYPTO=1 OPENSSLDIR=#{openssl_prefix}]
     end

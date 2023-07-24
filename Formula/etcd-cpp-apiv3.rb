@@ -1,20 +1,18 @@
 class EtcdCppApiv3 < Formula
   desc "C++ implementation for etcd's v3 client API, i.e., ETCDCTL_API=3"
   homepage "https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3"
-  # TODO: Check if we can use unversioned `grpc` and `protobuf` at version bump
-  url "https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3/archive/refs/tags/v0.14.3.tar.gz"
-  sha256 "5faf1ca697f9889c269a2a0cb2237d8121959f72bf6eca4f61dffdcb9c6d9d46"
+  url "https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3/archive/refs/tags/v0.15.2.tar.gz"
+  sha256 "7f334e9a219a65cfcefd7a526d8d9ab613f77d75879f82645c9dc47f17b0e8c8"
   license "BSD-3-Clause"
-  revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "72f6a58af9bbba15c9c386cfcfc39420a632a6d6b7d554c33fe7b6906edfa4d2"
-    sha256 cellar: :any,                 arm64_monterey: "5782a8b3685b84fd52e9f4aba54e8f089fd6b69c368035d8498c01cfaaac9cf2"
-    sha256 cellar: :any,                 arm64_big_sur:  "f3708d358a76f4cdf3671b6245a929d2643cc1d057e8308a054ec645c5ff2999"
-    sha256 cellar: :any,                 ventura:        "4f46dc2ed85f3edeffd69b56d091ba6164315bff89c969cc71ffbf1b45f9ebab"
-    sha256 cellar: :any,                 monterey:       "2fe00b8bedfd2717b6d8801a37a164f86ed2e501f64dcc9e70579876ddeb9d5d"
-    sha256 cellar: :any,                 big_sur:        "d7deaacbe3e66017739e94e33c093bba386d72051726475e7d44a6120286debf"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e7bbe7c8f1aee56a8a73a65aeef4a4d181f7fa8051fae1cb879714d05ef7e872"
+    sha256 cellar: :any,                 arm64_ventura:  "06e274c6f09ad79e788560c16ea301345ccd10df23f2813b97b5af6a8d3a0db0"
+    sha256 cellar: :any,                 arm64_monterey: "7fa39bc8e4bbd8203b6c7db1079e808c17013e97eb218603806be3bc8150ec0f"
+    sha256 cellar: :any,                 arm64_big_sur:  "f82dd933843197331f2ff9349c357eb3b33921a116c24dc26680e6523d8b7c67"
+    sha256 cellar: :any,                 ventura:        "82f92f44a3b98eb23755525cacf80fd2251623b604f8a9796718f3c320b9196d"
+    sha256 cellar: :any,                 monterey:       "4f085d5904add94641f896e6daf3bcdd58d87b8f7c14ce375d0baeb96bffd54b"
+    sha256 cellar: :any,                 big_sur:        "70395dac20dacef8f8c4a205a0316315aec94f68b4a6818578e1730ccb64d20b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c6c607195af0f8adf9dc08157f4278738cedc590db7e63a476d5412c12fc715"
   end
 
   depends_on "cmake" => :build
@@ -22,9 +20,9 @@ class EtcdCppApiv3 < Formula
 
   depends_on "boost"
   depends_on "cpprestsdk"
-  depends_on "grpc@1.54"
-  depends_on "openssl@1.1"
-  depends_on "protobuf@21"
+  depends_on "grpc"
+  depends_on "openssl@3"
+  depends_on "protobuf"
 
   fails_with gcc: "5"
 
@@ -33,7 +31,7 @@ class EtcdCppApiv3 < Formula
                     "-DCMAKE_CXX_STANDARD=17",
                     "-DCMAKE_CXX_STANDARD_REQUIRED=TRUE",
                     "-DBUILD_ETCD_TESTS=OFF",
-                    "-DOPENSSL_ROOT_DIR=#{Formula["openssl@1.1"].opt_prefix}",
+                    "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
@@ -57,15 +55,15 @@ class EtcdCppApiv3 < Formula
     system ENV.cxx, "test.cc", "-std=c++17",
                     "-I#{Formula["boost"].include}",
                     "-I#{Formula["cpprestsdk"].include}",
-                    "-I#{Formula["grpc@1.54"].include}",
-                    "-I#{Formula["openssl@1.1"].include}",
-                    "-I#{Formula["protobuf@21"].include}",
+                    "-I#{Formula["grpc"].include}",
+                    "-I#{Formula["openssl@3"].include}",
+                    "-I#{Formula["protobuf"].include}",
                     "-I#{include}",
                     "-L#{Formula["boost"].lib}",
                     "-L#{Formula["cpprestsdk"].lib}",
-                    "-L#{Formula["grpc@1.54"].lib}",
-                    "-L#{Formula["openssl@1.1"].lib}",
-                    "-L#{Formula["protobuf@21"].lib}",
+                    "-L#{Formula["grpc"].lib}",
+                    "-L#{Formula["openssl@3"].lib}",
+                    "-L#{Formula["protobuf"].lib}",
                     "-L#{lib}",
                     "-lboost_random-mt",
                     "-lboost_chrono-mt",

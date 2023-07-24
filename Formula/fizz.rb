@@ -1,19 +1,19 @@
 class Fizz < Formula
   desc "C++14 implementation of the TLS-1.3 standard"
   homepage "https://github.com/facebookincubator/fizz"
-  url "https://github.com/facebookincubator/fizz/releases/download/v2023.06.08.00/fizz-v2023.06.08.00.tar.gz"
-  sha256 "f755ce1b117ec55fa029d0215b1e166a24a2323e89e5af39bc7b8d8933c62105"
+  url "https://github.com/facebookincubator/fizz/releases/download/v2023.07.17.00/fizz-v2023.07.17.00.tar.gz"
+  sha256 "e7325d076a4717999ded84fdb2745de5d68e3c5f1990333afe58e0b83a8f6385"
   license "BSD-3-Clause"
   head "https://github.com/facebookincubator/fizz.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "3cc3b03e10ec27cc567e2646644b35543c60c23c59166a3896867bcaa06a3e8d"
-    sha256 cellar: :any,                 arm64_monterey: "4a97ac61f52485ac80a1787a8d698f34894bce548f6c8acdcde4d4388536e1f6"
-    sha256 cellar: :any,                 arm64_big_sur:  "a6f040134973c2fe6d9070e60901d6ba488d4cd415ecc4a3cacb56b844b67a63"
-    sha256 cellar: :any,                 ventura:        "b97d1dd8406e69c09c620b21bf42ddc5211ea63a60c62d3881cd688605d90525"
-    sha256 cellar: :any,                 monterey:       "50905b18f9fe3bc0ed6c181666da3994fa50f5dab9817a00fc24b8de0c9ced99"
-    sha256 cellar: :any,                 big_sur:        "d99eb48a4f8aa3b126ba9571cecd680c35653aa95cf8b8bebda04d8e0fa5ec7e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cc46b0f170242367881f47ea2405cd1a8bcec9d6ab867a26a4ba713646da19f6"
+    sha256 cellar: :any,                 arm64_ventura:  "e6cb14a8bc05b70c12a25a0b26c09efdb3105a6002ad5c989295b55e276d73d6"
+    sha256 cellar: :any,                 arm64_monterey: "b0ce7d093c8d24e01c83d5da2cdd4f7b32ef369ba2f8ad5a1a10b5f68ddcc925"
+    sha256 cellar: :any,                 arm64_big_sur:  "7da2e745999d0fe0a17a802773ce7c9668bbde77518e681949aaa20d1999547a"
+    sha256 cellar: :any,                 ventura:        "30c68a2cb7fca387bf4cfc66fcb1fb872cf46e4add469763ffa74b78f8b32543"
+    sha256 cellar: :any,                 monterey:       "6fdbf3f8efcce6d580407c2430d6d3fd401510b5025bb24a4d4b026d0744c290"
+    sha256 cellar: :any,                 big_sur:        "0d006e9cef2d4ed8e50f5d5451655be67da6bdaec544461b7a6bf2204521def6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "08fc0436828308de38e0d509101f2d05b1f65f5f585333f5131be65bd837caae"
   end
 
   depends_on "cmake" => :build
@@ -26,7 +26,7 @@ class Fizz < Formula
   depends_on "libevent"
   depends_on "libsodium"
   depends_on "lz4"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "snappy"
   depends_on "zstd"
 
@@ -52,16 +52,16 @@ class Fizz < Formula
         std::cout << toString(context.getSupportedVersions()[0]) << std::endl;
       }
     EOS
-    system ENV.cxx, "-std=c++14", "test.cpp", "-o", "test",
+    system ENV.cxx, "-std=c++17", "test.cpp", "-o", "test",
                     "-I#{include}",
-                    "-I#{Formula["openssl@1.1"].opt_include}",
+                    "-I#{Formula["openssl@3"].opt_include}",
                     "-L#{lib}", "-lfizz",
                     "-L#{Formula["folly"].opt_lib}", "-lfolly",
                     "-L#{Formula["gflags"].opt_lib}", "-lgflags",
                     "-L#{Formula["glog"].opt_lib}", "-lglog",
                     "-L#{Formula["libevent"].opt_lib}", "-levent",
                     "-L#{Formula["libsodium"].opt_lib}", "-lsodium",
-                    "-L#{Formula["openssl@1.1"].opt_lib}", "-lcrypto", "-lssl"
+                    "-L#{Formula["openssl@3"].opt_lib}", "-lcrypto", "-lssl"
     assert_match "TLS", shell_output("./test")
   end
 end

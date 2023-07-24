@@ -4,26 +4,26 @@ require "json"
 class Webpack < Formula
   desc "Bundler for JavaScript and friends"
   homepage "https://webpack.js.org/"
-  url "https://registry.npmjs.org/webpack/-/webpack-5.86.0.tgz"
-  sha256 "9ca870349e99efc271a529cc040c6c78e08cff999e98dbf9805cafceaeae93cc"
+  url "https://registry.npmjs.org/webpack/-/webpack-5.88.2.tgz"
+  sha256 "4d92a947dbc855289a1a33a9a77dd9a2cf04606d721a74b18104de29aa1f8279"
   license "MIT"
   head "https://github.com/webpack/webpack.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6dbcf582d60dcf8e1b51ed632b37950d77a236b5efafdc27f202a7c9040dd0d9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6dbcf582d60dcf8e1b51ed632b37950d77a236b5efafdc27f202a7c9040dd0d9"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "6dbcf582d60dcf8e1b51ed632b37950d77a236b5efafdc27f202a7c9040dd0d9"
-    sha256 cellar: :any_skip_relocation, ventura:        "e24d9cf19651be0eaa9d3f86bb569021145a69a96b11e4771ffc46589e94f236"
-    sha256 cellar: :any_skip_relocation, monterey:       "e24d9cf19651be0eaa9d3f86bb569021145a69a96b11e4771ffc46589e94f236"
-    sha256 cellar: :any_skip_relocation, big_sur:        "e24d9cf19651be0eaa9d3f86bb569021145a69a96b11e4771ffc46589e94f236"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6dbcf582d60dcf8e1b51ed632b37950d77a236b5efafdc27f202a7c9040dd0d9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "43da3e72119ed6136f871990a187926fdb7399d76c90b9fff9e73993d2dac774"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "43da3e72119ed6136f871990a187926fdb7399d76c90b9fff9e73993d2dac774"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "43da3e72119ed6136f871990a187926fdb7399d76c90b9fff9e73993d2dac774"
+    sha256 cellar: :any_skip_relocation, ventura:        "5c6221f47a3266387fe4101dd465e37af6f8e660f69a5fd9428a678cdc986535"
+    sha256 cellar: :any_skip_relocation, monterey:       "5c6221f47a3266387fe4101dd465e37af6f8e660f69a5fd9428a678cdc986535"
+    sha256 cellar: :any_skip_relocation, big_sur:        "5c6221f47a3266387fe4101dd465e37af6f8e660f69a5fd9428a678cdc986535"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "43da3e72119ed6136f871990a187926fdb7399d76c90b9fff9e73993d2dac774"
   end
 
   depends_on "node"
 
   resource "webpack-cli" do
-    url "https://registry.npmjs.org/webpack-cli/-/webpack-cli-5.1.3.tgz"
-    sha256 "0f814cfa5fce08b19d47dcfa535ed4f44fbadb2bcafd3fe0b8a7b2481b4b4065"
+    url "https://registry.npmjs.org/webpack-cli/-/webpack-cli-5.1.4.tgz"
+    sha256 "0d5484af2d1547607f8cac9133431cc175c702ea9bffdf6eb446cc1f492da2ac"
   end
 
   def install

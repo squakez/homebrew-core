@@ -3,8 +3,8 @@ class GraphTool < Formula
 
   desc "Efficient network analysis for Python 3"
   homepage "https://graph-tool.skewed.de/"
-  url "https://downloads.skewed.de/graph-tool/graph-tool-2.56.tar.bz2"
-  sha256 "a4979e4b84ca84d2c41adb8b03aad6730ee2739e228d55e32321d9c6b4d7b7e4"
+  url "https://downloads.skewed.de/graph-tool/graph-tool-2.57.tar.bz2"
+  sha256 "a20a0e73b78e78f233e960c6ba89d1969f457221b03b66947c71d3044affbb72"
   license "LGPL-3.0-or-later"
 
   livecheck do
@@ -13,13 +13,13 @@ class GraphTool < Formula
   end
 
   bottle do
-    sha256                               arm64_ventura:  "fefac4f2e06bbe9a67adc89a5f6eee788364ce93fa6e28a28b88d62a756393de"
-    sha256                               arm64_monterey: "14f363eac3694b39152c95c3b2b32151152eeaf0bdee03b260de1e0ee740dbb0"
-    sha256                               arm64_big_sur:  "f8e6c2431952943038f42586fd36bae6421e340d20a115a43d66a251fe0326ba"
-    sha256                               ventura:        "d22ff81a5cf249198438e8714899d5ee388c3925d6f953784633e4b6b5e32ee7"
-    sha256                               monterey:       "49ea1e1a5de1342c4f9a4aa9266de4a5f354b1940e703645146f9b93f4fe45ea"
-    sha256                               big_sur:        "d7df6381c33972e9ed38ad4b3423d518bd04ed3001ffd7da56e05e200cc49341"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4fa78925655348c4cf3974fe4146c0ad24f3ac0089cd80cc3c11616f304f176a"
+    sha256                               arm64_ventura:  "d180cf3ef81642eaceedc3d122be9ab2948b0737e6b09f5a72c91ba63ce85168"
+    sha256                               arm64_monterey: "8e5277fffaf598c9d53b60b7d5c7a337e191221282584758709dae3e8b6751d0"
+    sha256                               arm64_big_sur:  "02bdc3f5e5bf6f846b494e247ea50a638f49589ea89fff61eddd72f90539b308"
+    sha256                               ventura:        "6b33a72186b7cee362c614104175e0ea087c26873f5603b228b0f8994f04dc9e"
+    sha256                               monterey:       "d0703929369dec229d0230a9b47595b5435a99dbccae72f133cf5548ba9034f0"
+    sha256                               big_sur:        "0d8ba14989141ab4a1622d7eb8352a9debf7936e4049b4ad4562d1a4ab85d2a5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e32b10cc5e5a3ea65ab064ffd43d13bce86b8db2a073c272b515e9cd3662372c"
   end
 
   depends_on "autoconf" => :build
@@ -71,6 +71,9 @@ class GraphTool < Formula
   resource "matplotlib" do
     url "https://files.pythonhosted.org/packages/b7/65/d6e00376dbdb6c227d79a2d6ec32f66cfb163f0cd924090e3133a4f85a11/matplotlib-3.7.1.tar.gz"
     sha256 "7b73305f25eab4541bd7ee0b96d87e53ae9c9f1823be5659b806cd85786fe882"
+
+    # fix numpy build issue, https://github.com/matplotlib/matplotlib/issues/26246
+    patch :DATA
   end
 
   resource "packaging" do
@@ -79,8 +82,8 @@ class GraphTool < Formula
   end
 
   resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz"
-    sha256 "2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"
+    url "https://files.pythonhosted.org/packages/4f/13/28e88033cab976721512e7741000fb0635fa078045e530a91abb25aea0c0/pyparsing-3.1.0.tar.gz"
+    sha256 "edb662d6fe322d6e990b1594b5feaeadf806803359e3d4d42f11e295e588f0ea"
   end
 
   resource "python-dateutil" do
@@ -142,3 +145,18 @@ class GraphTool < Formula
     system python3, "test.py"
   end
 end
+
+__END__
+diff --git a/pyproject.toml b/pyproject.toml
+index 907b05a..81e3d80 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -2,7 +2,7 @@
+ build-backend = "setuptools.build_meta"
+ requires = [
+     "certifi>=2020.06.20",
+-    "oldest-supported-numpy",
++    "numpy",
+     "pybind11>=2.6",
+     "setuptools_scm>=7",
+ ]

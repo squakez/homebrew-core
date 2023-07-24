@@ -3,20 +3,19 @@ class Platformio < Formula
 
   desc "Professional collaborative platform for embedded development"
   homepage "https://platformio.org/"
-  url "https://files.pythonhosted.org/packages/b5/bd/929283a87ed210b537c2de33911ca4dcb0ee67d06182786f9ee30e5da75b/platformio-6.1.7.tar.gz"
-  sha256 "9e72b94ff936bc530e80bef3f1ad5319d84fb4144bcf9587a4cc70ea6090ffce"
+  url "https://files.pythonhosted.org/packages/ed/bd/6c2e44afcb77eebd0f1edace2f67968bb0062f37d50d0e90c2667950a77a/platformio-6.1.9.tar.gz"
+  sha256 "1994484dfb87b321cd0a1632f91d7018c94f3c305bbf377eb9d6df592c005635"
   license "Apache-2.0"
   head "https://github.com/platformio/platformio-core.git", branch: "develop"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "775cfa4f10d3af005fd1a2fb05a73d9c9aa003cda7a9a7ee954b27e9ebf6ca53"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2c37cba13a2d8bb6d7be41010b7a3fc6f4f5c152a3415d01ccde1971fa2a7943"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b5c4ade1d4b5746c7ed4173bd18c505564a2af11073345c024b84b4f94f776ce"
-    sha256 cellar: :any_skip_relocation, ventura:        "60a6fc8cd8e6edfdf4722ffa2a6ba435a0e98f4fbfd135bed458f32abe8b9061"
-    sha256 cellar: :any_skip_relocation, monterey:       "92a98652f70fd418fa54eb19251d24a38136fbbfdb15e7b65fb7404fa01212e9"
-    sha256 cellar: :any_skip_relocation, big_sur:        "1da96c464f0dcadcddbb1a8757520e9378ca35453b3b685431fa842c78eca3ea"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "59dd7a4e1ed7c9c801ffcb67e477ebff555cd17d2786395c5cee467560644f4a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "43afc9cbe1d294ced8c2c1039bbb38accd88db63614909b34acbee11008e860b"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4d378b7a5e0328623fb5b5c061c4d7eb829fd9774ecde98ec692261df6fd054f"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "bd585879c17bc707248aae3ee86621dee954da8a07cb8841d477a1be52ff6763"
+    sha256 cellar: :any_skip_relocation, ventura:        "bfb776124e99f44fbc24916df96050204de244a539e9eeaccaf11338b402b277"
+    sha256 cellar: :any_skip_relocation, monterey:       "15d98dd1efd9d9e3d574b623f78d269dd1db090cf8dfb6d007932bb1f255b1eb"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e9e3276f12e970aabdf4ffac699ffd55bab164309745aa23f379259dbedae8d3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "f80a2612d7f703ced5a0285e70d93dcd37969dd97610ba94513d402715580c81"
   end
 
   depends_on "python-tabulate"
@@ -33,8 +32,8 @@ class Platformio < Formula
   end
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/8b/94/6928d4345f2bc1beecbff03325cad43d320717f51ab74ab5a571324f4f5a/anyio-3.6.2.tar.gz"
-    sha256 "25ea0d673ae30af41a0c442f81cf3b38c7e79fdc7b60335a4c14e05eb0947421"
+    url "https://files.pythonhosted.org/packages/28/99/2dfd53fd55ce9838e6ff2d4dac20ce58263798bd1a0dbe18b3a9af3fcfce/anyio-3.7.1.tar.gz"
+    sha256 "44a3c9aba0f5defa43261a8b3efb97891f2bd7d804e0e1f56419befa1adfc780"
   end
 
   resource "bottle" do
@@ -108,13 +107,13 @@ class Platformio < Formula
   end
 
   resource "starlette" do
-    url "https://files.pythonhosted.org/packages/52/55/98746af96f57a0ff4f108c5ac84c130af3c4e291272acf446afc67d5d5d8/starlette-0.26.1.tar.gz"
-    sha256 "41da799057ea8620e4667a3e69a5b1923ebd32b1819c8fa75634bbe8d8bea9bd"
+    url "https://files.pythonhosted.org/packages/f2/7b/05e2ddc8d0da28c3c916d637cfe509d16e7a2e2cf7faa7cb888446326a30/starlette-0.28.0.tar.gz"
+    sha256 "7bf3da5e997e796cc202cef2bd3f96a7d9b1e1943203c2fe2b42e020bc658482"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/e2/7d/539e6f0cf9f0b95b71dd701a56dae89f768cd39fd8ce0096af3546aeb5a3/urllib3-1.26.16.tar.gz"
-    sha256 "8f135f6502756bde6b2a9b28989df5fbe87c9970cecaa69041edcce7f0589b14"
+    url "https://files.pythonhosted.org/packages/d6/af/3b4cfedd46b3addab52e84a71ab26518272c23c77116de3c61ead54af903/urllib3-2.0.3.tar.gz"
+    sha256 "bee28b5e56addb8226c96f7f13ac28cb4c301dd5ea8a6ca179c0b9835e032825"
   end
 
   resource "uvicorn" do

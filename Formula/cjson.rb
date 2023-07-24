@@ -1,29 +1,32 @@
 class Cjson < Formula
   desc "Ultralightweight JSON parser in ANSI C"
   homepage "https://github.com/DaveGamble/cJSON"
-  url "https://github.com/DaveGamble/cJSON/archive/v1.7.15.tar.gz"
-  sha256 "5308fd4bd90cef7aa060558514de6a1a4a0819974a26e6ed13973c5f624c24b2"
+  url "https://github.com/DaveGamble/cJSON/archive/v1.7.16.tar.gz"
+  sha256 "451131a92c55efc5457276807fc0c4c2c2707c9ee96ef90c47d68852d5384c6c"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "ad434259c62a12cf5b5dbfc725214ae5dd4f49edc293e09f36d757f7832ec8e3"
-    sha256 cellar: :any,                 arm64_monterey: "6e0051098016dfe778b578304a46af1a7e171c04abb9e507945b069bfe771d74"
-    sha256 cellar: :any,                 arm64_big_sur:  "5cee282ea9e05f687010993884e90b1f89980af0909fe2f8c376d520cb3a1cd7"
-    sha256 cellar: :any,                 ventura:        "6faecacb90ee0e3149c329d71d8bcb3cea5fc0bb3da3b8258e54285a7fb02050"
-    sha256 cellar: :any,                 monterey:       "821879ddb86f12b2fa764e3bf1f094eea1d19bff8924f4b3ec3ff1a1aeac40ed"
-    sha256 cellar: :any,                 big_sur:        "6a836d6f194756f36b0007b1c9bb8881c8bec86f41b9987a436524d1b2c66271"
-    sha256 cellar: :any,                 catalina:       "523569912fcfe553fa50f9b856a3de0bbca49d573d750c44a9ed08af01eb8606"
-    sha256 cellar: :any,                 mojave:         "13b34d77585c933b3d22c8b060fcc67758f38bfe6422ede3e312b0079d2b7476"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "50eda10d20f7d2c51b32dad782185f38ba97fb5794c5902edf50c22167f4e2e2"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "86ee096088caae2433c9f85afa172a6aef245fdf6ce9fcf9ff352702fe2000a6"
+    sha256 cellar: :any,                 arm64_monterey: "f1b4e9f60327ba7e9eb14560bb79483ac417724c20563079d302dbf2d01ebcc0"
+    sha256 cellar: :any,                 arm64_big_sur:  "679191a14c283a9d5c4169e25845815608b91a5c9a32a656bcb48fd47072d4a5"
+    sha256 cellar: :any,                 ventura:        "3f08bd5fbd91e65ae011c7de3b9f91d4b853a4238e5a204311f346047c67aece"
+    sha256 cellar: :any,                 monterey:       "945bbf9662147b825b0b40e4859ab4c7125e3735a360bcd063e80e23b1784076"
+    sha256 cellar: :any,                 big_sur:        "67370802349999b8861bdca4607b5e7ac0ddef44d43677e38fa04ddcc2610068"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bcb8cd8c65d5b5930c06e08e8a4908dadfc5371ae19471bbabea68155054c196"
   end
 
   depends_on "cmake" => :build
 
   def install
-    system "cmake", "-DENABLE_CJSON_UTILS=On", "-DENABLE_CJSON_TEST=Off",
-                    "-DBUILD_SHARED_AND_STATIC_LIBS=On", ".",
+    system "cmake", "-S", ".", "-B", "build",
+                    "-DENABLE_CJSON_UTILS=ON",
+                    "-DENABLE_CJSON_TEST=Off",
+                    "-DBUILD_SHARED_AND_STATIC_LIBS=ON",
+                    "-DCMAKE_INSTALL_RPATH=#{rpath}",
                     *std_cmake_args
-    system "make", "install"
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

@@ -1,18 +1,18 @@
 class SofiaSip < Formula
   desc "SIP User-Agent library"
   homepage "https://sofia-sip.sourceforge.io/"
-  url "https://github.com/freeswitch/sofia-sip/archive/v1.13.15.tar.gz"
-  sha256 "846b3d5eef57702e8d18967070b538030252116af1500f4baa78ad068c5fdd64"
+  url "https://github.com/freeswitch/sofia-sip/archive/v1.13.16.tar.gz"
+  sha256 "125a9653bea1fc1cb275e4aec3445aa2deadf1fe3f1adffae9559d2349bfab36"
   license "LGPL-2.1-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "432a4566b511529e97cfdb3ce395e8e2c07e96c893fa270a9e455485e4561bf9"
-    sha256 cellar: :any,                 arm64_monterey: "687f4ba6cdad9ba9c4a690158d532b5f6fb7b0b09c3902ef1abe25bcc8363416"
-    sha256 cellar: :any,                 arm64_big_sur:  "72e2019aaa7418023be2b17b3bdbfdcaf1fd3866526916f10963bc61f7b4b8cc"
-    sha256 cellar: :any,                 ventura:        "77c9010033914895789fa3d941ef588b8d8d8484189d84710640982a0ce211ac"
-    sha256 cellar: :any,                 monterey:       "95d5e50f6e32da6c7aa4da21c1a485d5fd8ceae9a42c6c4c2c6df551a1dada1a"
-    sha256 cellar: :any,                 big_sur:        "4d6a220779a2ae2e74083453ddbe6033ffaaae74602eb7671081f34810c0d43b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7f688c6391245a0628cda90274daaa1cbc28fe5b4af7e9c6b8d9adec169a5b11"
+    sha256 cellar: :any,                 arm64_ventura:  "262dc862799700c5dff589548f224eca25f9832cb7f7b5816d6572259fe52b8d"
+    sha256 cellar: :any,                 arm64_monterey: "e4d08ce84ebaf37bf91b11eef9485eea17539187663a5046ac69b6d2c08c6494"
+    sha256 cellar: :any,                 arm64_big_sur:  "9c46d7adcdaf2289205bb2401fbc165b1d3d754ee95b9d4b4f54f3f0a39ae7f6"
+    sha256 cellar: :any,                 ventura:        "1132c7c2515879d1911bf2a59b62a83ecfd4ecf1d0b9209a39e1b1022b202e01"
+    sha256 cellar: :any,                 monterey:       "394bcdcd427901d26872d5b788940651b73dc20d51c34b4a221b1ee2471f0f8f"
+    sha256 cellar: :any,                 big_sur:        "233145304a443c3a588ec3f6fa535418012ce5f93e92624d5e7eca05c861eb88"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e53bb336e275f17cc23454016ab71d4613b5d6025c579b71c46b717fbe40f34a"
   end
 
   depends_on "autoconf" => :build
@@ -20,7 +20,7 @@ class SofiaSip < Formula
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
   depends_on "glib"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   def install
     system "./bootstrap.sh"

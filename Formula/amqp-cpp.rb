@@ -1,8 +1,8 @@
 class AmqpCpp < Formula
   desc "C++ library for communicating with a RabbitMQ message broker"
   homepage "https://github.com/CopernicaMarketingSoftware/AMQP-CPP"
-  url "https://github.com/CopernicaMarketingSoftware/AMQP-CPP/archive/v4.3.23.tar.gz"
-  sha256 "699339e4f81d165d7f6842ce464df36a403d08efbae9ded8f802f152d8bd5958"
+  url "https://github.com/CopernicaMarketingSoftware/AMQP-CPP/archive/v4.3.26.tar.gz"
+  sha256 "2baaab702f3fd9cce40563dc1e23f433cceee7ec3553bd529a98b1d3d7f7911c"
   license "Apache-2.0"
   head "https://github.com/CopernicaMarketingSoftware/AMQP-CPP.git", branch: "master"
 
@@ -12,13 +12,13 @@ class AmqpCpp < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "c664632a3a6d58847e0635b11095c9036fab57d9d1be2c6522bae633b3b27991"
-    sha256 cellar: :any,                 arm64_monterey: "cccb7f548595cfeb394736100e555407ea89be4ba98d8395effcec1cfc6b78e2"
-    sha256 cellar: :any,                 arm64_big_sur:  "d32e583ebba0a245f2bff754c4d681cfcea3d768a2fa502ed41f70c00695fcb0"
-    sha256 cellar: :any,                 ventura:        "80c0f5641c0c7bed47d8d1781d94003f46f580d730ffeeaebbf2e4d37a601f38"
-    sha256 cellar: :any,                 monterey:       "58bb8b6767a86f3221850ce4fc1637f0ac9427d39f5534c69eb5d9ac4380c0d7"
-    sha256 cellar: :any,                 big_sur:        "5ce871a66b88d57f80954f503754e273f86b4695201a72ea83b326aaaab3baf8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bdc57e60ee0048bc982af729db9d3a68f2adba79420558a36ebc8d28ead92c9"
+    sha256 cellar: :any,                 arm64_ventura:  "f65f76531ab89061aed98f55056ef7a920dd3368d8d738c0615b9d52956745ce"
+    sha256 cellar: :any,                 arm64_monterey: "29327632ff96b7dd4cf5721039ad8001ab758f14a528f6b0ca7cb4ee37740ff8"
+    sha256 cellar: :any,                 arm64_big_sur:  "065b8751feca819dd49671549d29f038bf41d59076b60ff53aa36da2b974eeae"
+    sha256 cellar: :any,                 ventura:        "7ddb6e8142b7f99ea479a274a21c2e75a0317f1dc48d895744e1b3d396192173"
+    sha256 cellar: :any,                 monterey:       "a717607eb6c8014424dad81ecb9e5e55926800a32a2855e6b666bee9f2800dc1"
+    sha256 cellar: :any,                 big_sur:        "1a0b91a113adaaf303a4187051af2f49f52bbedfa84ae5a672be63158f332c85"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "08f42f6efd8ed844adc09fa2d7b226c9d955c7e681527fe7d941926dc7c7098b"
   end
 
   depends_on "cmake" => :build

@@ -1,19 +1,20 @@
 class Pygit2 < Formula
   desc "Bindings to the libgit2 shared library"
   homepage "https://github.com/libgit2/pygit2"
-  url "https://files.pythonhosted.org/packages/48/6b/1c20d9adf9906e699bdb505322b27c71e12d7250d8454ae88dcecdf10296/pygit2-1.12.1.tar.gz"
-  sha256 "8218922abedc88a65d5092308d533ca4c4ed634aec86a3493d3bdf1a25aeeff3"
+  url "https://files.pythonhosted.org/packages/db/26/cd0d68706e9511ca07b10d53f42e70d4c57b3504f4a0fd675e4617ad7a60/pygit2-1.12.2.tar.gz"
+  sha256 "56e85d0e66de957d599d1efb2409d39afeefd8f01009bfda0796b42a4b678358"
   license "GPL-2.0-only" => { with: "GCC-exception-2.0" }
   head "https://github.com/libgit2/pygit2.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "15e55049b89b3b7212d98d8f097d4e9c47a22fd9b89b25de852c9d263078bb57"
-    sha256 cellar: :any,                 arm64_monterey: "62b29d6296c928aa758cb7c470d85923b815078d8bbfab443e7fa756fcd89a4d"
-    sha256 cellar: :any,                 arm64_big_sur:  "b6952ca08e0838388028f10f26193bbeabf063ee30ae7a2b2e991f3a9434ae96"
-    sha256 cellar: :any,                 ventura:        "930abb3ed0e772042caebf23be133d4a9464aea4f0e4c58c8becf141a1bfc7e8"
-    sha256 cellar: :any,                 monterey:       "6ef228c24296c7d08926ce05cdadb2664f5c71dacc81df498d59fb54b4dccfe8"
-    sha256 cellar: :any,                 big_sur:        "65c20ba4d1e18a85fcd087f0f3feaad5c0599e6a25fc74bd7b4e62fc4d7a25a7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0dfade523e3bf42761a6e26e5fb94b3bf2acb3699d70ee9dca7f1cf9489eab36"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "50d0698bb194f8e19ee8b26eca8c3a1362cf468dc0286f8f1e7b5fd08338109b"
+    sha256 cellar: :any,                 arm64_monterey: "ec798b4c494eeaab104671f73e907eeaa14301dd106db94696b3d8851cde6d5e"
+    sha256 cellar: :any,                 arm64_big_sur:  "7e4da4c4d21d93344b34d6db2a37cfeb2e1fefe8b2944580d9454797602e775e"
+    sha256 cellar: :any,                 ventura:        "733df708e7b6c8016704ac3f8ec8392bfaaf36bf0c5005c49045f029d39fae25"
+    sha256 cellar: :any,                 monterey:       "c47fc76186c79f21f38e89d6da8bd31e86138ad687b17bf01306780ce109dcd0"
+    sha256 cellar: :any,                 big_sur:        "743091d3ac0384f3f0aef487da81ea95404a5aaf5f866442e4a101c5c0ef3b02"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dd4e7397d8d8cbe316a2548302deb636c12071bb777c32dd13fadc8a3aa24e99"
   end
 
   depends_on "cffi"
@@ -25,7 +26,7 @@ class Pygit2 < Formula
   end
 
   def install
-    system python3, *Language::Python.setup_install_args(prefix, python3)
+    system python3, "-m", "pip", "install", "--prefix=#{prefix}", "--no-deps", "--no-build-isolation", "."
   end
 
   test do

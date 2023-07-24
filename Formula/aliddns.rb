@@ -2,21 +2,19 @@ class Aliddns < Formula
   desc "Aliyun(Alibaba Cloud) ddns for golang"
   homepage "https://github.com/OpenIoTHub/aliddns"
   url "https://github.com/OpenIoTHub/aliddns.git",
-      tag:      "v0.0.13",
-      revision: "2c2214baf6b016ded184373252cff16bb377d3c0"
+      tag:      "v0.0.20",
+      revision: "b2fd114d9d9c0cc9e01a1f4d794a5d609a2c350a"
   license "MIT"
   head "https://github.com/OpenIoTHub/aliddns.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "850026dd34a736d0fbf82dbb55b6c021672be35170276a23692e117f6fe1a90f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "23ab8335a2b758f3557053847a848d61dfb53c614abd8e52eadd62352bc45c5f"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "779eac8f4e88b704f068d542d1c4f209a96edc5ded85e5ecfefa961d798d6620"
-    sha256 cellar: :any_skip_relocation, ventura:        "c8b8d305a0925d9e322b260417298ca4210a829391888c388774b521c6a63d6d"
-    sha256 cellar: :any_skip_relocation, monterey:       "ad0bfb1477ef8ec7145eca1cbeb4147157c928ebd440a757f054de2d961f2578"
-    sha256 cellar: :any_skip_relocation, big_sur:        "107cb79b754c414f6ffc4bf48ad086e502ad1b39aba147177e3490258e840f8b"
-    sha256 cellar: :any_skip_relocation, catalina:       "67937c8e5e9379f4eb36adb24f5b1c5330d488dbe032e0cca376709c03f7b29b"
-    sha256 cellar: :any_skip_relocation, mojave:         "ee4a2ad57559bd87b208aa6a58d949b2271b99c767c1bc6e6d8a1fb4996f6e36"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c2f2e7a4c81fc402a372ea37b80dbf8f6190595122704088744f4ba7c5fc50ce"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "51af64187981042422c57f4a4e41e977ddf974a3e22eb5b38c7863131979f0ae"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "51af64187981042422c57f4a4e41e977ddf974a3e22eb5b38c7863131979f0ae"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "51af64187981042422c57f4a4e41e977ddf974a3e22eb5b38c7863131979f0ae"
+    sha256 cellar: :any_skip_relocation, ventura:        "af66b16954c12eb3e2b94da43422296f7c985824591224dc067cbc09ce4ba1ef"
+    sha256 cellar: :any_skip_relocation, monterey:       "af66b16954c12eb3e2b94da43422296f7c985824591224dc067cbc09ce4ba1ef"
+    sha256 cellar: :any_skip_relocation, big_sur:        "af66b16954c12eb3e2b94da43422296f7c985824591224dc067cbc09ce4ba1ef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4c0792941223e0d472adba98a65cddc7cbd9b62ad3f0eea6417b6c0780810ef6"
   end
 
   depends_on "go" => :build

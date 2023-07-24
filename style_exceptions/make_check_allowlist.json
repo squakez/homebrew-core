@@ -11,8 +11,10 @@
   "google-sparsehash",
   "jemalloc",
   "jpeg-turbo",
+  "mosh",
   "mpfr",
   "nettle",
+  "ntbtls",
   "open-mpi",
   "openssl@1.1",
   "openssl@3.0",
@@ -20,6 +22,7 @@
   "p11-kit",
   "pcre",
   "protobuf",
+  "quictls",
   "wolfssl",
   "xz"
 ]

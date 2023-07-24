@@ -1,18 +1,18 @@
 class LibgrapeLite < Formula
   desc "C++ library for parallel graph processing"
   homepage "https://github.com/alibaba/libgrape-lite"
-  url "https://github.com/alibaba/libgrape-lite/archive/refs/tags/v0.2.5.tar.gz"
-  sha256 "b251f7c0614d74d4c311b9821015dd722e2eb8c7b2d80bf0cf17183a60e4dd85"
+  url "https://github.com/alibaba/libgrape-lite/archive/refs/tags/v0.3.2.tar.gz"
+  sha256 "e0701a389f615eb169faf0272ad4aa0679b8e7b06f94a4732c8232d2f40fc0ae"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any, arm64_ventura:  "f635e967f309c70c230dbc048b4bb667fafe6715b86a0803be3469c082e92089"
-    sha256 cellar: :any, arm64_monterey: "fe8474892fec74e5f4ceb1161805ec1a4363cfb5b1775b086f6be478e4f727ea"
-    sha256 cellar: :any, arm64_big_sur:  "1d732141e7f7b42515da6a88df00843a7679981067280a8eefd158596b33200e"
-    sha256 cellar: :any, ventura:        "488fa95b36d456f88bbc9df870c25c41b89b6c27f72b96fcef7d12468007566e"
-    sha256 cellar: :any, monterey:       "06a908aa0baeec78620dd62f08acaba18d7efa92d06d961f25ea4727a1c4f480"
-    sha256 cellar: :any, big_sur:        "ec5ddd15b19eab02c17c5e0336022b6bd2481e071e22eeab58552b70bee82f5e"
-    sha256               x86_64_linux:   "a85ff55fb72584cf51a7f7982008e23ed96d0328093740360056c577650d2d92"
+    sha256 cellar: :any,                 arm64_ventura:  "5437b82e7cbc55ec1394e21b8cecb11c7d5149b9205afdaee7765bded95e0d5c"
+    sha256 cellar: :any,                 arm64_monterey: "9ca019ceb41ef6b447df677376bf396c8fcb49b1bd75a4c69994492c1487e0fa"
+    sha256 cellar: :any,                 arm64_big_sur:  "7eead4cc06b4f89b45cd365e98577e6f13985569f7781484d3b3a759969df6d5"
+    sha256 cellar: :any,                 ventura:        "73510a5810bf7c2c54af3f8b1188051e4651739d584a0b03136d4e80ee84a869"
+    sha256 cellar: :any,                 monterey:       "078f61025dd058c4e0fcd83449142abfa1c624459878bd15c6a8c2f8cec08313"
+    sha256 cellar: :any,                 big_sur:        "a83c2f7d28fd6efc4846641070514f0fe13e1e6af4320dcc247c343323e304a2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d6a99920810c692f8420e82009a38c7ec32b316e38bb1a38e42a85f033a27a3a"
   end
 
   depends_on "cmake" => :build

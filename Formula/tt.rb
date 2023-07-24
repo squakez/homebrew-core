@@ -1,18 +1,19 @@
 class Tt < Formula
   desc "Command-line utility to manage Tarantool applications"
   homepage "https://github.com/tarantool/tt"
-  url "https://github.com/tarantool/tt/releases/download/v1.1.1/tt-1.1.1-complete.tar.gz"
-  sha256 "846a81b3320907ae6c74c1cc5180f4fa95fe75369c304c0512a5dad94da0e795"
+  url "https://github.com/tarantool/tt/releases/download/v1.1.2/tt-1.1.2-complete.tar.gz"
+  sha256 "b9425b2b44bde086e9ab54f2f901229d754da6c94167526b3344a0308865ab91"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "cf37b29dc07a515a44872508cb3b42f53f54feb101464ecdaf66d6df5b812598"
-    sha256 cellar: :any,                 arm64_monterey: "a34023bd4fb0b6b4d96e41f2ce2a73db0e22729bd830f5edeb7779337ae0efe3"
-    sha256 cellar: :any,                 arm64_big_sur:  "e83664d42f912521a8e280ea65396cede5725e57042b867d321a8a976546cfea"
-    sha256                               ventura:        "7300e685c0fb2637c25d829e9bbb2ef4505bf02db23b3f1b4738eb514df061b7"
-    sha256                               monterey:       "a25f899a1bfd7f62f4dfe473e8c99244d0085a79656b484f7c1119cada6ae0cc"
-    sha256                               big_sur:        "daee6a93262e97d504828b881e1c0566e2158893871e1ec694c142dddb35f173"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9413566ebd6bfe8b3ffadfce38abba557e0677a1824691cdbe2c6b292252e7e2"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_ventura:  "790695603d18f8a01502d965126d3781fa5774ccf865b5a38244cda746f82972"
+    sha256 cellar: :any,                 arm64_monterey: "3d20599ee5caf0417f756b800982b2aca6792f51683315939dbb8ec0da1e5987"
+    sha256 cellar: :any,                 arm64_big_sur:  "324ab76b91578f6df52cf79f8e09c7da47fe6f936cb24c17841d5d42fb1bda10"
+    sha256                               ventura:        "7eee737bef94e4b0586a2ce52ae992bcacc2b9fbee894f546b628c76ce4684c5"
+    sha256                               monterey:       "ca9121d8d02da7ca9276185b7b25b13a38c8b7337eeec5ff00ddd54dabc7dbe4"
+    sha256                               big_sur:        "44d735c47bd10d9dd62699091fa10b9d7050dc8b5d5932d290ad2b5f968eb45b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9b6a5f05563457a982c8dcf1addde2f06b455cf9db75dbde48131daa5d68f0bc"
   end
 
   depends_on "go" => :build
@@ -23,6 +24,10 @@ class Tt < Formula
   uses_from_macos "curl"
   uses_from_macos "unzip"
   uses_from_macos "zip"
+
+  on_macos do
+    depends_on "bash-completion"
+  end
 
   def install
     ENV["TT_CLI_BUILD_SSL"] = "shared"

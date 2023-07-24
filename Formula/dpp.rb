@@ -2,18 +2,18 @@ class Dpp < Formula
   desc "Directly include C headers in D source code"
   homepage "https://github.com/atilaneves/dpp"
   url "https://github.com/atilaneves/dpp.git",
-      tag:      "v0.5.2",
-      revision: "1c42ced86f170f2961f948e66c9d8c01816b9186"
+      tag:      "v0.5.5",
+      revision: "c74291190d5fe81ff23ec1d21290fd7047c256a9"
   license "BSL-1.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e280202742cf0f7638522705ee8f08db2ff597833653a8a73d9f2a2375c1e4f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "dd2c953f61f3759db232ed0e859ec826f630ef3ea1eb45d51e63f85373e915d7"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "b54f48a15f0d68462e8c349a6e6a3165ad8e8ea9d6c84dfab5bdbf0bd09d4153"
-    sha256 cellar: :any_skip_relocation, ventura:        "d1c0447bfa9f2f6769e71f5282690725284b432130de74f7bb431bf17b7e1964"
-    sha256 cellar: :any_skip_relocation, monterey:       "1dff146e0fb807a9367a286417740096c5efca2252e9e93f0cd33ca851536b28"
-    sha256 cellar: :any_skip_relocation, big_sur:        "2a473ed20de0d342da6f94e1a2529c3e59bc0ceae1c86cb03564d7fce0faa400"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "81e7cd49005ecf7943d927fb8c100eeb3f49107cbcaea0f6ff708e640e348d45"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8200b30a5c22f48a57b405e8ce590e290cffd8f07fbc502b6bb18ecc358bb2f1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f2ecf24bc0fcff5d4096990f971d4e983bc35d359d312e89123da7d886d14123"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "db600cf00396d5916f3ef95dfa5a110fabf4aa1b002104ca00c0a3eb844b3954"
+    sha256 cellar: :any_skip_relocation, ventura:        "b9cad2da102dbb1911107e26b89c57259aa9ea3dee09049e3dcbceb87dc8f7b1"
+    sha256 cellar: :any_skip_relocation, monterey:       "b586c87b08bc7168af973c9ab28f3b61cce69ad71b3274b5032959a0cdb099a9"
+    sha256 cellar: :any_skip_relocation, big_sur:        "fefa9a0975985b6a9a7b5df27279df35382f44b091ead310ac898bb0fabc515a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b01ee202e3bf70bb66304fc20566d2140a565daeb65a6f4386babc2fcb065990"
   end
 
   depends_on "dtools" => :build
@@ -24,8 +24,8 @@ class Dpp < Formula
 
   # Match versions from dub.selections.json
   resource "libclang" do
-    url "https://code.dlang.org/packages/libclang/0.3.1.zip"
-    sha256 "ff6c8d5d53e3f59dbb280b8d370d19cb001e63aad6da99c02bdd2b48bfb31449"
+    url "https://code.dlang.org/packages/libclang/0.3.2.zip"
+    sha256 "c54c01b65f2a62c93a2929c4d7acee05ed502d841839bf9f4c212e5d18ded137"
   end
 
   resource "sumtype" do

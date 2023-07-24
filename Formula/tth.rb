@@ -4,11 +4,6 @@ class Tth < Formula
   url "http://hutchinson.belmont.ma.us/tth/tth_distribution/tth_4.16.tgz"
   sha256 "ff8b88c6dbb938f01fe6a224c396fc302ae5d89b9b6d97f207f7ae0c4e7f0a32"
 
-  livecheck do
-    url "http://hutchinson.belmont.ma.us/tth/Version"
-    regex(/"v?(\d+(?:\.\d+)+)"/i)
-  end
-
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "fdeb38cd3835c63253e57a04f574b8ecf27ff68c27fd990f65eaa390cea3261f"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "4a80f7935ebe70d616800844afada0ab97f6d9f6ef0ab486dd2905444692e0df"
@@ -18,6 +13,8 @@ class Tth < Formula
     sha256 cellar: :any_skip_relocation, catalina:       "3e3902e915b07ebd6527c8ae2dd755b9134c97ff0efad473803ed8cca06f5a08"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "c446bed3720c8c0492ecf875b8b14069e32d593b887ba5ccd956dc604e4a913e"
   end
+
+  deprecate! date: "2023-06-26", because: :repo_removed
 
   def install
     system ENV.cc, "-o", "tth", "tth.c"

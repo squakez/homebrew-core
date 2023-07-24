@@ -1,19 +1,19 @@
 class VulkanExtensionlayer < Formula
   desc "Layer providing Vulkan features when native support is unavailable"
   homepage "https://github.com/KhronosGroup/Vulkan-ExtensionLayer"
-  url "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/archive/refs/tags/v1.3.250.tar.gz"
-  sha256 "9c77604b06df1e2f2432cd0c3b3c0df8cf0a3fdfe63c4aac65020a6429929aff"
+  url "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/archive/refs/tags/v1.3.257.tar.gz"
+  sha256 "27227d904072228b44fea3e2b766fffb03fb0acc0864ac3c917ce399b0516676"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-ExtensionLayer.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cbb288ab5e3d83bff84030786a37564e4f075f35d82943db027c19f63db81d02"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1a1ab68856add5671da320f4d2a8fabee1421445ba3b9e09d3a3975210f9f574"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "8093372fb8385adf762c2865a263a66d637e8d77aa4d4ad1b1c85c07953c1a84"
-    sha256 cellar: :any_skip_relocation, ventura:        "c7dc9cec4cf784dbb0709a2ed81d5695c15bf0cd5b9c67d8f75aeddc33dfbf76"
-    sha256 cellar: :any_skip_relocation, monterey:       "fb3801ac99581479d0cb5fdd18a87d8755361997ebf51fb3ef7e4ca9ec9fd0f7"
-    sha256 cellar: :any_skip_relocation, big_sur:        "5d7ab812e5531d68cdfa6e42dd6a11b6803b5d6a92a10d77b7c37e6d449b7c4b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5c823a83d302ff89c0b728ec8027f5f582ca3eceb39102f3b765540f32a312d8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "03947ff69e3fdf052b2617fe0e3fc9e7d023df45eb69c96a17a26edab93ea6de"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "895fdd9ff40724b59bbfa135a9a54d6deaf16f28cc6a280e712f8df2bf18e5a6"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2df1acedfe46f0e04c06694a1b14f1b3a6fad7acc7b2b59c0c436febfb11b1b0"
+    sha256 cellar: :any_skip_relocation, ventura:        "4ae8ef0d0996cc2a2cb295043004716d6c3c16843d87cc23547724e9e0b7463b"
+    sha256 cellar: :any_skip_relocation, monterey:       "bc0cdc11ccea7e611d2c82ace1988e80f6ef0db8e704513de166725e3e7dd7c8"
+    sha256 cellar: :any_skip_relocation, big_sur:        "b9f1efb170b6a432c3467bc711c6c34595249fb17b0ad17cd17978cf1e41b93a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6b2b0935832a9fee79afd7c885f4b4404ba1dbef709a0ea5de8422aabaed7037"
   end
 
   depends_on "cmake" => :build
@@ -57,12 +57,11 @@ class VulkanExtensionlayer < Formula
     ENV["VK_ICD_FILENAMES"] = Formula["vulkan-tools"].lib/"mock_icd/VkICD_mock_icd.json"
 
     expected = <<~EOS
-      Instance Layers: count = 4
+      Instance Layers: count = 3
       --------------------------
-      VK_LAYER_KHRONOS_memory_decompression Khronos Memory Decompression layer \\d\\.\\d\\.\\d+  version 1
-      VK_LAYER_KHRONOS_shader_object        Shader object layer                \\d\\.\\d\\.\\d+  version 1
-      VK_LAYER_KHRONOS_synchronization2     Khronos Synchronization2 layer     \\d\\.\\d\\.\\d+  version 1
-      VK_LAYER_KHRONOS_timeline_semaphore   Khronos timeline Semaphore layer   \\d\\.\\d\\.\\d+  version 1
+      VK_LAYER_KHRONOS_shader_object      Shader object layer              \\d\\.\\d\\.\\d+  version 1
+      VK_LAYER_KHRONOS_synchronization2   Khronos Synchronization2 layer   \\d\\.\\d\\.\\d+  version 1
+      VK_LAYER_KHRONOS_timeline_semaphore Khronos timeline Semaphore layer \\d\\.\\d\\.\\d+  version 1
     EOS
     actual = shell_output("vulkaninfo --summary")
     assert_match Regexp.new(expected), actual

@@ -1,20 +1,19 @@
 class Timg < Formula
   desc "Terminal image and video viewer"
   homepage "https://timg.sh/"
-  url "https://github.com/hzeller/timg/archive/refs/tags/v1.4.5.tar.gz"
-  sha256 "3c96476ce4ba2af4b9f639c5b59ded77ce1a4511551a04555ded105f14398e01"
+  url "https://github.com/hzeller/timg/archive/refs/tags/v1.5.1.tar.gz"
+  sha256 "ac8905e4615d964eee6b014b9ff3413160cfc5b73f547e91736bc06c928ac811"
   license "GPL-2.0-only"
-  revision 1
   head "https://github.com/hzeller/timg.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "98de11a20c1dbe896286ee35fc9ec12c266650c63d7a0e57df66476683e26959"
-    sha256 cellar: :any,                 arm64_monterey: "202b3f03024ef84c6a08d1bb5bfba86440b94c147a8fdcebe19e6f7ed7342825"
-    sha256 cellar: :any,                 arm64_big_sur:  "34ff35a5d99a0fdc651819cfd4e6314e5451c09a3ee7f9074a0ce1fdb8edfefe"
-    sha256 cellar: :any,                 ventura:        "171417102b5c14e70cd720a8808232304c9bf6db5eae5c939c50d6f88bdfb81b"
-    sha256 cellar: :any,                 monterey:       "865bb3b2651f6ce8fa7af91816b0acb851b95eb728f60cbfe2a637d124d11c6c"
-    sha256 cellar: :any,                 big_sur:        "918d2e04e40591d7b501c790f67ba3fe274558103168b8e8370931dc9c05e01d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e343a40d3196e3500255ddec01cc22f83104911359b1d3772c9ac7a5b18146f5"
+    sha256 cellar: :any,                 arm64_ventura:  "fa3f8b23df7dc319c58c90138d417af36c8dd8628007b4ef3146b41464fed70b"
+    sha256 cellar: :any,                 arm64_monterey: "12f5d3fd70c318c986b3f625887759f8e4d7ebb36271167a2e3ebed765c499c4"
+    sha256 cellar: :any,                 arm64_big_sur:  "354d9e376fd40c2906119ed13ab988886156b98499ccf969bf8fc6eb14edc2b9"
+    sha256 cellar: :any,                 ventura:        "99e8d4d27f5a6734d9c40aaaac9c4e209866d5af262b19f74929e8b6b3468de9"
+    sha256 cellar: :any,                 monterey:       "9d5acb578bd3900210531c883b45e88eec76c159500c375e47aa088650059c8e"
+    sha256 cellar: :any,                 big_sur:        "7c5b249dd53ccb12ad4028a632e48b80a4d1a53dc9ee999f9fefe92e4a0cb001"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3ea526ecc96da2e3bf3d6c73ff9df46e851ff33ab1849ca2cd77c3f2ab99e963"
   end
 
   depends_on "cmake" => :build
@@ -22,8 +21,10 @@ class Timg < Formula
   depends_on "ffmpeg"
   depends_on "graphicsmagick"
   depends_on "jpeg-turbo"
+  depends_on "libdeflate"
   depends_on "libexif"
   depends_on "libpng"
+  depends_on "libsixel"
   depends_on "openslide"
   depends_on "webp"
 

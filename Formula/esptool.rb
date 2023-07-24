@@ -3,26 +3,26 @@ class Esptool < Formula
 
   desc "ESP8266 and ESP32 serial bootloader utility"
   homepage "https://docs.espressif.com/projects/esptool/en/latest/esp32/"
-  url "https://files.pythonhosted.org/packages/01/0f/d0ff6cf55c1932d239c4c0dd743fd10cc3f664818791542173d96f6e4810/esptool-4.6.1.tar.gz"
-  sha256 "026169edbfc0180e87b8b9b178da8844fd0f39bbc1c3ee8e8f7611a2c30c8f59"
+  url "https://files.pythonhosted.org/packages/a3/63/c757f50b606996a7e676f000b40626f65be63b3a10030563929c968e431c/esptool-4.6.2.tar.gz"
+  sha256 "549ef93eef42ee7e9462ce5a53c16df7a0c71d91b3f77e19ec15749804cdf300"
   license "GPL-2.0-or-later"
+  revision 2
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_ventura:  "ffcd7484468e26386ee4053d840c5bffe8c6b38a640541229c41a6861ece4ffc"
-    sha256 cellar: :any,                 arm64_monterey: "da66071ab638f67b80d316553a330945d74b9b0fb89fbaca45b6a04c1d24826b"
-    sha256 cellar: :any,                 arm64_big_sur:  "3015ce38a13503d49a8d48c4d05e7df722f50dec69bd387b5c09d2962ec311a4"
-    sha256 cellar: :any,                 ventura:        "a1ece0124fcf1faee2368fb34e3c635076a93244e7cfe277210f567bae965d6c"
-    sha256 cellar: :any,                 monterey:       "d86e4966dfbcfe7ffe386931696f24fff5ecf71a6129f5a5560c47abdd998f23"
-    sha256 cellar: :any,                 big_sur:        "b84793f9464382f4c6e6c89e090c8734210364f7028727c6f1cf5789b91fd8ab"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "920ee688f4c0de970c652c06d0cd0132174279115e5582a8a237d6f3ff3bdde4"
+    sha256 cellar: :any,                 arm64_ventura:  "3d58bd53a3972dbddd8a3c9e7b90f85ab827f5ffa10b1c0c6de6ff5bffdc682a"
+    sha256 cellar: :any,                 arm64_monterey: "56b7c807266fc7a9e402add60cbfa491f4f1d682ed99f80c66ab527b1f9d6dfc"
+    sha256 cellar: :any,                 arm64_big_sur:  "38a82a94b2dfc2d669ceb829529be68b70e66a3d2c63591c60fd7ec63d009197"
+    sha256 cellar: :any,                 ventura:        "ecf35644361b06e360659960f0b265885a070c477e7117d6e6bc600f05334176"
+    sha256 cellar: :any,                 monterey:       "0b4fe9838fad14275de730630ad6f380639798bded59d1c22f5add980828fe8d"
+    sha256 cellar: :any,                 big_sur:        "85b6b564558502a6db9826005109778fd9d99e9303c4473706b7fb3dee9752b4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "97845a3f3b518a0149ebc8de71dce7471fc793b6baf41fc80c80c64619ba9164"
   end
 
-  # `pkg-config`, `rust`, and `openssl@1.1` are for cryptography.
+  # `pkg-config`, `rust`, and `openssl@3` are for cryptography.
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
   depends_on "cffi"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "pycparser"
   depends_on "python@3.11"
   depends_on "pyyaml"
@@ -34,8 +34,8 @@ class Esptool < Formula
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/19/8c/47f061de65d1571210dc46436c14a0a4c260fd0f3eaf61ce9b9d445ce12f/cryptography-41.0.1.tar.gz"
-    sha256 "d34579085401d3f49762d2f7d6634d6b6c2ae1242202e860f4d26b046e3a1006"
+    url "https://files.pythonhosted.org/packages/93/b7/b6b3420a2f027c1067f712eb3aea8653f8ca7490f183f9917879c447139b/cryptography-41.0.2.tar.gz"
+    sha256 "7d230bf856164de164ecb615ccc14c7fc6de6906ddd5b491f3af90d3514c925c"
   end
 
   resource "ecdsa" do
@@ -54,6 +54,10 @@ class Esptool < Formula
   end
 
   def install
+    # Ensure that the `openssl` crate picks up the intended library.
+    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
+    ENV["OPENSSL_NO_VENDOR"] = "1"
+
     virtualenv_install_with_resources
   end
 

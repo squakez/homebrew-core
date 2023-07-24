@@ -1,8 +1,8 @@
 class Pdns < Formula
   desc "Authoritative nameserver"
   homepage "https://www.powerdns.com"
-  url "https://downloads.powerdns.com/releases/pdns-4.8.0.tar.bz2"
-  sha256 "61a96bbaf8b0ca49a9225a2254b9443c4ff8e050d337437d85af4de889e10127"
+  url "https://downloads.powerdns.com/releases/pdns-4.8.1.tar.bz2"
+  sha256 "66dd3ee2654f42b4eb80260f94ecb48e313a81817f58125ce48c14c2d26e309e"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,13 +11,13 @@ class Pdns < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "ddacfdc670403d10338e3a7816abd316ffb8c9dfabd8d698e8bfb79a383f1c9b"
-    sha256 arm64_monterey: "f16cdc982cf9051e4acb359084a968ec3fa0ed8427758f8b3e09445347977266"
-    sha256 arm64_big_sur:  "17f9622ed9aeaea30f075e9c81516970f3a9e3a937b681a25e27fd29348a0054"
-    sha256 ventura:        "9cb505c2254a030c2b3f0f2d7512f2c3d7c9859d935e9024f82767610bb9601b"
-    sha256 monterey:       "714e7e8ba7f6cea7d73be54e1127e59f0204e8fd803dc421dd4d8783e791c83a"
-    sha256 big_sur:        "d9902f1335aed750d04bcccf0baa8a81a871dd524753f502799d33b46beb2c7a"
-    sha256 x86_64_linux:   "cf721236650e51867b5e8c0217119284384cfbf24fe502d995d20285a56bb546"
+    sha256 arm64_ventura:  "eabf44a3aad399c169867ea822800db7613c79383441c06a3c7d00ac997a9683"
+    sha256 arm64_monterey: "36d6e94de5c8778fd7879f59eb89a658ebb4a18485f1636a205d484491d4b1e0"
+    sha256 arm64_big_sur:  "c5aaf0f865fba9120950c2d992d9c1306bb99f4e3ab83bb1417c11c5b4684d95"
+    sha256 ventura:        "a2d5d0f90de5ba508ba2667c72fbe84a57216668ef1ed508446a54133fa1cec4"
+    sha256 monterey:       "133ff6c7c2b7d45ba37b4c2672c921a18d948b66732218b8fd0a97e16f4bb29a"
+    sha256 big_sur:        "9fbaea03495f8995751375448235d47e784881a0439fb90515c254a7aa52d62b"
+    sha256 x86_64_linux:   "d5b3f0f15479db7ff7a742b0509ea99d833a96875d6ead5b123eee3808993adf"
   end
 
   head do
@@ -32,7 +32,7 @@ class Pdns < Formula
   depends_on "pkg-config" => :build
   depends_on "boost"
   depends_on "lua"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "sqlite"
 
   uses_from_macos "curl"
@@ -44,7 +44,7 @@ class Pdns < Formula
       --prefix=#{prefix}
       --sysconfdir=#{etc}/powerdns
       --with-lua
-      --with-libcrypto=#{Formula["openssl@1.1"].opt_prefix}
+      --with-libcrypto=#{Formula["openssl@3"].opt_prefix}
       --with-sqlite3
       --with-modules=gsqlite3
     ]

@@ -1,9 +1,9 @@
 class Metview < Formula
   desc "Meteorological workstation software"
   homepage "https://metview.readthedocs.io/en/latest/"
-  url "https://confluence.ecmwf.int/download/attachments/51731119/MetviewBundle-2023.4.1-Source.tar.gz"
-  version "5.19.1"
-  sha256 "2cdeeda7579f1465fb6d1f2c3e7424777e34a19f3f72c445874f99b292d49146"
+  url "https://confluence.ecmwf.int/download/attachments/51731119/MetviewBundle-2023.7.0-Source.tar.gz"
+  version "5.19.2"
+  sha256 "93e1721f08baaf280eab30557dbb936433bc02be268a69ef1794f8af11a3d3a5"
   license "Apache-2.0"
 
   livecheck do
@@ -12,13 +12,13 @@ class Metview < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "492b261c87b522949f11e68438c25a46b76774fd2a7a3423d2eb73cd85611737"
-    sha256 arm64_monterey: "eac83996c6d7a809afa8ca610a4286f646ec5fafb7c643d0122092d9cc01196e"
-    sha256 arm64_big_sur:  "e1a7de326ff5023c878bc240de8e77e7244f03cf02afd899b506c59fbdfaefd8"
-    sha256 ventura:        "463c35d5923c660e81b5623a96194e5179367968dcb76e0f3cb6ef43ad6be155"
-    sha256 monterey:       "9d2114fca3842de72462dcd93e8c4ec9090eb0a83f4ecdec9169f5ae5b7ae99f"
-    sha256 big_sur:        "f12df8cb2fd3dbbc362cb8d2ed78aab535711b157debff17f4cc374f65121a6e"
-    sha256 x86_64_linux:   "38ac26b4630d0b902e5447e12371641806b0ba0cf50aa82942df52f31b8443cb"
+    sha256 arm64_ventura:  "e2a758c49c3c0ce6ae5a190098981c85cc6a1a26261c8888325027085df15216"
+    sha256 arm64_monterey: "c0b364d7d735c408b3433eae844844130ab537d8db7b9f8f0d8388e905043bb7"
+    sha256 arm64_big_sur:  "53801782e96471f5a5802b78e445c5f5596c49f53f47fa92da759a864531d4dd"
+    sha256 ventura:        "dd54825096d772a00a0bfb2af2f4c31d6f6af8c56f895326c92a3f143486e467"
+    sha256 monterey:       "d9f9730bf566946f898039143db134356c0e10d3897bfa548b2d82528338c1d6"
+    sha256 big_sur:        "e2958db4b5dfec4387f360d0c4efb4125777a2b8cb52a8f2eb3829a4b1ac7a0e"
+    sha256 x86_64_linux:   "3e0f4b0233f991448acb5aefcc86110cf2fbad5a3cbab0e8dc5c0c4a624e3119"
   end
 
   depends_on "cmake" => :build
@@ -29,6 +29,7 @@ class Metview < Formula
   depends_on "fftw"
   depends_on "gdbm"
   depends_on "netcdf"
+  depends_on "openssl@3"
   depends_on "pango"
   depends_on "proj"
   depends_on "qt"
@@ -41,21 +42,22 @@ class Metview < Formula
   end
 
   def install
-    ENV["RPC_PATH"] = HOMEBREW_PREFIX
-    cmake_rpc_flags = if OS.linux?
-      "-DCMAKE_CXX_FLAGS=-I#{HOMEBREW_PREFIX}/include/tirpc"
-    else
-      ""
-    end
-
-    args = %w[
+    args = %W[
       -DBUNDLE_SKIP_ECCODES=1
       -DENABLE_MIR_DOWNLOAD_MASKS=OFF
       -DENABLE_BUILD_TOOLS=OFF
       -DENABLE_ECKIT_CMD=OFF
-      -DFFTW_PATH=#{HOMEBREW_PREFIX}
+      -DFFTW_PATH=#{Formula["fftw"].opt_prefix}
     ]
-    system "cmake", "-S", ".", "-B", "build", *args, *cmake_rpc_flags, *std_cmake_args
+
+    if OS.linux?
+      args += [
+        "-DRPC_PATH=#{Formula["libtirpc"].opt_prefix}",
+        "-DRPC_INCLUDE_DIR=#{Formula["libtirpc"].opt_include}/tirpc",
+      ]
+    end
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 

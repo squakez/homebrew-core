@@ -2,18 +2,18 @@ class ThorsSerializer < Formula
   desc "Declarative serialization library (JSON/YAML) for C++"
   homepage "https://github.com/Loki-Astari/ThorsSerializer"
   url "https://github.com/Loki-Astari/ThorsSerializer.git",
-      tag:      "2.2.19",
-      revision: "426ba1018f03b77594e6202c4352b0e1a9a150a1"
+      tag:      "2.2.31",
+      revision: "94edddb0bd9880d2c1fedee2b8f420f4ce023c9e"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "9fe2cddd9b4b85388263b3a473fd3bd96c669c84a9819624ad7724cb8ed905ce"
-    sha256 cellar: :any,                 arm64_monterey: "6f58837a3181bd172d3baafbbf15d8d9a596d0620554715cc3657706a507a52c"
-    sha256 cellar: :any,                 arm64_big_sur:  "e2b6115a023b49370baa58e4a0a663441ed9f693cddb0b6f2a3a5d5d3b60be04"
-    sha256 cellar: :any,                 ventura:        "8ddbba88cfe30a3ba1270f415ba1d802ff7cd4d5725922c2cae64f528c315592"
-    sha256 cellar: :any,                 monterey:       "18997a3d6a141f608ed87c84df7be449cccc04470d36714793020d44c6e02550"
-    sha256 cellar: :any,                 big_sur:        "8d7dbfec01d7f20f42ec3bdb5bc03c83295253ee298153ef9470fdb32586a066"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7a4a38ee332cae8d39fdabed574bd36a626777e361145ccc326a9baa1771a2e4"
+    sha256 cellar: :any,                 arm64_ventura:  "9a42483052a911a3270f11972a0506e5078dfeea0126f0a1d8378bea102b2176"
+    sha256 cellar: :any,                 arm64_monterey: "14864b1699257f98a07ec60d442f5b2b5972cee3d5ac8fe1b04a81fa44146f76"
+    sha256 cellar: :any,                 arm64_big_sur:  "7fd1edc53ae5614a88cc9e895cd9deef4260ce36dfeec3565b7a3b7f3c53b279"
+    sha256 cellar: :any,                 ventura:        "1b40008dac9e9f70753e90717f303ce4b7631275bc325eb9c99ed8cbeb590c95"
+    sha256 cellar: :any,                 monterey:       "46df04b093be21f2db55758bfaf7a6b7fd88d168bfb27c64d64a9947cd42926a"
+    sha256 cellar: :any,                 big_sur:        "4f670a98b27f53f477906f4eadc484e6231d5190e3bd270b14c977ae8037d189"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "799052fbf94b4422d0d9143f7954afd8da0623a17c5312c44c4034284973c8b3"
   end
 
   depends_on "boost" => :build

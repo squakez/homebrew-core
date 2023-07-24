@@ -1,19 +1,20 @@
 class Newsboat < Formula
   desc "RSS/Atom feed reader for text terminals"
   homepage "https://newsboat.org/"
-  url "https://newsboat.org/releases/2.31/newsboat-2.31.tar.xz"
-  sha256 "4baf7de25cf569924eebb63a5ddc467cd58dd3f0e7190b327b49d0c1e454c1da"
+  url "https://newsboat.org/releases/2.32/newsboat-2.32.tar.xz"
+  sha256 "5b63514572a21e93f4dd3dd6c58f44fdbd9c9e6c6f978329a4766aabb13be6e6"
   license "MIT"
   head "https://github.com/newsboat/newsboat.git", branch: "master"
 
   bottle do
-    sha256 arm64_ventura:  "9086fd4e67f1996a09184cea5c9f599e46113664e38477f9e1da040debb26779"
-    sha256 arm64_monterey: "0a68b75adb0ebff44a607edc8654e6d3946a28e06977e1801a9c5ba067b92c5b"
-    sha256 arm64_big_sur:  "c21b1d949767a29e08356f4f8585984f42af77b27750af41a1afc958e3f65fd3"
-    sha256 ventura:        "dd3a709f55bf8e02620d350621b0b243dd70eec142ba5d47b5c4e15b1333e7fa"
-    sha256 monterey:       "80ea34fcdeecec18c9bbd02018109c7ef1e57601915421691ff46ac515945a83"
-    sha256 big_sur:        "cc56fa48fd27139a6c8906721255a0695baf8c54bb5108f7a1ceaf5ff370c367"
-    sha256 x86_64_linux:   "74e61cc78a02702eaf6f8342d22bc2e44e15b1cfd1c6ddd4bf7fb184d8ffa23c"
+    rebuild 1
+    sha256 arm64_ventura:  "0ec32791522c13328d2cf935379a61f988b1aa5c7808793cefcdb146be8bd0cc"
+    sha256 arm64_monterey: "32ddb0320262c1ae7cef35fed576ee73cd60b9c66107455d5ae31fe52f1d38bb"
+    sha256 arm64_big_sur:  "c13b6980a07c3b22a28541f76c03dbbfdfb7d96ea6c21a0789c415863541be6b"
+    sha256 ventura:        "ed2a9e2498a09a02ce8a4d73f3b66a9b639177d2b755fd17512fe42e0025f00a"
+    sha256 monterey:       "af5f3f77b02d8420866efc31d6c5d64f2daddb05b6c6baf5e3e1f1538dd26c99"
+    sha256 big_sur:        "66a7d9783b16b06ec00796977b6578cc70da85e9606e0b3fab78461bd7a29e50"
+    sha256 x86_64_linux:   "8c6420dfe0b0d4114d83ecc33bb192dfb4a09893f26a58faf633050e543ea15b"
   end
 
   depends_on "asciidoctor" => :build
@@ -91,11 +92,8 @@ class Newsboat < Formula
     ENV.prepend_path "PKG_CONFIG_PATH", libexec/"lib/pkgconfig"
     ENV.append "LDFLAGS", "-Wl,-rpath,#{libexec}/lib"
 
-    if OS.mac?
-      system Formula["make"].opt_bin/"gmake", "install", "prefix=#{prefix}"
-    else
-      system "make", "install", "prefix=#{prefix}"
-    end
+    # Call `make` as `gmake` to use Homebrew `make`.
+    system "gmake", "install", "prefix=#{prefix}"
   end
 
   test do

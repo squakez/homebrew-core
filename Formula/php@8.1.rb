@@ -2,9 +2,9 @@ class PhpAT81 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.1.20.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.1.20.tar.xz"
-  sha256 "4c9973f599e93ed5e8ce2b45ce1d41bb8fb54ce642824fd23e56b52fd75029a6"
+  url "https://www.php.net/distributions/php-8.1.21.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.1.21.tar.xz"
+  sha256 "e634a00b0c6a8cd39e840e9fb30b5227b820b7a9ace95b7b001053c1411c4821"
   license "PHP-3.01"
 
   livecheck do
@@ -13,13 +13,13 @@ class PhpAT81 < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "918dfbacad0c309026a3512fe14fa3c410e4cdc9944592a612287308053fb01c"
-    sha256 arm64_monterey: "ed3b8de9a6a5c782153c80e99bae180a7a417714b1977e97cd9c03daafae4eb8"
-    sha256 arm64_big_sur:  "de7164fe23f6bf56366de94d72ee77ae424280467b685809f7c42dd11826ca46"
-    sha256 ventura:        "dbeace6cbe1e43fc823c1444c3e579590aedbe01d4c3fe6375a872c8236460e4"
-    sha256 monterey:       "c060b1919dd9340c044fae43b03843fb54de764da589276e0b051b7397e9af5e"
-    sha256 big_sur:        "4054cdf7a2c2fda71f094a009e78a34e5880dc8139062cc63bf71a63249cd6fa"
-    sha256 x86_64_linux:   "e39391993cff4ea4bb5be57e4b5f985d385f4edca190a980ec961cd774226e00"
+    sha256 arm64_ventura:  "e7455f9e161ef3dcdbda1a5c90d2115532dc1a2a60895454162b169af1d600d2"
+    sha256 arm64_monterey: "4b7f3bc7f7728cf7caf7ef82b0190b20d0aeb82b99d24e2bd4d39f3c0b636d9b"
+    sha256 arm64_big_sur:  "86043e2f742a0a401f205e3ad27128704a76211b780cb5f2c79c3cbc5c59ca26"
+    sha256 ventura:        "39684d04fdedf1664eabbbd56182545be0e534f7ca3096f026a75ac92e989f81"
+    sha256 monterey:       "cbda6bd59a14e7c75e9bb24083aaf0c939045298d518d26d786190a9c9bfa2fd"
+    sha256 big_sur:        "20ea0454a17eb6f8234ee727f1c6cd488419ac7a842d56a922fb5953bc685a82"
+    sha256 x86_64_linux:   "0155be1b40cbab688b8b65639302393a51dc7cebe721713b0e4cf3d2d816168c"
   end
 
   keg_only :versioned_formula
@@ -47,7 +47,7 @@ class PhpAT81 < Formula
   depends_on "libzip"
   depends_on "oniguruma"
   depends_on "openldap"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "pcre2"
   depends_on "sqlite"
   depends_on "tidy-html5"
@@ -210,7 +210,7 @@ class PhpAT81 < Formula
     end
 
     # Use OpenSSL cert bundle
-    openssl = Formula["openssl@1.1"]
+    openssl = Formula["openssl@3"]
     %w[development production].each do |mode|
       inreplace "php.ini-#{mode}", /; ?openssl\.cafile=/,
         "openssl.cafile = \"#{openssl.pkgetc}/cert.pem\""
@@ -333,10 +333,8 @@ class PhpAT81 < Formula
       "Zend OPCache extension not loaded")
     # Test related to libxml2 and
     # https://github.com/Homebrew/homebrew-core/issues/28398
-    if OS.mac?
-      assert_includes MachO::Tools.dylibs("#{bin}/php"),
-              "#{Formula["libpq"].opt_lib}/libpq.5.dylib"
-    end
+    assert_includes (bin/"php").dynamically_linked_libraries,
+                    (Formula["libpq"].opt_lib/shared_library("libpq", 5)).to_s
 
     system "#{sbin}/php-fpm", "-t"
     system "#{bin}/phpdbg", "-V"

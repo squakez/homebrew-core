@@ -53,17 +53,23 @@
   "athenacli": {
     "exclude_packages": ["six", "tabulate"]
   },
+  "aws-elasticbeanstalk": {
+    "exclude_packages": ["cffi"]
+  },
   "aws-google-auth": {
-    "exclude_packages": ["pillow", "six", "tabulate"]
+    "exclude_packages": ["pillow", "six", "tabulate", "cffi", "pycparser"]
   },
   "aws-sam-cli" : {
-    "exclude_packages": ["six", "typing-extensions", "Pygments"]
+    "exclude_packages": ["cffi", "cfn-lint", "pycparser", "Pygments", "PyYAML", "six", "typing-extensions"]
   },
   "aws-shell" : {
     "exclude_packages": ["six", "Pygments", "docutils"]
   },
   "aws-sso-util": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "PyYAML"]
+  },
+  "awscli": {
+    "exclude_packages": ["cffi", "docutils", "pycparser", "six"]
   },
   "awscli@1": {
     "exclude_packages": ["six", "PyYAML", "docutils"]
@@ -86,8 +92,14 @@
   "bandit": {
     "exclude_packages": ["PyYAML", "pygments"]
   },
+  "bbot": {
+    "exclude_packages": ["cffi", "docutils", "pycparser", "pyyaml", "six", "typing-extensions"]
+  },
   "beancount": {
     "exclude_packages": ["six"]
+  },
+  "bilix": {
+    "exclude_packages": ["typing-extensions", "pygments"]
   },
   "black": "black[d]",
   "borgmatic": {
@@ -102,7 +114,7 @@
   },
   "buku": {
     "package_name": "buku[server]",
-    "exclude_packages": ["six"]
+    "exclude_packages": ["cffi", "pycparser", "six"]
   },
   "bzt": {
     "exclude_packages": ["numpy", "six", "Cython", "PyYAML"]
@@ -123,6 +135,9 @@
   },
   "coconut": {
     "exclude_packages": ["Pygments", "typing-extensions"]
+  },
+  "conda-lock" : {
+    "exclude_packages": ["keyring", "PyYAML", "six", "typing-extensions", "virtualenv"]
   },
   "cfn-flip": {
     "exclude_packages": ["six", "PyYAML"]
@@ -146,17 +161,17 @@
   },
   "cloudformation-cli": {
     "extra_packages": ["cloudformation-cli-go-plugin", "cloudformation-cli-java-plugin", "cloudformation-cli-python-plugin"],
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "typing-extensions"]
   },
   "charm-tools": {
-    "exclude_packages": ["six"],
+    "exclude_packages": ["six", "cffi", "pycparser"],
     "extra_packages": ["wheel"]
   },
   "chatblade": {
     "exclude_packages": ["PyYAML", "pygments"]
   },
   "checkov": {
-    "exclude_packages": ["six", "tabulate", "PyYAML", "typing-extensions"]
+    "exclude_packages": ["six", "tabulate", "PyYAML", "typing-extensions", "cffi", "pycparser"]
   },
   "cloudiscovery": {
     "exclude_packages": ["six"]
@@ -195,7 +210,7 @@
     "exclude_packages": ["six"]
   },
   "cyral-gimme-db-token": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["cffi", "pycparser", "PyYAML", "six"]
   },
   "datasette": {
     "exclude_packages": ["six", "PyYAML", "typing-extensions"]
@@ -217,7 +232,11 @@
   "dooit": {
     "exclude_packages": ["six", "PyYAML", "virtualenv", "Pygments", "typing-extensions"]
   },
+  "dotbot": {
+    "exclude_packages": ["PyYAML"]
+  },
   "dstack": {
+    "package_name": "dstack[aws,azure,gcp,lambda]",
     "exclude_packages": ["cffi", "protobuf", "pycparser", "Pygments", "PyYAML", "six", "typing-extensions"]
   },
   "duplicity": {
@@ -241,7 +260,7 @@
     ]
   },
   "dxpy": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "cffi", "pycparser"]
   },
   "enex2notion": {
     "exclude_packages": ["PyMuPDF", "six"]
@@ -254,7 +273,7 @@
   },
   "fabric": {
     "extra_packages": ["decorator"],
-    "exclude_packages": ["invoke"]
+    "exclude_packages": ["invoke", "cffi", "pycparser"]
   },
   "fava": {
     "exclude_packages": ["six"]
@@ -264,12 +283,13 @@
       "numpy", "pillow", "PyYAML", "yamllint", "pathspec", "fonttools", "Brotli",
       "ipython", "appnope", "asttokens", "backcall", "decorator", "executing", "jedi",
       "matplotlib-inline", "parso", "pexpect", "pickleshare", "prompt-toolkit", "ptyprocess",
-      "pure-eval", "Pygments", "six", "stack-data", "traitlets", "wcwidth", "typing-extensions"
+      "pure-eval", "Pygments", "six", "stack-data", "traitlets", "wcwidth", "typing-extensions",
+      "cffi", "pycparser"
     ],
     "extra_packages": ["wheel"]
   },
   "flintrock": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["cffi", "pycparser", "PyYAML", "six"]
   },
   "flit": {
     "exclude_packages": ["docutils"]
@@ -295,7 +315,7 @@
   },
   "gimme-aws-creds": {
     "package_name": "gimme-aws-creds",
-    "exclude_packages": ["six"],
+    "exclude_packages": ["six", "cffi", "pycparser"],
     "extra_packages": ["pyobjc-framework-LocalAuthentication", "SecretStorage", "jeepney"]
   },
   "git-cola": {
@@ -323,7 +343,7 @@
     "exclude_packages": ["six", "tabulate"]
   },
   "howdoi": {
-    "exclude_packages": ["six", "Pygments"]
+    "exclude_packages": ["six", "Pygments", "cffi", "pycparser"]
   },
   "httpie": {
     "package_name": "httpie",
@@ -362,7 +382,7 @@
     "exclude_packages": ["six", "tabulate", "PyYAML"]
   },
   "jrnl": {
-    "exclude_packages": ["six", "Pygments"]
+    "exclude_packages": ["six", "Pygments", "cffi", "pycparser"]
   },
   "juju-wait": {
     "exclude_packages": ["PyYAML"]
@@ -376,7 +396,7 @@
     ]
   },
   "keepkey-agent": {
-    "exclude_packages": ["six", "docutils"]
+    "exclude_packages": ["six", "docutils", "cffi", "pycparser"]
   },
   "keyring": {
     "exclude_packages": ["cffi", "pycparser"]
@@ -389,7 +409,7 @@
   },
   "lexicon": {
     "package_name": "dns-lexicon[full]",
-    "exclude_packages": ["six", "PyYAML", "Pygments"]
+    "exclude_packages": ["cffi", "pycparser", "Pygments", "PyYAML", "six"]
   },
   "legit": {
     "exclude_packages": ["six"]
@@ -416,7 +436,7 @@
     "exclude_packages": ["six"]
   },
   "magic-wormhole": {
-    "exclude_packages": ["six", "typing-extensions"],
+    "exclude_packages": ["six", "typing-extensions", "cffi", "pycparser"],
     "extra_packages": ["wheel"]
   },
   "mapproxy": {
@@ -424,7 +444,7 @@
     "extra_packages": ["pyproj"]
   },
   "mathlibtools": {
-    "exclude_packages": ["PyYAML"]
+    "exclude_packages": ["PyYAML", "cffi", "pycparser"]
   },
   "mdv": {
     "package_name": "mdv[yaml]",
@@ -445,7 +465,7 @@
       "six", "PyYAML", "Pygments",
       "cookiecutter", "arrow", "binaryornot", "certifi", "chardet", "charset-normalizer",
       "click", "idna", "Jinja2", "jinja2-time", "MarkupSafe", "python-dateutil",
-      "python-slugify", "requests", "text-unidecode", "urllib3"
+      "python-slugify", "requests", "text-unidecode", "urllib3", "cffi", "pycparser"
     ]
   },
   "mongo-orchestration": {
@@ -455,8 +475,11 @@
     "package_name": "moto[all,server]",
     "exclude_packages": ["cffi", "cfn-lint", "pycparser", "PyYAML", "six", "typing-extensions"]
   },
+  "mvt": {
+    "exclude_packages": ["cffi", "pycparser", "pygments", "pyyaml"]
+  },
   "mycli": {
-    "exclude_packages": ["six", "tabulate", "Pygments"]
+    "exclude_packages": ["six", "tabulate", "Pygments", "cffi", "pycparser"]
   },
   "name-that-hash": {
     "exclude_packages": ["Pygments"]
@@ -484,19 +507,19 @@
   },
   "nvchecker": "nvchecker[pypi]",
   "oci-cli": {
-    "exclude_packages": ["six", "PyYAML"]
+    "exclude_packages": ["six", "PyYAML", "cffi", "pycparser"]
   },
   "ocrmypdf": {
-    "exclude_packages": ["pillow", "pycparser"]
+    "exclude_packages": ["pillow", "cffi", "pycparser"]
   },
   "okta-awscli": {
     "exclude_packages": ["six"]
   },
   "onlykey-agent": {
-    "exclude_packages": ["cffi", "six", "Cython", "pycparser"]
+    "exclude_packages": ["cffi", "six", "Cython", "pycparser", "docutils"]
   },
   "openai-whisper": {
-    "exclude_packages": ["torch", "numpy", "PyYAML", "huggingface_hub"]
+    "exclude_packages": ["torch", "PyYAML", "huggingface_hub"]
   },
   "openstackclient": {
     "extra_packages": ["python-heatclient", "python-octaviaclient"],
@@ -541,7 +564,8 @@
     "exclude_packages": ["PyYAML"]
   },
   "pocsuite3": {
-    "exclude_packages": ["six", "PyYAML"]
+    "exclude_packages": ["cffi", "pycparser", "PyYAML", "six"],
+    "extra_packages": ["pyOpenSSL", "jq"]
   },
   "poetry": {
     "exclude_packages": ["cffi", "pycparser", "six", "virtualenv"]
@@ -591,6 +615,10 @@
   "pyqt-builder": {
     "exclude_packages": ["packaging", "pyparsing", "sip", "toml"]
   },
+  "python-cryptography": {
+    "exclude_packages": ["cffi", "pycparser", "typing-extensions"],
+    "extra_packages": ["semantic-version", "setuptools-rust"]
+  },
   "python-yq": {
     "exclude_packages": ["PyYAML"]
   },
@@ -627,10 +655,13 @@
   },
   "robot-framework": {
     "extra_packages": ["robotframework-archivelibrary", "robotframework-selenium2library", "robotframework-sshlibrary"],
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "cffi", "pycparser"]
   },
   "rst-lint": {
     "exclude_packages": ["docutils"]
+  },
+  "ruff-lsp": {
+    "exclude_packages": ["ruff", "typing-extensions"]
   },
   "s3cmd": {
     "exclude_packages": ["six"]
@@ -657,7 +688,7 @@
     "exclude_packages": ["PyYAML"]
   },
   "sceptre": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "PyYAML"]
   },
   "schemathesis": {
     "exclude_packages": ["six", "PyYAML", "typing-extensions"]
@@ -668,6 +699,9 @@
   "scour": {
     "exclude_packages": ["six"]
   },
+  "scrapy": {
+    "exclude_packages": ["cffi", "pycparser", "six", "typing-extensions"]
+  },
   "search-that-hash": {
     "exclude_packages": ["typing-extensions", "Pygments", "name-that-hash", "click", "commonmark", "rich"]
   },
@@ -676,10 +710,16 @@
     "exclude_packages": ["typing-extensions", "Pygments"]
   },
   "sgr": {
-    "exclude_packages": ["typing-extensions"]
+    "exclude_packages": ["six", "tabulate", "typing-extensions"]
   },
   "shallow-backup": {
     "exclude_packages": ["six"]
+  },
+  "shub": {
+    "exclude_packages": ["pyyaml", "six"]
+  },
+  "sickchill": {
+    "exclude_packages": ["cffi", "pycparser", "PyYAML", "six", "typing-extensions"]
   },
   "snakefmt": {
     "exclude_packages": [
@@ -706,7 +746,7 @@
     "exclude_packages": ["six"]
   },
   "streamlink": {
-    "exclude_packages": ["six"]
+    "exclude_packages": ["six", "typing-extensions"]
   },
   "svtplay-dl": {
     "exclude_packages": ["cffi", "pycparser", "PyYAML"]
@@ -776,7 +816,7 @@
     "exclude_packages": ["six"]
   },
   "weasyprint": {
-    "exclude_packages": ["Brotli", "fonttools", "Pillow", "six"]
+    "exclude_packages": ["Brotli", "fonttools", "Pillow", "six", "cffi", "pycparser"]
   },
   "west": {
     "exclude_packages": ["six", "PyYAML"]

@@ -1,8 +1,8 @@
 class Erigon < Formula
   desc "Implementation of Ethereum (execution client), on the efficiency frontier"
   homepage "https://github.com/ledgerwatch/erigon"
-  url "https://github.com/ledgerwatch/erigon/archive/refs/tags/v2.45.1.tar.gz"
-  sha256 "727e0517d1ad1d049db30db180e73bd0bdc62aefa00db50087bf11b5084b5bca"
+  url "https://github.com/ledgerwatch/erigon/archive/refs/tags/v2.48.1.tar.gz"
+  sha256 "8b6502a394752156d74d334b0c893beb45cea59baad8113ed9a2106de13582cc"
   license all_of: ["GPL-3.0-or-later", "LGPL-3.0-or-later"]
   head "https://github.com/ledgerwatch/erigon.git", branch: "devel"
 
@@ -12,18 +12,17 @@ class Erigon < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f73955acc447405d958fd04805de9617e40f99f9005cfacdebc8429967f83c4d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2e3e5096cd5842c40394c919eeb9521b8c9ca689c8ff46147f7b4982c71a3513"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "538dcae218a30fcd501fe51fc289d7b372d6928c38110f826dbe15f620af709d"
-    sha256 cellar: :any_skip_relocation, ventura:        "e8fc134b8a01723d198d4bd2f2477f7ada4f940416f86bfb4171c7e007e8a47a"
-    sha256 cellar: :any_skip_relocation, monterey:       "27fe9b5c929c223010ab15192944daf1adde29a60148d1a4bd731ec1b9ae61e2"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d70ba2d83d5437809018a57ac9aca51d44affafa84a4f05955f84100a739deba"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ffc95e70b873f9bdd03e0783c49669ca6124452a691ef241dcd8b604c3160784"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af177de64b630ec20db621eb1f1132ac4ad6eca1d0f44dca00cf648c8aa2298d"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0122e639d980cf4b2aea8c4a8efab6016774b1f562934a7b2b6915e9ec30375e"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "5c4c97b1ca99226a1f75b64ca8561d33a40832e81fcb19c3fafae8d59354db6f"
+    sha256 cellar: :any_skip_relocation, ventura:        "cb6b6894fed8d3af8571959a20d1da965ec9a225dc7174f4255d8e2567972f9a"
+    sha256 cellar: :any_skip_relocation, monterey:       "fe52f7af468baa32a38e2f4964de05f7c877dc6afe56fc5d3117c74712dc6127"
+    sha256 cellar: :any_skip_relocation, big_sur:        "97b2e849f77626ee7fb0a8cef5a03ffa7aeb866d8d8e3349e1dd714ab8c91b8e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "daf702c28fc1138ee1399f7e3f57346e1728a3979957364a4ed7091b4be11988"
   end
 
   depends_on "gcc" => :build
   depends_on "go" => :build
-  depends_on "make" => :build
 
   conflicts_with "ethereum", because: "both install `evm` binaries"
 

@@ -1,9 +1,10 @@
 class Tectonic < Formula
   desc "Modernized, complete, self-contained TeX/LaTeX engine"
   homepage "https://tectonic-typesetting.github.io/"
-  url "https://github.com/tectonic-typesetting/tectonic/archive/tectonic@0.14.0.tar.gz"
-  sha256 "2191e3599b7e34f01d24a8d0ed873d8a8696e5ed4af05e9ce30685a053e9b57a"
+  url "https://github.com/tectonic-typesetting/tectonic/archive/tectonic@0.14.1.tar.gz"
+  sha256 "3703a4fc768b3c7be6a4560857b17b2671f19023faee414aa7b6befd24ec9d25"
   license "MIT"
+  revision 2
   head "https://github.com/tectonic-typesetting/tectonic.git", branch: "master"
 
   # As of writing, only the tags starting with `tectonic@` are release versions.
@@ -15,13 +16,13 @@ class Tectonic < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "41de7e1d0349f5f1bc159c152b5b6389c7ff5fdb3fe2c12598d25a02313efc76"
-    sha256 cellar: :any,                 arm64_monterey: "55a66a6125f49899cdb2c26ecde5d9356708cfe600d81ff408a2b95a788124b1"
-    sha256 cellar: :any,                 arm64_big_sur:  "62c801d5b70ab19fe54d6590a322d107951f46fd37bfc559534548b0477d74c3"
-    sha256 cellar: :any,                 ventura:        "4099e597f8ec466736f262c3101393df9c7cc6137d6be6becd3439dc47ee55fb"
-    sha256 cellar: :any,                 monterey:       "2dc357aa3efd9b560fc22945513b3ce31fb0d40b87f76c19ce984c569fc4df42"
-    sha256 cellar: :any,                 big_sur:        "e4cb4139024e5c648ab798d5c1b0f5c2d08a535969f1cc46cca8a936d6f0ee00"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "caf8f73a657cec4af6d727f4bc2e2d8c467b4a0c178c69367a6246168015f691"
+    sha256 cellar: :any,                 arm64_ventura:  "5dd3b7db96ffab491041e106fb6dcf24d4ad712fe88be9279087aee97d5ad276"
+    sha256 cellar: :any,                 arm64_monterey: "b0a9e5e898add71ffb50c91fd0279a5eabc9793bcd8afc4a2e26201953ee2d53"
+    sha256 cellar: :any,                 arm64_big_sur:  "3a7793364b85c664b5468db12e3f7935330f586412a02a8fa25382c013aa018f"
+    sha256 cellar: :any,                 ventura:        "c4b2e2e1cd05d771da209c2f413a2a88e7926f29ead6c41c8bbcc0aea98b96ba"
+    sha256 cellar: :any,                 monterey:       "a7fac0a78531be18364818ef1f85355194b76afd61200cab12dc6113323f501c"
+    sha256 cellar: :any,                 big_sur:        "73c54a7e44c9de3b426ed86ee5dec12926920ce04a03d832383606184b874c54"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "795856c61ffe62b2ad8225252ecb5cac2eda7d14e395bf3d763370857acd1e0a"
   end
 
   depends_on "pkg-config" => :build
@@ -31,7 +32,7 @@ class Tectonic < Formula
   depends_on "harfbuzz"
   depends_on "icu4c"
   depends_on "libpng"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   def install
     ENV.cxx11
@@ -40,7 +41,7 @@ class Tectonic < Formula
 
     # Ensure that the `openssl` crate picks up the intended library.
     # https://crates.io/crates/openssl#manual-configuration
-    ENV["OPENSSL_DIR"] = Formula["openssl@1.1"].opt_prefix
+    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
 
     system "cargo", "install", "--features", "external-harfbuzz", *std_cargo_args
   end

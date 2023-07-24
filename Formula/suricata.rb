@@ -1,8 +1,8 @@
 class Suricata < Formula
   desc "Network IDS, IPS, and security monitoring engine"
   homepage "https://suricata.io"
-  url "https://www.openinfosecfoundation.org/download/suricata-6.0.12.tar.gz"
-  sha256 "04b23160935b03197b085c2ccc9d80875a33f115583054d1460ab0fb66d834b3"
+  url "https://www.openinfosecfoundation.org/download/suricata-7.0.0.tar.gz"
+  sha256 "7bcd1313118366451465dc3f8385a3f6aadd084ffe44dd257dda8105863bb769"
   license "GPL-2.0-only"
 
   livecheck do
@@ -11,13 +11,14 @@ class Suricata < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "61930edc1652956eb4509f0daae2d02f2b182471bffbe879c03b7426a224f71d"
-    sha256 arm64_monterey: "7ea989cd3ebb993896d7a199fb8a4f4ac3d2cccdd8f443171e20b01f517ff2ab"
-    sha256 arm64_big_sur:  "e6fc838dce042065bace9aa8f316fb631f2c47bbebfa5a8c8608ae580a6a81b7"
-    sha256 ventura:        "140e54ffa04438dde1ad4611539e6f1c0de579a3ed8363057b7f373292235731"
-    sha256 monterey:       "f1ae2ba61619d2063b336c588e87a155f2fe872888354099efd6a8812ace7ea5"
-    sha256 big_sur:        "1cb8b7d29da7afbb96cae901bd53424cb7f2aec73459b686695ba29702848590"
-    sha256 x86_64_linux:   "9fc495b47764d901456b8fb5595bc8279f83d2d6147c2087cb4969e51d75c1d8"
+    rebuild 1
+    sha256 arm64_ventura:  "d58069d6aabe6fdaf36f5f23bad35b48d9e288f61e4913e7591e8f4447706d46"
+    sha256 arm64_monterey: "b23b1457fb6c4fdbf1383d2774c07d2d83ff15bb104397f0a8475c743d8ee4b7"
+    sha256 arm64_big_sur:  "3c1987e4fee155ccb835a2a5e0ca0003a9d4f3591b0766735f844849999cc42b"
+    sha256 ventura:        "d5603e316135025853b112f3200aecb3d78f5a8f4e2115b4edbfaf711e153e36"
+    sha256 monterey:       "7c1e14f47f9456a263a37636a1a98c3a878e5f129163ebc7c7040563e1cceaeb"
+    sha256 big_sur:        "cf3cc309c09683104ab7ee04c562861423305d8f36715ab62747be28b721dab4"
+    sha256 x86_64_linux:   "1145649e95a1b9b22b2d180b77b3ef4850ab120394b1eb9c2957d553b0ebd3c6"
   end
 
   depends_on "pkg-config" => :build
@@ -26,20 +27,11 @@ class Suricata < Formula
   depends_on "libmagic"
   depends_on "libnet"
   depends_on "lz4"
-  depends_on "nspr"
-  depends_on "nss"
-  depends_on "pcre"
+  depends_on "pcre2"
   depends_on "python@3.11"
   depends_on "pyyaml"
 
   uses_from_macos "libpcap"
-
-  # Fix -flat_namespace being used on Big Sur and later.
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/03cf8088210822aa2c1ab544ed58ea04c897d9c4/libtool/configure-big_sur.diff"
-    sha256 "35acd6aebc19843f1a2b3a63e880baceb0f5278ab1ace661e57a502d9d78c93c"
-    directory "libhtp"
-  end
 
   def install
     jansson = Formula["jansson"]

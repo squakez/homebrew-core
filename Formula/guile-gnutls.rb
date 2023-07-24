@@ -1,30 +1,29 @@
 class GuileGnutls < Formula
   desc "Guile bindings for the GnuTLS library"
   homepage "https://gitlab.com/gnutls/guile"
-  url "https://gitlab.com/gnutls/guile/uploads/56e18069ab63ca67d61aecb6b2697ec1/guile-gnutls-3.7.11.tar.gz"
-  sha256 "058eaa5c763e19fbf93e8b4eefc11280f8070535c138c99be11f00cd685613df"
+  url "https://gitlab.com/gnutls/guile/uploads/1fdc941351d54cd7affda1bb912b9ca5/guile-gnutls-3.7.14.tar.gz"
+  sha256 "de2bfcd4fd93d669e85f83c48a53470390fed60987158e9a14c9ff8e0beeb651"
   license "LGPL-2.1-or-later"
+  head "https://gitlab.com/gnutls/guile.git", branch: "master"
 
   bottle do
-    sha256 arm64_ventura:  "b6d7ac219f5e8d56837e23ddc464c52b2b67ac2882299bfa701aaa8031b67e91"
-    sha256 arm64_monterey: "7210aee9ee2a18efc75c467c68acbcf55efd3800e4332fdb5df65730823557b3"
-    sha256 arm64_big_sur:  "3ac57390d3bf3ef51aac3d4f467605f40b0c19d2148335ee6bb2cd71b404602c"
-    sha256 ventura:        "c3b01474a5c7290941eca2f804f020b64f9ceb8fef11620a0049b850c6f42433"
-    sha256 monterey:       "cf51af65c57ab9b8678119b54c1e55a4decb0e35f1106653e8a9956b1d96cf51"
-    sha256 big_sur:        "a510c4971d1fe13d53912027a0266ebd721ab33b39cce0463c2ec3d4b9492cde"
-    sha256 x86_64_linux:   "40cd417f6ffe15e1f74d85f6c23753a2eff3ac704be74d470e326ededf2f4581"
+    sha256 arm64_ventura:  "5ebfa7a78bbfc3ce91e61c59c92e19f5374a9ce89be97dbaf6268ed7dbd57fd2"
+    sha256 arm64_monterey: "bcee9c4f4fec9e77529fbfdfb5ebc34172e3f5fb843b52b5f1930ca107f3d22e"
+    sha256 arm64_big_sur:  "4f1be19afcce8f67cf7c10681c64bbf35a05b09fe969f27c7ce2d4b8347266ca"
+    sha256 ventura:        "117897d1ea309f33dfff4c94d7076d2f42ae7fd31274742c86045b68129c48d7"
+    sha256 monterey:       "8e7841f41fe3e355253f70f16c8d6a3c81d59a1a532c474d8c73f7255ee311d1"
+    sha256 big_sur:        "39556d329efc432990ec98f7a4f7616930011060705306150297364ba7a63875"
+    sha256 x86_64_linux:   "7c2fe2e978904511e97e0a81263a584131df9dac8d84b097ae6c86ddb6ee8d9f"
   end
 
   depends_on "gnutls"
   depends_on "guile"
 
   def install
-    # configure: WARNING: unrecognized options: --disable-debug
-    system "./configure", "--prefix=#{prefix}",
+    system "./configure", *std_configure_args.reject { |s| s["--disable-debug"] },
                           "--with-guile-site-dir=#{share}/guile/site/3.0",
                           "--with-guile-site-ccache-dir=#{lib}/guile/3.0/site-ccache",
                           "--with-guile-extension-dir=#{lib}/guile/3.0/extensions",
-                          "--disable-dependency-tracking",
                           "--disable-silent-rules"
     system "make", "install"
   end

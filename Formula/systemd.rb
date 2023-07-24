@@ -1,14 +1,13 @@
 class Systemd < Formula
   desc "System and service manager"
   homepage "https://wiki.freedesktop.org/www/Software/systemd/"
-  url "https://github.com/systemd/systemd/archive/v253.tar.gz"
-  sha256 "acbd86d42ebc2b443722cb469ad215a140f504689c7a9133ecf91b235275a491"
+  url "https://github.com/systemd/systemd-stable/archive/refs/tags/v253.7.tar.gz"
+  sha256 "ff05e6a10ea38be24f1a426ff2d4328d33a1849a788c39341032948f483a9321"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
   head "https://github.com/systemd/systemd.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 x86_64_linux: "5b28e9302d9463be40ef8847bfd663a50578d1d6b553dd1f25dc738149262349"
+    sha256 x86_64_linux: "1ddbfa5e048df84db04f5d689134706ae71527efe7a2ccd263ea005221e402a5"
   end
 
   depends_on "coreutils" => :build
@@ -31,7 +30,7 @@ class Systemd < Formula
   depends_on "libcap"
   depends_on :linux
   depends_on "lz4"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
   depends_on "util-linux" # for libmount
   depends_on "xz"
   depends_on "zstd"
@@ -42,7 +41,7 @@ class Systemd < Formula
     ENV["PYTHONPATH"] = Formula["jinja2-cli"].opt_libexec/Language::Python.site_packages("python3.11")
     ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/systemd"
 
-    args = std_meson_args + %W[
+    args = %W[
       --sysconfdir=#{etc}
       --localstatedir=#{var}
       -Drootprefix=#{prefix}
@@ -54,9 +53,10 @@ class Systemd < Formula
       -Dhwdb=false
       -Dlz4=true
       -Dgcrypt=false
+      -Dp11kit=false
     ]
 
-    system "meson", "setup", *args, "build"
+    system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build"
     system "meson", "install", "-C", "build"
   end

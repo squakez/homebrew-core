@@ -1,20 +1,19 @@
 class Hlint < Formula
   desc "Haskell source code suggestions"
   homepage "https://github.com/ndmitchell/hlint"
-  url "https://hackage.haskell.org/package/hlint-3.5/hlint-3.5.tar.gz"
-  sha256 "98bd120a10a086c17d6bf1176a510dc12b36581e5a901f1e024555bb3ccead4f"
+  url "https://hackage.haskell.org/package/hlint-3.6.1/hlint-3.6.1.tar.gz"
+  sha256 "3280132bb3c1b39faa4c8c6a937479d4622484914da6a227a2ce4b15a76741fd"
   license "BSD-3-Clause"
   head "https://github.com/ndmitchell/hlint.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2438275435b52a8f57eb9842acda56a2b0151275583de1028dbe2bd65b6dd795"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1e90b3c512ac6c5489b0effd2b49ce968d28a18602ef867b442af8d520404d66"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "86b42cd45b1750a33a6663f9133a569c02f2b5ce68afef26ab74ac30f0f604ec"
-    sha256 cellar: :any_skip_relocation, ventura:        "d4585fac9a68e82fe5fb2139c4690dcee8a87260cb8432b6b64d0d4588464a89"
-    sha256 cellar: :any_skip_relocation, monterey:       "ab3bd5dc47ddf0444490cf619dd64f01d1570fd058dc246fdb8de5fa99c73c23"
-    sha256 cellar: :any_skip_relocation, big_sur:        "56014f8e39dcba3cb9ef0e6becd505e40987b80b0c24cb648a930c653153cc60"
-    sha256 cellar: :any_skip_relocation, catalina:       "5bcec467d194253ae30ae799b1a7d20ae334dc4905bd38490541eb7ee0fed660"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "30444098936f17b468eb10fda5ce5201b5cdc6663c9f8fdac29e7afe992b7cb6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1920a480a6250021839e664921758424180031f5c335d146f9038bf2b02ffcf5"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "3f114f09cdd743960edd0e7fc90e712802a4a9110d726c17d25817569c27100c"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "2c4e4d69975891296a8981beed3506777eab2219450ff39c27ac5431ab3ec3e6"
+    sha256 cellar: :any_skip_relocation, ventura:        "d990c82e9f6e8c750768514d65f643eade477c3cc78c3c5e76aa25ccc57bb7f7"
+    sha256 cellar: :any_skip_relocation, monterey:       "7924dc02cccea176a7d3c01d992730de60943998dd9deb32a428b0b2995b0cca"
+    sha256 cellar: :any_skip_relocation, big_sur:        "71bac220d493e17d68492a8671ebac958f57e0080e90c364de86a558f3963ce3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3f7c5083d6b6e4e918f094d818b648f580fde9effa4c7e8b62e00c7867f5f37a"
   end
 
   depends_on "cabal-install" => :build

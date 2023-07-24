@@ -1,8 +1,8 @@
 class Tesseract < Formula
   desc "OCR (Optical Character Recognition) engine"
   homepage "https://github.com/tesseract-ocr/"
-  url "https://github.com/tesseract-ocr/tesseract/archive/5.3.1.tar.gz"
-  sha256 "3761768c02b99358e5118bfabfecc979fa84a399da5fa54c49dd477d926fef43"
+  url "https://github.com/tesseract-ocr/tesseract/archive/5.3.2.tar.gz"
+  sha256 "b99d30fed47360d7168c3e25d194a7416ceb1d9e4b232c7f121cc5f77084d3e7"
   license "Apache-2.0"
   head "https://github.com/tesseract-ocr/tesseract.git", branch: "main"
 
@@ -12,13 +12,13 @@ class Tesseract < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "a0aa29a3713906da4506b01ef906677f4260a43a1fa3599e6d4bfb7f5938c36b"
-    sha256 cellar: :any,                 arm64_monterey: "f6639cf35ffa30a2dcf91cbabe4b2a6db6bad549ab591fa4b883373d19250992"
-    sha256 cellar: :any,                 arm64_big_sur:  "fb9d6e59b0ea3b83cbf7dda831b25f16166f558c2dcb3042aeff7543c226137c"
-    sha256 cellar: :any,                 ventura:        "6796bd560b8af5f7f1911d9e94e8a248594c828fc0daef4924e8870dd2a2a6a3"
-    sha256 cellar: :any,                 monterey:       "b5ca86707fb25223d832c71e23201013c7d58c99849b3b379d6c4978c7f3e2bb"
-    sha256 cellar: :any,                 big_sur:        "a58f59cf96a8a8be1bfc53c4bf16f244c0ac8294fabb1685757a1e6b1025a79f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "59151d6442f499c570c2f6df9407376e14bebae3c9addd6eb7a3e08d7da87834"
+    sha256 cellar: :any,                 arm64_ventura:  "e7a2fbeb1e5a141f0146bd60ff65486c0e94415d83a6b62d0dca61cbcfd8a687"
+    sha256 cellar: :any,                 arm64_monterey: "1816b1e991555cb2041e055d4afec41b717b0bb2cf238de62dbdbd4b1ee8110b"
+    sha256 cellar: :any,                 arm64_big_sur:  "266cfc666e1826c545d90ab22c8abe70e8de57e1f228815260a0534c968a036f"
+    sha256 cellar: :any,                 ventura:        "955413a76311dba99ee2c4051987879627f9f4fc4a842635d547cfb99de6c584"
+    sha256 cellar: :any,                 monterey:       "3b0f1898dced9ef7fa1d5b47d0194c9dd20392b86124791dff9c0aef89920ab4"
+    sha256 cellar: :any,                 big_sur:        "2c0b29448a1cc238ef18464fc8733c4400485123badd4aa4688489c0e72bb9b7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "519db9ee763b1070e572fcf57d71afc57c892043de465f11f3e8d287165be808"
   end
 
   depends_on "autoconf" => :build

@@ -5,7 +5,7 @@ class TclTk < Formula
   mirror "https://fossies.org/linux/misc/tcl8.6.13-src.tar.gz"
   sha256 "43a1fae7412f61ff11de2cfd05d28cfc3a73762f354a417c62370a54e2caf066"
   license "TCL"
-  revision 3
+  revision 4
 
   livecheck do
     url :stable
@@ -13,16 +13,16 @@ class TclTk < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "0de1c3c1f25739878cbadef30ba863df8f9bce201e0f0b7c376ccf0e4cacf1b7"
-    sha256 arm64_monterey: "c7bf2b4868b158482f130e64f793f584092dab9a0c9e00e1974bb10d3baa7797"
-    sha256 arm64_big_sur:  "3e5ab4844ab88dc48f0e3db96f8ca4fb46879a4806587bd0f987dd00d1f95ceb"
-    sha256 ventura:        "bff158cf7c5acaae2a21bacb38f5cf97a52b6596c3f7297c5744afc579c708f0"
-    sha256 monterey:       "d10e96ab6902403a27ecf85516d53bd77f5c54524829a404d158386c382879cc"
-    sha256 big_sur:        "f7717e69a6772382875e29c56b0f092cb6437772dd21b188e80d79783c4a9cc2"
-    sha256 x86_64_linux:   "321d13b9b1e3e33d60be95834d7d14c591de51dc267841ccb52a748f65005978"
+    sha256 arm64_ventura:  "08b0adf64e7ed72c3665cd7ccf6551456c2d2682b88449f7dce9beb3e1856d71"
+    sha256 arm64_monterey: "be50577af5dd5c8f77bfcbd81869674e2ce667cf3e0d5968ef3c915cca5133cc"
+    sha256 arm64_big_sur:  "57112c61bc5c52d3652d30c7126b298f79f58a44095330c027f9d29542ff9516"
+    sha256 ventura:        "738d5d6f51520dedb90df80b618d15b46d2deee4bcd6ba71b4159d685d9362f1"
+    sha256 monterey:       "1be828e596499e7b91372b48d5b7b9e50e12bf059fc166064a282dd7586513b0"
+    sha256 big_sur:        "d16ee53ec43dfeba443cd720d5131deb0591b8e568e20db4a7b4ac876296f14a"
+    sha256 x86_64_linux:   "b8ab6476e3ab5577f3b426ff7ce3906478b5147c1bbf3684ad65d58f7282fb24"
   end
 
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   uses_from_macos "zlib"
 
@@ -114,7 +114,7 @@ class TclTk < Formula
 
     resource("tcltls").stage do
       system "./configure", "--with-ssl=openssl",
-                            "--with-openssl-dir=#{Formula["openssl@1.1"].opt_prefix}",
+                            "--with-openssl-dir=#{Formula["openssl@3"].opt_prefix}",
                             "--prefix=#{prefix}",
                             "--mandir=#{man}"
       system "make", "install"
@@ -126,7 +126,9 @@ class TclTk < Formula
         --prefix=#{prefix}
         --exec-prefix=#{prefix}
         --with-tcl=#{lib}
+        --with-tclinclude=#{include}/tcl-tk
         --with-tk=#{lib}
+        --with-tkinclude=#{include}/tcl-tk
         --with-itcl=#{itcl_dir}
       ]
       system "./configure", *args

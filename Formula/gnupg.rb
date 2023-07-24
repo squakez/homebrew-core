@@ -1,8 +1,8 @@
 class Gnupg < Formula
   desc "GNU Pretty Good Privacy (PGP) package"
   homepage "https://gnupg.org/"
-  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.2.tar.bz2"
-  sha256 "97eb47df8ae5a3ff744f868005a090da5ab45cb48ee9836dbf5ee739a4e5cf49"
+  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.3.tar.bz2"
+  sha256 "a271ae6d732f6f4d80c258ad9ee88dd9c94c8fdc33c3e45328c4d7c126bd219d"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -11,13 +11,14 @@ class Gnupg < Formula
   end
 
   bottle do
-    sha256 arm64_ventura:  "0444e36ecde4cdd39f8f357676cc070fd5eabfa62e154094db31186165729854"
-    sha256 arm64_monterey: "ea2c0672322cb660f8a13f3712f60c0a4b66990b2c712b27314d312d3fcca6cc"
-    sha256 arm64_big_sur:  "28d15ef470a53803877eb5afdeb5e1944c7e5aabb9416e4ff301ebaf8735faf3"
-    sha256 ventura:        "636f410b0c3a6fa2ec2842e174f3e450b631be7e169f3a961edbe91008adff23"
-    sha256 monterey:       "e49ae9b65978830d618300f96f44c36713cd01171296eda01e6ad8d85aa3f7b1"
-    sha256 big_sur:        "6be1634a2f8662b24f6dbbbffede9920265dee4bc703071fed15697728a6dd97"
-    sha256 x86_64_linux:   "9f7cc1360d927edad31063e694c013d17c395051833fdfdf2ee50819e9bfdfba"
+    rebuild 1
+    sha256 arm64_ventura:  "b36cece245a9b2f401fb25f5a8889e03458b76aca9f7bdaf95bac90fa067fb50"
+    sha256 arm64_monterey: "8951a873559c55131f5cf620528039653b1656fb8f428f9df4755230b7b8737c"
+    sha256 arm64_big_sur:  "51178a0ebf5071ff97acfca894ff19d2563757b06db45cc639cf565dcfa28540"
+    sha256 ventura:        "92c5de78a69010ffa7c30578f08b7443bde2906d553e6e225be131e34d983ad0"
+    sha256 monterey:       "d9a628e366f7373ef3aa576f03b6cbba0671c77e3a2606796d3e6b05d6c7f447"
+    sha256 big_sur:        "0f7278b21edfbcbc9d7350f8231eead52164283de936433ff85aea4eeff26831"
+    sha256 x86_64_linux:   "806bf7a22e94d2c83bd19278a23cf7988074e86b5fd4cd0e6d1e031b9fc96fc0"
   end
 
   depends_on "pkg-config" => :build
@@ -28,6 +29,7 @@ class Gnupg < Formula
   depends_on "libksba"
   depends_on "libusb"
   depends_on "npth"
+  depends_on "openldap"
   depends_on "pinentry"
   depends_on "readline"
 
@@ -46,7 +48,6 @@ class Gnupg < Formula
     mkdir "build" do
       system "../configure", *std_configure_args,
                              "--disable-silent-rules",
-                             "--sbindir=#{bin}",
                              "--sysconfdir=#{etc}",
                              "--enable-all-tests",
                              "--with-pinentry-pgm=#{Formula["pinentry"].opt_bin}/pinentry"

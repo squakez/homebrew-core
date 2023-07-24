@@ -4,15 +4,16 @@ class Votca < Formula
   url "https://github.com/votca/votca/archive/refs/tags/v2022.1.tar.gz"
   sha256 "4710a7552f94789936324d76d2e0830b576de8d3f1c605748e2d20947d018100"
   license "Apache-2.0"
+  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "da7266fac5df3301435b6d8d3be146ac5cc13806283eb1ef97b63ca51440d016"
-    sha256 cellar: :any,                 arm64_monterey: "81b8dcb3765fc378847f6c71a0c0df5c85c3bc92daae12ada03520e0b0a4c7e5"
-    sha256 cellar: :any,                 arm64_big_sur:  "522f72f060f854a3623cb3f882e56c9b29b5e69a65bfc1df7faea26ba3e49fef"
-    sha256 cellar: :any,                 ventura:        "ee0d6a62064f0509481f4b6e6e24303e91d65d3589631af0dad3c049b606b3e6"
-    sha256 cellar: :any,                 monterey:       "9a98e188bfb8a78436893c7d6143ab927deb8253b25edeb0b88d381994f54aad"
-    sha256 cellar: :any,                 big_sur:        "0a3e8d97911b6800408237a03b67c98a94898fbc208c3eb2c9e674bb38a95d2e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2204dd5e27aea832f7d2f5c658c42ed190750447a89157cf45985824f11a07cb"
+    sha256 cellar: :any,                 arm64_ventura:  "ad34a8fdf13c83d4cf4ed6ee1aad28bb6161f4cc438f81b340cecfb4ac5c7ed3"
+    sha256 cellar: :any,                 arm64_monterey: "0784db80c5bc27862a3ba49f00d62c805ec18744261639e396886eae1b49f555"
+    sha256 cellar: :any,                 arm64_big_sur:  "5fab23c3eaaddf5f2925d59faa696892bc87cd6a9e8773d0e15ede3888b5a798"
+    sha256 cellar: :any,                 ventura:        "ea91a1fb5731bd55db8c3fe18fcfa9ac960123b467b5e584ee74e1122310da42"
+    sha256 cellar: :any,                 monterey:       "42ec271c4ae0624818a3d0b121c64e7fb51bc1aaee27ac967e56579d7b5f9346"
+    sha256 cellar: :any,                 big_sur:        "ec1350082099bef7701d08a0c9015f900a356bbe97c3d907cec9b28f0313a020"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2acf1dbc9533e8d317ff5215f37f3a336177d6b28f30718c335c6dafb954847f"
   end
 
   depends_on "cmake" => :build
@@ -21,8 +22,11 @@ class Votca < Formula
   depends_on "eigen"
   depends_on "fftw"
   depends_on "gcc" # for OpenMP
-  # add gromacs back once it was built with clang
+  # add gromacs dep back once it was built with clang
   depends_on "hdf5"
+  depends_on "libecpint"
+  depends_on "libint"
+  depends_on "libxc"
   depends_on "python@3.11"
 
   uses_from_macos "expat"
@@ -35,7 +39,7 @@ class Votca < Formula
     args = [
       "-DINSTALL_RC_FILES=OFF",
       "-DINSTALL_CSGAPPS=ON",
-      "-DBUILD_XTP=OFF",
+      "-DBUILD_XTP=ON",
       "-DCMAKE_DISABLE_FIND_PACKAGE_GROMACS=ON",
       "-DENABLE_RPATH_INJECT=ON",
     ]

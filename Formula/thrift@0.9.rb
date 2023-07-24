@@ -20,13 +20,15 @@ class ThriftAT09 < Formula
 
   keg_only :versioned_formula
 
+  disable! date: "2024-01-01", because: :versioned_formula
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "bison" => :build
   depends_on "libtool" => :build
+  depends_on "openssl@3" => :build # for `openssl/err.h`
   depends_on "pkg-config" => :build
   depends_on "boost"
-  depends_on "openssl@1.1"
 
   uses_from_macos "flex" => :build
 

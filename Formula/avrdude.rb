@@ -1,42 +1,22 @@
 class Avrdude < Formula
   desc "Atmel AVR MCU programmer"
   homepage "https://www.nongnu.org/avrdude/"
+  url "https://github.com/avrdudes/avrdude/archive/refs/tags/v7.2.tar.gz"
+  sha256 "beb4e0b0a07f8d47e550329ab93c345d5252350de6f833afde51b4d8bd934674"
   license "GPL-2.0-or-later"
-  revision 2
-
-  stable do
-    url "https://download.savannah.gnu.org/releases/avrdude/avrdude-7.0.tar.gz"
-    mirror "https://download-mirror.savannah.gnu.org/releases/avrdude/avrdude-7.0.tar.gz"
-    sha256 "c0ef65d98d6040ca0b4f2b700d51463c2a1f94665441f39d15d97442dbb79b54"
-
-    # Fix -flat_namespace being used on Big Sur and later.
-    patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/03cf8088210822aa2c1ab544ed58ea04c897d9c4/libtool/configure-big_sur.diff"
-      sha256 "35acd6aebc19843f1a2b3a63e880baceb0f5278ab1ace661e57a502d9d78c93c"
-    end
-  end
-
-  livecheck do
-    url "https://download.savannah.gnu.org/releases/avrdude/"
-    regex(/href=.*?avrdude[._-]v?(\d+(?:\.\d+)+)\.t/i)
-  end
+  head "https://github.com/avrdudes/avrdude.git", branch: "main"
 
   bottle do
-    sha256 arm64_ventura:  "50c20fe810d534c1c4cea3209ca812d35167c4b51e140f7154d96563d9e397e0"
-    sha256 arm64_monterey: "14bda58af73b8b6a92edfccab045e6118a0c18feb436e6afff74d51dfc7610ef"
-    sha256 arm64_big_sur:  "a4fb2845fc9fcad852484d388e6a904cfab655c66b1a61a0b5fff8b56062be97"
-    sha256 ventura:        "52f5fbc144157c77c41a534cddb19b0b81b9734ea2527ad254e103816af81035"
-    sha256 monterey:       "37913838cd9ceadfafe1759b293ebb24ddc9f2c8b8168e297f8fbbfed612aab6"
-    sha256 big_sur:        "c7ddfb9110e029c2b10fe2ddf5e60d1dfa7aa52143aedfb7538a343dc388d156"
-    sha256 catalina:       "b6eba14a4c1e300a69c76d221c4709d1988af07a9bbb2586f10c4515db1dcae3"
-    sha256 x86_64_linux:   "1c317e35642426bce04e756295230de6cfd0d69689aed14c0520d8d4d190097e"
+    sha256 arm64_ventura:  "ef1c67093428501338afc705c0a81440cfc5c8d99d8fe2351fe85f3ca227e922"
+    sha256 arm64_monterey: "d31e478fa3320f2ea482ee2c7d57faec909e5ef2096d9853d8bef629084d2d1e"
+    sha256 arm64_big_sur:  "829d499cf793631d0f67f518056717849dfff7b307900b0882f9cab93929f204"
+    sha256 ventura:        "6b43827f0b3c2c287ae61260bbc35c11cedb54a4cd29668595cac7430114312f"
+    sha256 monterey:       "f7dc255c04fcfa3edafc24e9c06ae34d02056b48a942d54cbd694fe7ea681b96"
+    sha256 big_sur:        "47de68ccf21cc64b8f79c4ef3b829d51aaa65a6df771cdb92401540adcabf619"
+    sha256 x86_64_linux:   "46e4de78eef44a5ed518a5ccc622c146449352ebe169b626cecefda53ba7dcb3"
   end
 
-  head do
-    url "https://github.com/avrdudes/avrdude.git", branch: "main"
-    depends_on "cmake" => :build
-  end
-
+  depends_on "cmake" => :build
   depends_on "hidapi"
   depends_on "libftdi"
   depends_on "libusb"
@@ -55,23 +35,17 @@ class Avrdude < Formula
   end
 
   def install
-    if build.head?
-      args = std_cmake_args + ["-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"]
-      shared_args = ["-DBUILD_SHARED_LIBS=ON", "-DCMAKE_INSTALL_RPATH=#{rpath}"]
-      shared_args << "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-undefined,dynamic_lookup" if OS.mac?
+    args = std_cmake_args + ["-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"]
+    shared_args = ["-DBUILD_SHARED_LIBS=ON", "-DCMAKE_INSTALL_RPATH=#{rpath}"]
+    shared_args << "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-undefined,dynamic_lookup" if OS.mac?
 
-      system "cmake", "-S", ".", "-B", "build/shared", *args, *shared_args
-      system "cmake", "--build", "build/shared"
-      system "cmake", "--install", "build/shared"
+    system "cmake", "-S", ".", "-B", "build/shared", *args, *shared_args
+    system "cmake", "--build", "build/shared"
+    system "cmake", "--install", "build/shared"
 
-      system "cmake", "-S", ".", "-B", "build/static", *args
-      system "cmake", "--build", "build/static"
-      lib.install "build/static/src/libavrdude.a"
-    else
-      system "./configure", *std_configure_args, "--sysconfdir=#{etc}"
-      system "make"
-      system "make", "install"
-    end
+    system "cmake", "-S", ".", "-B", "build/static", *args
+    system "cmake", "--build", "build/static"
+    lib.install "build/static/src/libavrdude.a"
   end
 
   test do

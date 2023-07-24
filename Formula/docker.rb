@@ -2,8 +2,8 @@ class Docker < Formula
   desc "Pack, ship and run any application as a lightweight container"
   homepage "https://www.docker.com/"
   url "https://github.com/docker/cli.git",
-      tag:      "v24.0.2",
-      revision: "cb74dfcd853482dd43cb553106b1e0cd237acb3e"
+      tag:      "v24.0.4",
+      revision: "3713ee1eea0447bcfe27378ad247c7e245406f04"
   license "Apache-2.0"
   head "https://github.com/docker/cli.git", branch: "master"
 
@@ -13,19 +13,19 @@ class Docker < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "af41aa7f6dbdc06e6da2a2ea4c51ab4432a87214944e5f10436066684208eba0"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "af41aa7f6dbdc06e6da2a2ea4c51ab4432a87214944e5f10436066684208eba0"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "af41aa7f6dbdc06e6da2a2ea4c51ab4432a87214944e5f10436066684208eba0"
-    sha256 cellar: :any_skip_relocation, ventura:        "8c94c95aaba3da26954bb04ef3c2f74c80a225b8a0646f19c3d77b5d3d69321e"
-    sha256 cellar: :any_skip_relocation, monterey:       "8c94c95aaba3da26954bb04ef3c2f74c80a225b8a0646f19c3d77b5d3d69321e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "8c94c95aaba3da26954bb04ef3c2f74c80a225b8a0646f19c3d77b5d3d69321e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a939fd758546b8c0826da45c3ea01d1b026f6d36e15abfb251ad02c3ebc7d49e"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "993a7739c3097bad48f5020581d92d6d84bede595d920d601da96ed9c8d6d6a6"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "993a7739c3097bad48f5020581d92d6d84bede595d920d601da96ed9c8d6d6a6"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "993a7739c3097bad48f5020581d92d6d84bede595d920d601da96ed9c8d6d6a6"
+    sha256 cellar: :any_skip_relocation, ventura:        "134bb49a68c785945d72c7d5c13b702de6071fe1e5adf453995f80436037fb3d"
+    sha256 cellar: :any_skip_relocation, monterey:       "134bb49a68c785945d72c7d5c13b702de6071fe1e5adf453995f80436037fb3d"
+    sha256 cellar: :any_skip_relocation, big_sur:        "134bb49a68c785945d72c7d5c13b702de6071fe1e5adf453995f80436037fb3d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "67b68c19abd8ea62e8c26a9dd9f43296b6160b653097fcc2edd633bab1a12ce1"
   end
 
   depends_on "go" => :build
   depends_on "go-md2man" => :build
-
-  conflicts_with "docker-completion", because: "docker already includes these completion scripts"
+  depends_on "docker-completion"
 
   def install
     ENV["GOPATH"] = buildpath
@@ -44,10 +44,6 @@ class Docker < Formula
       (man/"man#{section}").mkpath
       system "go-md2man", "-in=#{md}", "-out=#{man}/man#{section}/#{md.stem}"
     end
-
-    bash_completion.install "contrib/completion/bash/docker"
-    fish_completion.install "contrib/completion/fish/docker.fish"
-    zsh_completion.install "contrib/completion/zsh/_docker"
   end
 
   test do

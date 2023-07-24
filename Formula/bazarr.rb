@@ -5,19 +5,19 @@ class Bazarr < Formula
 
   desc "Companion to Sonarr and Radarr for managing and downloading subtitles"
   homepage "https://www.bazarr.media"
-  url "https://github.com/morpheus65535/bazarr/releases/download/v1.2.1/bazarr.zip"
-  sha256 "3ee54ad63acd8f16a011262f82a4417f1cec57f2b11614dd3b29623bcb26c1e7"
+  url "https://github.com/morpheus65535/bazarr/releases/download/v1.2.4/bazarr.zip"
+  sha256 "4dd05acde63fc3dbd211bb3f3a046d7688bfae20146a2d73ae633f03c79c6960"
   license "GPL-3.0-or-later"
   head "https://github.com/morpheus65535/bazarr.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "34663e30ea153790471cb4beadd93c522894af511fa2b7b1e40e777e6d009b21"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a85d259bfd1390cbd1c35b93aecde424d3c38e9c99702e0fab48c0a48284e70b"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "31f83739d54e67ab12bc229fd0d6ff202decefeda9e0ded54ebeb6b0af13a654"
-    sha256 cellar: :any_skip_relocation, ventura:        "de12b135205dadaae4cec5d2fccbaac136ac450df414533a75809e66a05ccec0"
-    sha256 cellar: :any_skip_relocation, monterey:       "46620233e1dfd80baa41fad693aabaf2026fc1d85ad22d7b2ea02647bbb5e972"
-    sha256 cellar: :any_skip_relocation, big_sur:        "5414a552b5414cef012742418965d287791b91d868fdc7c7df83ae47f9d453bd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b154869e663c55893d353f532dee88bb9bab8f5e21889cf14bc92676af52bdad"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7b0c2439a686beaadd18c60ceb72855cbfe00b16e470079302d4b40116c98f1c"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5ecf5450a7d3ede1484357669e564c7a6392149377b4c5dda57e9490c22ac6e9"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "a166a08f5dccc1095f773be7f0cd0dd3d71e1acc364b00afa0e4cc7279bab262"
+    sha256 cellar: :any_skip_relocation, ventura:        "69b835d7998c4d5a016fa202ca1f5c7b2a6688444ea2c704d4b529ba3ddcf2e7"
+    sha256 cellar: :any_skip_relocation, monterey:       "830671046b2eb128b22229170a74a313ebd9433737d23424dbab29018fbdbd4b"
+    sha256 cellar: :any_skip_relocation, big_sur:        "5d6e962a7aa277c69055e6663ace6008ac802904060ffc6983ea6c97df5bb3e6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "388b0d13df91711071656eba524fb55517ffc8b065ae414e0a2ba67e7ac5f4b2"
   end
 
   depends_on "node" => :build
@@ -33,8 +33,8 @@ class Bazarr < Formula
   uses_from_macos "zlib"
 
   resource "lxml" do
-    url "https://files.pythonhosted.org/packages/06/5a/e11cad7b79f2cf3dd2ff8f81fa8ca667e7591d3d8451768589996b65dec1/lxml-4.9.2.tar.gz"
-    sha256 "2455cfaeb7ac70338b3257f41e21f0724f4b5b0c0e7702da67ee6c3640835b67"
+    url "https://files.pythonhosted.org/packages/30/39/7305428d1c4f28282a4f5bdbef24e0f905d351f34cf351ceb131f5cddf78/lxml-4.9.3.tar.gz"
+    sha256 "48628bd53a426c9eb9bc066a923acaa0878d1e86129fd5359aee99285f4eed9c"
   end
 
   resource "webrtcvad-wheels" do
@@ -67,17 +67,25 @@ class Bazarr < Formula
       PATH:       "#{Formula["ffmpeg"].opt_bin}:#{HOMEBREW_PREFIX/"bin"}:$PATH",
       PYTHONPATH: ENV["PYTHONPATH"]
 
-    (libexec/"data").install_symlink pkgetc => "config"
+    pkgvar = var/"bazarr"
+
+    pkgvar.mkpath
+    pkgvar.install_symlink pkgetc => "config"
+
+    pkgetc.mkpath
+    cp Dir[libexec/"data/config/*"], pkgetc
+
+    libexec.install_symlink pkgvar => "data"
   end
 
   def post_install
-    pkgetc.mkpath
+    pkgvar = var/"bazarr"
 
     config_file = pkgetc/"config.ini"
     unless config_file.exist?
       config_file.write <<~EOS
         [backup]
-        folder = #{opt_libexec}/data/backup
+        folder = #{pkgvar}/backup
       EOS
     end
   end

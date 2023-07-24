@@ -1,10 +1,10 @@
 class Openrtsp < Formula
   desc "Command-line RTSP client"
   homepage "http://www.live555.com/openRTSP"
-  url "http://www.live555.com/liveMedia/public/live.2023.06.10.tar.gz"
-  mirror "https://download.videolan.org/pub/videolan/testing/contrib/live555/live.2023.06.10.tar.gz"
+  url "http://www.live555.com/liveMedia/public/live.2023.06.20.tar.gz"
+  mirror "https://download.videolan.org/pub/videolan/testing/contrib/live555/live.2023.06.20.tar.gz"
   # Keep a mirror as upstream tarballs are removed after each version
-  sha256 "b57befbb9f471598a70eae66a6e8548e299b952f9c997169f51600cb28e2f8ea"
+  sha256 "4d797e6a5f8cfd57051cd58072b9bc9f6657dea3f1ce26e901efb874d3391bba"
   license "LGPL-3.0-or-later"
 
   livecheck do
@@ -13,19 +13,29 @@ class Openrtsp < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "3e0c2bd556b7fee58b618904c100ec63c482691603e341d368dc55b95b5731cc"
-    sha256 cellar: :any,                 arm64_monterey: "e487fd4c0466d8a9356f995e6281a912e31255237c67eb367ef32495798239c4"
-    sha256 cellar: :any,                 arm64_big_sur:  "5a2491684bc1327a85168c0bbb9204ce25893d68ce52338652fb9971944ae5d2"
-    sha256 cellar: :any,                 ventura:        "4b6b6546b11b21ae851ee8b59abfb3b3b1f4b2f850022d296ca1a9a7401dc004"
-    sha256 cellar: :any,                 monterey:       "2516408d61b3477f149552cd11e9bef22fa7f240a749042da8d205988961d602"
-    sha256 cellar: :any,                 big_sur:        "f39c6d6fd0e16c2d4c1ba4240fb60aca5022af4b9469e029ca8ae784ee31d3cb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c686e32c723cc975400759d246a6f0da292e205d21b249cc96327494f3ea36dc"
+    sha256 cellar: :any,                 arm64_ventura:  "18055e572369ca42ccf4592bd3b524f43967f696a233812e20d2f5b0c9f66408"
+    sha256 cellar: :any,                 arm64_monterey: "0e9fa6cb13999055f2bc84c6360b2339b7b44cd75111600108a3005a586a10fe"
+    sha256 cellar: :any,                 arm64_big_sur:  "cad33fc168b28f49adcfcdaf47848a7ebf959d3ec10a8b0b9957ef4eb9c0afaa"
+    sha256 cellar: :any,                 ventura:        "886c7f1d38480d25d8f830c226e44291f8f912d8add511c03321499c3c2f5cda"
+    sha256 cellar: :any,                 monterey:       "d2450048bc5325ce4fa35666d6b5774828156a9dd867c84d8a55970c34142e10"
+    sha256 cellar: :any,                 big_sur:        "67042ea57bb50ade5a92f92c0f364ccd405bda6cd6876fe6194eee41ef46b8e1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "eb94e9fc1187461062232f763bbf600e48aa9c6fb95b3431050764ae4df2d1ee"
   end
 
   depends_on "openssl@3"
 
+  # Support CXXFLAGS when building on macOS
+  # PR ref: https://github.com/rgaufman/live555/pull/46
+  # TODO: Remove once changes land in a release
+  patch do
+    url "https://github.com/rgaufman/live555/commit/16701af5486bb3a2d25a28edaab07789c8a9ce57.patch?full_index=1"
+    sha256 "2d98a782081028fe3b7daf6b2db19e99c46f0cadab2421745de907146a3595cb"
+  end
+
   def install
-    ENV.cxx11
+    # "test" was added to std::atomic_flag in C++20
+    # See https://github.com/rgaufman/live555/issues/45
+    ENV.append "CXXFLAGS", "-std=c++20"
 
     # Avoid linkage to system OpenSSL
     libs = [
@@ -33,7 +43,7 @@ class Openrtsp < Formula
       Formula["openssl@3"].opt_lib/shared_library("libssl"),
     ]
 
-    os_flag = OS.mac? ? "macosx-no-openssl" : "linux-no-openssl"
+    os_flag = OS.mac? ? "macosx-bigsur" : "linux"
     system "./genMakefiles", os_flag
     system "make", "PREFIX=#{prefix}",
            "LIBS_FOR_CONSOLE_APPLICATION=#{libs.join(" ")}", "install"

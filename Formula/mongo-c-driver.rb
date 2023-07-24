@@ -1,8 +1,8 @@
 class MongoCDriver < Formula
   desc "C driver for MongoDB"
   homepage "https://github.com/mongodb/mongo-c-driver"
-  url "https://github.com/mongodb/mongo-c-driver/releases/download/1.23.5/mongo-c-driver-1.23.5.tar.gz"
-  sha256 "260dc2207881ccbe7b79b1fa6b3ba84ab9be94eb93d4beefbbe8a6cb562947ed"
+  url "https://github.com/mongodb/mongo-c-driver/releases/download/1.24.2/mongo-c-driver-1.24.2.tar.gz"
+  sha256 "25813a220188d40140ca9c36a4b23abfb68fc7cbb37694187cc9852be470abd2"
   license "Apache-2.0"
   head "https://github.com/mongodb/mongo-c-driver.git", branch: "master"
 
@@ -12,27 +12,25 @@ class MongoCDriver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_ventura:  "bde67ce7cfe1a64da74b03e2ab9611ac3dc84419f2731e443b76f33623458834"
-    sha256 cellar: :any,                 arm64_monterey: "270d76921e28ddb32c0c35548ab5b951b75138f8c1bc4fe461675287a72ea549"
-    sha256 cellar: :any,                 arm64_big_sur:  "380677d64f7a0f345a679da315dc873c3bbf50c4a3391e1a0013ce5321aa544e"
-    sha256 cellar: :any,                 ventura:        "0f9be49adc69281487c87ed8120425c026c08e3f87f4d046249587b569e60643"
-    sha256 cellar: :any,                 monterey:       "b16bdcd2855a987e4aea7e9f1f03433f3bf31df9264f5387a2b3180dc2f31ae3"
-    sha256 cellar: :any,                 big_sur:        "546f25ddd4c510fe678c3fa80e6418d0f6a9573c1b983e1d621e2c2b9a89282e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e2e2e920826bb25d65aa88221c3aa8dad738cecc46ca7f109e43b4270165ea0d"
+    sha256 cellar: :any,                 arm64_ventura:  "52e15a30e729c225d7e27ee8bafbac7ddba7eddea17f812d24a7a8f687cb3daa"
+    sha256 cellar: :any,                 arm64_monterey: "b3dd87633ec65a03bfbf80e4efa25aaaab8ed3161d24691d718af877edaafa5d"
+    sha256 cellar: :any,                 arm64_big_sur:  "2d1e21a260e168b89127dd18ac9109a96b20f2affc74a925d61404627bb6b5d0"
+    sha256 cellar: :any,                 ventura:        "caddc68c03176bc14d100344e1b47fc2c52a5060a774044d567f36ff7163d780"
+    sha256 cellar: :any,                 monterey:       "d9b18e00b79f9a12fe57bd0939f9197e1b47c30083a8f07cb3bbbfe4ab25e66f"
+    sha256 cellar: :any,                 big_sur:        "d9d42f3b665ed5eb63b180772878405eafa944173790d263f48a9157b044206a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "afca70119a4355116a2979290b92fd0bbb750880e28b0c5259eb14a9a0a52409"
   end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "sphinx-doc" => :build
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   uses_from_macos "zlib"
 
   def install
     cmake_args = std_cmake_args
-    cmake_args << "-DBUILD_VERSION=1.18.0-pre" if build.head?
     cmake_args << "-DCMAKE_INSTALL_RPATH=#{rpath}"
-    cmake_args << "-DMONGOC_TEST_USE_CRYPT_SHARED=FALSE"
     inreplace "src/libmongoc/src/mongoc/mongoc-config.h.in", "@MONGOC_CC@", ENV.cc
     system "cmake", ".", *cmake_args
     system "make", "install"

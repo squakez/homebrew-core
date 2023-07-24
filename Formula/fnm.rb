@@ -1,8 +1,8 @@
 class Fnm < Formula
   desc "Fast and simple Node.js version manager"
   homepage "https://github.com/Schniz/fnm"
-  url "https://github.com/Schniz/fnm/archive/v1.33.1.tar.gz"
-  sha256 "84a2173a47f942d1247a08348a20b3cdf4cb906b9f0a662585dc1784256d73c2"
+  url "https://github.com/Schniz/fnm/archive/v1.35.0.tar.gz"
+  sha256 "31b29e4534f17240ae576c9b726498bf551f1c14b3a0fb3ecc9f4aa95843d27a"
   license "GPL-3.0-only"
   head "https://github.com/Schniz/fnm.git", branch: "master"
 
@@ -12,18 +12,25 @@ class Fnm < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b934b7bcace92f5522c5afbc265f4f98eb603520d0badf00d34a180b01f88375"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "09863938f0c2a807b934dfbee0faafb57d9e01c33b4cf0c9ce47e9d475ad7f6c"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "fdd4644c7f569e85ba12b8f2b20dd1fca764166e506fccaa77d89859a1a1efdd"
-    sha256 cellar: :any_skip_relocation, ventura:        "cf47b704db8c4230bb44f4b5b96637375f1c05d28a8d3a36b9c26ea5bf6eec67"
-    sha256 cellar: :any_skip_relocation, monterey:       "ee9e0eb2a4c9fd6de12a198da932552cd0d1e2a9711f6c49e416bd69e4f7eb20"
-    sha256 cellar: :any_skip_relocation, big_sur:        "f7a88221f93e75572a06523f2b464dd3df14cc4bedda3f3fe267825d38141ba0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "216eadf9087a9c22b10b42274af93fb370e85cb159f894c7a1972ba4bcd74df9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "41b0b4de195053d7e0783a450f8dd39d5d72602df49add9476bdd8492323b1b9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "fc3e5e4fa5564f86632cd597221363f9a17f1e22b74aca03a91bcfc4d2779629"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "071a1fd257337f5117e250aa6d717c0ae0a6068b45e39058f5ed1ea1c270641c"
+    sha256 cellar: :any_skip_relocation, ventura:        "2c307a1b9300d457839ea51fe2e6737a022c973923b2a159b2066ae0f188ac91"
+    sha256 cellar: :any_skip_relocation, monterey:       "ed23f0955e804b4730aa9c88bd0294514e7c9638e8e3be4e5f1c4acf90f2a294"
+    sha256 cellar: :any_skip_relocation, big_sur:        "5995db0e7d6fa3f99072534e402561e6270114ba521a6f81d87698640507792b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "880434fe4224787d632b52126de18bfbb3953ba5f10f1b62ed6c2b1a1f7c39ac"
   end
 
   depends_on "rust" => :build
 
   uses_from_macos "zlib"
+
+  # Patch the completion generation per clap v4 upgrade
+  # upstream PR ref, https://github.com/Schniz/fnm/pull/1010
+  patch do
+    url "https://github.com/Schniz/fnm/commit/85625e64d596c6fc5d1ff20d4af54d43c2561b4b.patch?full_index=1"
+    sha256 "30c30985ea14f6c7124e7035cb193b4280a9537a7627ea45f3efd2b0baf327b2"
+  end
 
   def install
     system "cargo", "install", *std_cargo_args

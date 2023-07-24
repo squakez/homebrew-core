@@ -3,32 +3,29 @@ class RobotFramework < Formula
 
   desc "Open source test framework for acceptance testing"
   homepage "https://robotframework.org/"
-  url "https://files.pythonhosted.org/packages/8e/08/018fa8662f17ae912debcb939f8279fc40c4cf0bf172fdd1875532997e41/robotframework-6.0.2.zip"
-  sha256 "6a9c06deb220099990f190c6e4e772675f625e4d5d84640fca6f0ad46ff538d0"
+  url "https://files.pythonhosted.org/packages/b8/70/050b0a5bb51c754ad521d6f1b51c17c293efe65ec72ac955d3686e1afa1d/robotframework-6.1.zip"
+  sha256 "a94e0b3c4f8ae08c0a4dc7bff6fa8a51730565103f8c682a2d8391da9a4697f5"
   license "Apache-2.0"
+  revision 2
   head "https://github.com/robotframework/robotframework.git", branch: "master"
 
   bottle do
-    rebuild 3
-    sha256 cellar: :any,                 arm64_ventura:  "8e40e69b5fb744f53d0a7c71b931a4df5532392e67bfb44a839430126ca20050"
-    sha256 cellar: :any,                 arm64_monterey: "baf5eba283fa491398704c284782978cdca0e1ae65b9c665b116e4cd3b6f9632"
-    sha256 cellar: :any,                 arm64_big_sur:  "bdcca60113677edea7bc5ffc89d299771431ebb71b485435cdda52020776946b"
-    sha256 cellar: :any,                 ventura:        "4d98c6e85662b2eeb9bf762c1dcb01354cf29e9e74eb0a7b0cb69d26ee36bcc9"
-    sha256 cellar: :any,                 monterey:       "29b1d05deb78c81a48ba2745cf5b5f6f833c5466eb78ecc69941ebf4f7cf196d"
-    sha256 cellar: :any,                 big_sur:        "4e14d2e527c6e2d5fb99a4d85b5d9fc792e053e1d96c9152ff6b77ed94390de3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "110869f5c8b27a88cc5ea749f1b04e086119f16aa15bda0d95fbe7a122a39cbc"
+    sha256 cellar: :any,                 arm64_ventura:  "087f085eb999a11eca252edac8881b2f5261b0f9dfcd9f3d5eb420ab97d13662"
+    sha256 cellar: :any,                 arm64_monterey: "13c993da78301a3bbecb14d6384d3332ddde28b31fc7cef9de2c3a9ccba9c8bc"
+    sha256 cellar: :any,                 arm64_big_sur:  "fc0a74608b88183bc2cab1c7fd7ca8785f97bb63d92ea2c68ccb3475b578a960"
+    sha256 cellar: :any,                 ventura:        "7d4826cd5d5e17ac6d3d3104028fd98fa92022db77f5947aa9c7eb9f571af6b4"
+    sha256 cellar: :any,                 monterey:       "95987accc96f2ac082a62e3baed5a826575d90da7f63d689ef2ddbef257683cc"
+    sha256 cellar: :any,                 big_sur:        "b1f7d075573de2b5ac5d97838f2429f04da607869f65dd764013b862692e6160"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "02880b12a66244445bb0cd4aa7d2207c2313b4fa9adb180172c5fc3f6897109f"
   end
 
+  # `pkg-config`, `rust`, and `openssl@3` are for cryptography.
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  depends_on "openssl@1.1"
+  depends_on "cffi"
+  depends_on "openssl@3"
   depends_on "python@3.11"
   depends_on "six"
-
-  resource "async-generator" do
-    url "https://files.pythonhosted.org/packages/ce/b6/6fa6b3b598a03cba5e80f829e0dadbb49d7645f523d209b2fb7ea0bbb02a/async_generator-1.10.tar.gz"
-    sha256 "6ebb3d106c12920aaae42ccb6f787ef5eefdcdd166ea3d628fa8476abe712144"
-  end
 
   resource "attrs" do
     url "https://files.pythonhosted.org/packages/97/90/81f95d5f705be17872843536b1868f351805acf6971251ff07c1b8334dbb/attrs-23.1.0.tar.gz"
@@ -45,19 +42,14 @@ class RobotFramework < Formula
     sha256 "0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"
   end
 
-  resource "cffi" do
-    url "https://files.pythonhosted.org/packages/2b/a8/050ab4f0c3d4c1b8aaa805f70e26e84d0e27004907c5b8ecc1d31815f92a/cffi-1.15.1.tar.gz"
-    sha256 "d400bfb9a37b1351253cb402671cea7e89bdecc294e8016a707f6d1d8ac934f9"
-  end
-
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/19/8c/47f061de65d1571210dc46436c14a0a4c260fd0f3eaf61ce9b9d445ce12f/cryptography-41.0.1.tar.gz"
-    sha256 "d34579085401d3f49762d2f7d6634d6b6c2ae1242202e860f4d26b046e3a1006"
+    url "https://files.pythonhosted.org/packages/93/b7/b6b3420a2f027c1067f712eb3aea8653f8ca7490f183f9917879c447139b/cryptography-41.0.2.tar.gz"
+    sha256 "7d230bf856164de164ecb615ccc14c7fc6de6906ddd5b491f3af90d3514c925c"
   end
 
   resource "exceptiongroup" do
-    url "https://files.pythonhosted.org/packages/cc/38/57f14ddc8e8baeddd8993a36fe57ce7b4ba174c35048b9a6d270bb01e833/exceptiongroup-1.1.1.tar.gz"
-    sha256 "d484c3090ba2889ae2928419117447a14daf3c1231d5e30d0aae34f354f01785"
+    url "https://files.pythonhosted.org/packages/55/09/5d2079ecab0ca483e527a1707a483562bdc17abf829d3e73f0c1a73b61c7/exceptiongroup-1.1.2.tar.gz"
+    sha256 "12c3e887d6485d16943a309616de20ae5582633e0a2eda17f4e10fd61c1e8af5"
   end
 
   resource "h11" do
@@ -80,11 +72,6 @@ class RobotFramework < Formula
     sha256 "93cdce625a8a1dc12204439d45033f3261bdb2c201648cfcdc06f9fd0f94ec29"
   end
 
-  resource "pycparser" do
-    url "https://files.pythonhosted.org/packages/5e/0b/95d387f5f4433cb0f53ff7ad859bd2c6051051cebbb564f139a999ab46de/pycparser-2.21.tar.gz"
-    sha256 "e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"
-  end
-
   resource "pynacl" do
     url "https://files.pythonhosted.org/packages/a7/22/27582568be639dfe22ddb3902225f91f2f17ceff88ce80e4db396c8986da/PyNaCl-1.5.0.tar.gz"
     sha256 "8ac7448f09ab85811607bdd21ec2464495ac8b7c66d146bf545b0f08fb9220ba"
@@ -101,8 +88,8 @@ class RobotFramework < Formula
   end
 
   resource "robotframework-pythonlibcore" do
-    url "https://files.pythonhosted.org/packages/a2/f2/a25d9dd39982dff049c95bee52b8fb0be7ef4f3542f4e398127f25a9e4a1/robotframework-pythonlibcore-4.1.2.tar.gz"
-    sha256 "308c0f4afeed51d913f4883cd9eb2b002f4459a20d76b9c942a42cae0296ea26"
+    url "https://files.pythonhosted.org/packages/11/95/1f2cb678b7dc17f7eef1fe7ac42f55ba8e16be2cb897d04ae744c765977a/robotframework-pythonlibcore-4.2.0.tar.gz"
+    sha256 "f46d8a4b21ffa15f907148173a340bff70fdbfdbd160979b8f90d686e40fb1ae"
   end
 
   resource "robotframework-selenium2library" do
@@ -126,8 +113,8 @@ class RobotFramework < Formula
   end
 
   resource "selenium" do
-    url "https://files.pythonhosted.org/packages/fd/e2/0e5bee6762a7bf7852b47a79c5b12f9e526e6962958dbb9719fa490ba24c/selenium-4.9.1.tar.gz"
-    sha256 "3444f4376321530c36ce8355b6b357d8cf4a7d588ce5cf772183465930bbed0e"
+    url "https://files.pythonhosted.org/packages/86/d3/7fd6820e441550a4d0dae621c02f75339c6fafd98352f2727dd68e6e4cda/selenium-4.10.0.tar.gz"
+    sha256 "871bf800c4934f745b909c8dfc7d15c65cf45bd2e943abd54451c810ada395e3"
   end
 
   resource "sniffio" do
@@ -141,18 +128,18 @@ class RobotFramework < Formula
   end
 
   resource "trio" do
-    url "https://files.pythonhosted.org/packages/0b/b8/1b81d2149c3e2c25900d40b8e6c8d3ca502a3cc844b90c962b0854aaf3f3/trio-0.22.0.tar.gz"
-    sha256 "ce68f1c5400a47b137c5a4de72c7c901bd4e7a24fbdebfe9b41de8c6c04eaacf"
+    url "https://files.pythonhosted.org/packages/04/b0/5ec370ef69832f3d6d79069af7097dcec0a8c68fa898822e49ad621c4af0/trio-0.22.2.tar.gz"
+    sha256 "3887cf18c8bcc894433420305468388dac76932e9668afa1c49aa3806b6accb3"
   end
 
   resource "trio-websocket" do
-    url "https://files.pythonhosted.org/packages/ea/56/33f46c824c43493de52d62842e569a8c3db6b0e965825257a0684a608580/trio-websocket-0.10.2.tar.gz"
-    sha256 "af13e9393f9051111300287947ec595d601758ce3d165328e7d36325135a8d62"
+    url "https://files.pythonhosted.org/packages/07/ee/fcc7708dd5c8667caf3579c45067821d8e03a560faef9d53d46af7d7c851/trio-websocket-0.10.3.tar.gz"
+    sha256 "1a748604ad906a7dcab9a43c6eb5681e37de4793ba0847ef0bc9486933ed027b"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/fb/c0/1abba1a1233b81cf2e36f56e05194f5e8a0cec8c03c244cab56cc9dfb5bd/urllib3-2.0.2.tar.gz"
-    sha256 "61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc"
+    url "https://files.pythonhosted.org/packages/d6/af/3b4cfedd46b3addab52e84a71ab26518272c23c77116de3c61ead54af903/urllib3-2.0.3.tar.gz"
+    sha256 "bee28b5e56addb8226c96f7f13ac28cb4c301dd5ea8a6ca179c0b9835e032825"
   end
 
   resource "wsproto" do
@@ -161,8 +148,10 @@ class RobotFramework < Formula
   end
 
   def install
+    # Ensure that the `openssl` crate picks up the intended library.
+    ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
     ENV["OPENSSL_NO_VENDOR"] = "1"
-    ENV["OPENSSL_DIR"] = Formula["openssl@1.1"].opt_prefix
+
     virtualenv_install_with_resources
   end
 

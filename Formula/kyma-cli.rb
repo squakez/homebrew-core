@@ -1,19 +1,19 @@
 class KymaCli < Formula
   desc "Kyma command-line interface"
   homepage "https://kyma-project.io"
-  url "https://github.com/kyma-project/cli/archive/2.15.0.tar.gz"
-  sha256 "73f79057971e74be369bfc6bb7ede3663e6b40ada4463c7d8878e64ceadfc85a"
+  url "https://github.com/kyma-project/cli/archive/2.16.0.tar.gz"
+  sha256 "bad2564b86addad90131f045cefdffcb8b9f481d528537d8b9557b82f38bd9cd"
   license "Apache-2.0"
   head "https://github.com/kyma-project/cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "37c30a03619d160110d555afaa19b68b758b1ed51e3eaf0e948fb0b2f188770a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d682a6bc98fbca990ad0f9b6885fbbb4b637ef89c60e754a6b99c226fa1868d6"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "cf00a85ce050b66d8fd5d8339de9683f36184a06c2dfeb441d302e7f8aae0d8b"
-    sha256 cellar: :any_skip_relocation, ventura:        "a98e615ff4c92730796140754232f53f8000d67595935ebf240b41c40b3b10c1"
-    sha256 cellar: :any_skip_relocation, monterey:       "ce2a2c839ce6251d3a2a71d64e393511b680f50c82c3be397b74f048470fcd5e"
-    sha256 cellar: :any_skip_relocation, big_sur:        "ecc77c2c041f090675d82dd5625e362616065bf81b556db466b2bb0d13d43e77"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e6ade087b6a4d65e2c0154c3ec3b2600c14929a0878367dbc04069982eb16b8e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b135eeccb691f9be3f0a97e9e9ec18b4384a07d75e89b029127a84a593560fca"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "460c47d1f22d21c9d38a7c67b852319754f46cd285dc27b4371fd423ff6c3a89"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "f7eb5ee38a4e7f2421b8db067353c3bb036c5bcd89ade57ebb0f439b868de9a2"
+    sha256 cellar: :any_skip_relocation, ventura:        "c572360cd83058337bfbc5783257f0c7b7684549cfa489e66990a650bf9e14db"
+    sha256 cellar: :any_skip_relocation, monterey:       "e2fed53d362f14942737a7dcb30908c24e075b4e1b2051765bc40b0d5d5aebfa"
+    sha256 cellar: :any_skip_relocation, big_sur:        "e94756bb08f103d581adf9fef3c6a6aef59e5912248f9694779f9394c67c51dd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c425e59fa375cbbd464ca20858addabc4c557cdcae9ea2d1d2e13226dcba2810"
   end
 
   depends_on "go" => :build
@@ -32,6 +32,8 @@ class KymaCli < Formula
   test do
     touch testpath/"kubeconfig"
     assert_match "invalid configuration",
-      shell_output("#{bin}/kyma deploy --kubeconfig ./kubeconfig 2>&1", 1)
+      shell_output("#{bin}/kyma deploy --kubeconfig ./kubeconfig 2>&1", 2)
+
+    assert_match "Kyma CLI version: #{version}", shell_output("#{bin}/kyma version 2>&1", 2)
   end
 end
